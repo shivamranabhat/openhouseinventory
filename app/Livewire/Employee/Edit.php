@@ -1,0 +1,106 @@
+<?php
+
+namespace App\Livewire\Employee;
+
+use Livewire\Component;
+use App\Models\Employee;
+use App\Models\Department;
+use Illuminate\Support\Str;
+use Livewire\Attributes\Validate;
+use Livewire\WithFileUploads;
+use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Storage;
+
+
+class Edit extends Component
+{
+    use WithFileUploads;
+    public $slug;
+    public $name;
+    public $age;
+    public $address;
+    public $salary;
+    public $join_date;
+    public $department_id;
+    public $designation;
+    public $doc_img;
+    public $new_doc_img;
+    public $employee;
+
+    
+    
+    public function mount()
+    {
+        $this->employee = Employee::whereSlug($this->slug)->first();
+        $this->name = $this->employee->name;
+        $this->age = $this->employee->age;
+        $this->address = $this->employee->address;
+        $this->salary = $this->employee->salary;
+        $this->join_date = $this->employee->join_date;
+        $this->department_id = $this->employee->department_id;
+        $this->designation = $this->employee->designation;
+        $this->doc_img = $this->employee->doc_img;
+    }
+
+    protected function rules()
+    {
+        return [
+            'name' => 'required|unique:employees,name,' . $this->employee->id,
+            'age' => 'required',
+            'address' => 'required',
+            'salary' => 'required',
+            'join_date' => 'required',
+            'department_id' => 'nullable',
+            'designation' => 'required',
+            'doc_img' => 'nullable|image|max:10240',
+        ];
+    }
+    
+    protected function messages()
+    {
+        return [
+            'name.unique' => 'The employee name ":input" already exists. Please choose another name.',
+        ];
+    }
+
+    public function update()
+    {
+        $validated = $this->validate();
+        $slug = Str::slug('DEP'.'-'.$this->name);
+        // Handle the image upload and compression if a new image is uploaded
+        if ($this->new_doc_img) {
+            if ($this->employee->doc_img) {
+                $oldImagePath = public_path('storage/' . $this->employee->doc_img);
+                if (file_exists($oldImagePath)) {
+                    unlink($oldImagePath);
+                }
+            }
+
+            $fileName = $this->new_doc_img->getClientOriginalName();
+            $filePath = $this->new_doc_img->storeAs('employees', $fileName, 'public');
+            $this->new_doc_img = 'employees/' . $fileName;
+            // Update the new image name in the database
+            $validated['doc_img'] = $this->new_doc_img->getClientOriginalName();
+        }
+        $this->employee->update([
+            'name' => $this->name,
+            'age' => $this->age,
+            'address' => $this->address,
+            'salary' => $this->salary,
+            'join_date' => $this->join_date,
+            'department_id' => $this->department_id,
+            'designation' => $this->designation,
+            'doc_img' => $this->doc_img,
+            'slug' => Str::slug('DEP' . '-' . $this->name),
+        ]);
+        sleep(1);
+        session()->flash('success','Employee updated successfully');
+        return redirect('/employee');
+    }
+
+    public function render()
+    {
+        $departments = Department::select('id','name')->get();
+        return view('livewire.employee.edit',compact('departments'));
+    }
+}
