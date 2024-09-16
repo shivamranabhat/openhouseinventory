@@ -27,7 +27,7 @@
         
                         <nav class="breadcrumb-style-one" aria-label="breadcrumb">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="#" class="text-capitalize">{{request()->segment(1)}}</a></li>
+                                <li class="breadcrumb-item"><a href="#" class="text-capitalize">{{ str_replace('-', ' ', request()->segment(1)) }}</a></li>
                                 @if(request()->segment(2) !== null)
                                 <li class="breadcrumb-item  text-capitalize active" aria-current="page">{{request()->segment(2)}}</li>
                                 @endif

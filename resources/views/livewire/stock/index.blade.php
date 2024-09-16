@@ -49,7 +49,7 @@
                     <th>Action</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody wire:poll.visible>
                 @forelse($stocks as $stock)
                 <tr role="row">
                     <td>{{$loop->iteration}}</td>

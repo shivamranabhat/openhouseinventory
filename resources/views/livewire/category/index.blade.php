@@ -52,7 +52,7 @@
                 <tr role="row">
                     <td>{{$loop->iteration}}</td>
                     <td>{{$category->name}}</td>
-                    <td>{{\Carbon\Carbon::parse($product->created)->format('M d Y')}}</td>
+                    <td>{{\Carbon\Carbon::parse($category->created)->format('M d Y')}}</td>
                     <td class="d-flex gap-3">
                         <a href="{{route('category.edit',$category->slug)}}">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" width="22" viewBox="0 0 24 24"

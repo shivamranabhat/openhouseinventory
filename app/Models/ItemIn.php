@@ -10,18 +10,19 @@ class ItemIn extends Model
     use HasFactory;
     protected $fillable=[
         'product_id',
-         'barcode_id',
          'vendor_id',
          'stock',
          'unit_price',
          'total', 
          'purchase_date', 
+         'prefix',
          'rack_no', 
          'slug', 
      ];
+
      public function barcode()
      {
-        return $this->belongsTo(Barcode::class);
+        return $this->hasMany(Barcode::class);
      }
      public function product()
      {

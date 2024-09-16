@@ -32,7 +32,10 @@ class Index extends Component
     public function render()
     {
         $products = Product::where(function ($query) {
-            $query->where('name', 'like', '%' . $this->search . '%');
+            $query->where('name', 'like', '%' . $this->search . '%')
+                  ->orWhereHas('category', function($query) {
+                      $query->where('name', 'like', '%' . $this->search . '%');
+                  });
         })->paginate($this->page);
         return view('livewire.product.index',['products'=>$products]);
     }

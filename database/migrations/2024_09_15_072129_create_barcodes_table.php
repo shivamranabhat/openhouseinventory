@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('barcodes', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('product_id');
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+            $table->unsignedBigInteger('item_in_id');
+            $table->foreign('item_in_id')->references('id')->on('item_ins')->onDelete('cascade');
             $table->string('barcode');
             $table->timestamps();
         });

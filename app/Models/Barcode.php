@@ -9,11 +9,12 @@ class Barcode extends Model
 {
     use HasFactory;
     protected $fillable=[
-       'product_id',
+       'item_in_id',
         'barcode',
     ];
-    public function product()
+    public function itemIns()
     {
-        return $this->belongsTo(Product::class);
+        return $this->belongsTo(ItemIn::class);
     }
+
 }

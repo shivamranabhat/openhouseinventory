@@ -32,8 +32,13 @@ class Index extends Component
     public function render()
     {
         $stocks = ItemIn::where(function ($query) {
-            $query->where('stock', 'like', '%' . $this->search . '%');
-        })->paginate($this->page);
+            $query->where('stock', 'like', '%' . $this->search . '%')
+                  ->orWhereHas('product', function($query) {
+                      $query->where('name', 'like', '%' . $this->search . '%');
+                  })->orWhereHas('vendor', function($query) {
+                    $query->where('name', 'like', '%' . $this->search . '%');
+                });
+        })->paginate($this->page); 
         return view('livewire.stock.index',['stocks'=>$stocks]);
     }
 }

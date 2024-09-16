@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
+use App\Http\Livewire\BarcodeComponent;
+
 
 Route::prefix('/department')->controller(PageController::class)->group(function(){
     Route::get('','department')->name('departments');

@@ -61,19 +61,56 @@
             <input type="text" class="form-control" wire:model="total" placeholder="Total amount" readonly>
         </div>
     </div>
-    
     <div class="row mb-4">
         <div class="col-sm-12">
-            <label for="barcode">No.of barcode</label>
-            <input type="text" class="form-control" wire:model="barcode" placeholder="1">
+            <label for="prefix">Barcode Prefix</label>
+            <input type="text" class="form-control" wire:model="prefix" placeholder="Prefix" wire:change="updateBarcodeValue">
         </div>
-        @error('barcode')
+        @error('prefix')
         <div class="feedback text-danger">
-            Please provide a join date.
+            Please provide a barcode prefix.
         </div>
         @enderror
     </div>
     <div class="row mb-4">
+        <div class="col-sm-12">
+            <label for="barcode">No.of barcode</label>
+            <input type="text" class="form-control" wire:model="barcode" placeholder="1" wire:change="updateBarcodeValue">
+        </div>
+        @error('barcode')
+        <div class="feedback text-danger">
+            {{$message}}
+        </div>
+        @enderror
+    </div>
+    
+    @if(count($barcodeList) > 0)
+        <div class="mb-4">
+            <div class="row mb-2">
+                <p class="col-6">Generated Barcodes</p>
+                <div class="col-6 d-flex justify-content-end">
+                    <button type="button" wire:click="updateBarcodeValue" class="btn btn-secondary btn-sm">Regenerate</button>
+                </div>
+            </div>
+            <ul class="list-group">
+                @foreach($barcodeList as $index => $barcode)
+                    <li class="list-group-item barcode d-flex justify-content-between align-items-center" id="barcode-{{ $index }}">
+                       <span class="d-flex flex-column">
+                        @php
+                            $generator = new Picqer\Barcode\BarcodeGeneratorHTML();
+                            $barcodeHtml = $generator->getBarcode($barcode, $generator::TYPE_CODE_128);
+                        @endphp
+                        {!! $barcodeHtml !!}
+                        {{ $barcode }}
+                       </span>
+                       <button type="button" class="badge bg-primary rounded-pill">Print</button>
+                    </li>
+                @endforeach
+            </ul>
+           
+        </div>
+    @endif
+    <div class="mb-4">
         <div class="col-sm-12">
             <label for="purchase_date">Purchased Date</label>
             <input type="date" class="form-control" id="date" wire:model="purchase_date" placeholder="Purchase Date" wire:ignore>
@@ -100,4 +137,6 @@
         <button class="btn btn-primary _effect--ripple waves-effect waves-light" type="submit"><x-spinner />Submit
         </button>
     </div>
+   
 </form>
+
