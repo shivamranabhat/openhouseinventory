@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Product;
+namespace App\Livewire\Inventory;
 
 use Livewire\Component;
 use App\Models\Product;
@@ -37,6 +37,6 @@ class Index extends Component
                       $query->where('name', 'like', '%' . $this->search . '%');
                   });
         })->paginate($this->page);
-        return view('livewire.product.index',['products'=>$products]);
+        return view('livewire.inventory.index',['products'=>$products]);
     }
 }

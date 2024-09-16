@@ -20,10 +20,10 @@ Route::prefix('/category')->controller(PageController::class)->group(function(){
     Route::get('/create','categoryCreate')->name('category.create');
     Route::get('/edit/{slug}','categoryEdit')->name('category.edit');
 });
-Route::prefix('/product')->controller(PageController::class)->group(function(){
-    Route::get('','product')->name('products');
-    Route::get('/create','productCreate')->name('product.create');
-    Route::get('/edit/{slug}','productEdit')->name('product.edit');
+Route::prefix('/inventory')->controller(PageController::class)->group(function(){
+    Route::get('','inventory')->name('inventories');
+    Route::get('/create','inventoryCreate')->name('inventory.create');
+    Route::get('/edit/{slug}','inventoryEdit')->name('inventory.edit');
 });
 Route::prefix('/service')->controller(PageController::class)->group(function(){
     Route::get('','service')->name('services');
@@ -44,4 +44,9 @@ Route::prefix('/stock-in')->controller(PageController::class)->group(function(){
     Route::get('','stock')->name('stocks');
     Route::get('/create','stockCreate')->name('stock.create');
     Route::get('/edit/{slug}','stockEdit')->name('stock.edit');
+});
+Route::prefix('/requisition')->controller(PageController::class)->group(function(){
+    Route::get('','requisition')->name('requisitions');
+    Route::get('/create','requisitionCreate')->name('requisition.create');
+    Route::get('/edit/{slug}','requisitionEdit')->name('requisition.edit');
 });

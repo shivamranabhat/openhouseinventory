@@ -24,6 +24,10 @@ class ItemIn extends Model
      {
         return $this->hasMany(Barcode::class);
      }
+     public function requisition()
+     {
+         return $this->hasMany(Requisition::class);
+     }
      public function product()
      {
         return $this->belongsTo(Product::class);

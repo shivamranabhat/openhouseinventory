@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Product;
+namespace App\Livewire\Inventory;
 
 use Livewire\Component;
 use App\Models\Product;
@@ -35,6 +35,6 @@ class Create extends Component
     public function render()
     {
         $categories = Category::select('name','id')->get();
-        return view('livewire.product.create',compact('categories'));
+        return view('livewire.inventory.create',compact('categories'));
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Product;
+namespace App\Livewire\Inventory;
 
 use Livewire\Component;
 use App\Models\Product;
@@ -48,6 +48,6 @@ class Edit extends Component
     public function render()
     {
         $categories = Category::select('name','id')->get();
-        return view('livewire.product.edit',compact('categories'));
+        return view('livewire.inventory.edit',compact('categories'));
     }
 }

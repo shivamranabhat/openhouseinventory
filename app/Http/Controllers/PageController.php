@@ -42,17 +42,17 @@ class PageController extends Controller
     {
         return view('pages.category.edit',compact('slug'));
     }
-    public function product()
+    public function inventory()
     {
-        return view('pages.product.index');
+        return view('pages.inventory.index');
     }
-    public function productCreate()
+    public function inventoryCreate()
     {
-        return view('pages.product.create');
+        return view('pages.inventory.create');
     }
-    public function productEdit($slug)
+    public function inventoryEdit($slug)
     {
-        return view('pages.product.edit',compact('slug'));
+        return view('pages.inventory.edit',compact('slug'));
     }
     public function service()
     {
@@ -89,5 +89,17 @@ class PageController extends Controller
     public function stockEdit($slug)
     {
         return view('pages.stock.edit',compact('slug'));
+    }
+    public function requisition()
+    {
+        return view('pages.requisition.index');
+    }
+    public function requisitionCreate()
+    {
+        return view('pages.requisition.create');
+    }
+    public function requisitionEdit($slug)
+    {
+        return view('pages.requisition.edit',compact('slug'));
     }
 }

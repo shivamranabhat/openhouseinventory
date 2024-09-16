@@ -15,4 +15,8 @@ class Employee extends Model
     {
         return $this->belongsTo(Department::class);
     }
+    public function requisition()
+    {
+        return $this->hasMany(Requisition::class);
+    }
 }

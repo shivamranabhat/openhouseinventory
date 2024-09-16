@@ -16,7 +16,7 @@
         
                         <div class="tab-content" id="myTabContent">
                             <div class="tab-pane fade active show" id="product-tab-pane" role="tabpanel" aria-labelledby="product-tab" tabindex="0">
-                                <livewire:product.index />
+                                <livewire:inventory.index />
                             </div>
                             <div class="tab-pane fade" id="service-tab-pane" role="tabpanel" aria-labelledby="service-tab" tabindex="0">
                                 <livewire:service.index />
