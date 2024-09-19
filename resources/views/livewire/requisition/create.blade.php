@@ -5,10 +5,10 @@
             <option value="">Select a product</option>
             @forelse($stocks as $stock)
             <option value="{{$stock->id}}">{{$stock->product->name}}</option>
-            @empty 
+            @empty
             <option value="">No product found</option>
             @endforelse
-           
+
         </select>
         @error('item_in_id')
         <div class="feedback text-danger">
@@ -16,21 +16,35 @@
         </div>
         @enderror
     </div>
-   
+
     <div class="row mb-4">
         <div class="col-sm-12">
             <label for="quantity">Quantity</label>
-            <input type="text" class="form-control" wire:model="quantity" placeholder="Quantity">
+            <input type="text" class="form-control" wire:model="quantity" wire:change='checkQuantity'
+                placeholder="Quantity">
         </div>
         @error('quantity')
         <div class="feedback text-danger">
             Please provide a quantity.
         </div>
         @enderror
+        @if (session('stock'))
+        <div class="feedback text-danger">
+            {{ session('stock') }}
+        </div>
+        @endif
+
     </div>
-   
+
     <div class="col-12">
-        <button class="btn btn-primary _effect--ripple waves-effect waves-light" type="submit"><x-spinner />Submit
+        @if (session('stock'))
+        <button class="btn btn-primary _effect--ripple waves-effect waves-light" disabled>
+           Submit
         </button>
+        @else
+        <button class="btn btn-primary _effect--ripple waves-effect waves-light" type="submit">
+            <x-spinner />Submit
+        </button>
+        @endif
     </div>
 </form>

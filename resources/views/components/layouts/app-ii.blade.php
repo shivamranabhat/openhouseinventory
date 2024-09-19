@@ -32,12 +32,10 @@
     <link rel="stylesheet" type="text/css" href="{{asset('src/assets/css/light/forms/switches.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('src/plugins/css/light/editors/quill/quill.snow.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('src/plugins/css/light/tagify/custom-tagify.css')}}">
-    <link href="{{asset('src/plugins/css/light/filepond/custom-filepond.css')}}" rel="stylesheet" type="text/css" />
 
     <link rel="stylesheet" type="text/css" href="{{asset('src/assets/css/dark/forms/switches.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('src/plugins/css/dark/editors/quill/quill.snow.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('src/plugins/css/dark/tagify/custom-tagify.css')}}">
-    <link href="{{asset('src/plugins/css/dark/filepond/custom-filepond.css')}}" rel="stylesheet" type="text/css" />
     <!-- END PAGE LEVEL PLUGINS/CUSTOM STYLES -->
 
     <!--  BEGIN CUSTOM STYLE FILE  -->
@@ -45,6 +43,8 @@
     <link rel="stylesheet" href="{{asset('src/assets/css/dark/apps/ecommerce-create.css')}}">
     <link href="{{asset('src/assets/css/dark/components/tabs.css')}}" rel="stylesheet" type="text/css">
     <link href="{{asset('src/assets/css/light/components/tabs.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{asset('src/assets/css/light/components/list-group.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{asset('src/assets/css/dark/components/list-group.css')}}" rel="stylesheet" type="text/css">
     <!--  END CUSTOM STYLE FILE  -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
@@ -260,14 +260,28 @@
                 </div>
                 <div class="shadow-bottom"></div>
                 <ul class="list-unstyled menu-categories" id="accordionExample">
-                    <li class="menu {{request()->segment(1) == 'employee' ||request()->segment(1) == 'department'  ? 'active' : '' }}">
+                    <li
+                        class="menu {{request()->segment(1) == 'employee' ||request()->segment(1) == 'department'  ? 'active' : '' }}">
                         <a href="#hr" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle collapsed">
                             <div class="">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="circuit-board" class="lucide lucide-circuit-board h-4 group-data-[sidebar-size=sm]:h-5 group-data-[sidebar-size=sm]:w-5 transition group-hover/menu-link:animate-icons fill-slate-100 group-hover/menu-link:fill-blue-200 group-data-[sidebar=dark]:fill-vertical-menu-item-bg-active-dark group-data-[sidebar=dark]:dark:fill-zink-600 group-data-[layout=horizontal]:dark:fill-zink-600 group-data-[sidebar=brand]:fill-vertical-menu-item-bg-active-brand group-data-[sidebar=modern]:fill-vertical-menu-item-bg-active-modern group-data-[sidebar=dark]:group-hover/menu-link:fill-vertical-menu-item-bg-active-dark group-data-[sidebar=dark]:group-hover/menu-link:dark:fill-custom-500/20 group-data-[layout=horizontal]:dark:group-hover/menu-link:fill-custom-500/20 group-data-[sidebar=brand]:group-hover/menu-link:fill-vertical-menu-item-bg-active-brand group-data-[sidebar=modern]:group-hover/menu-link:fill-vertical-menu-item-bg-active-modern group-data-[sidebar-size=md]:block group-data-[sidebar-size=md]:mx-auto group-data-[sidebar-size=md]:mb-2"><rect width="18" height="18" x="3" y="3" rx="2"></rect><path d="M11 9h4a2 2 0 0 0 2-2V3"></path><circle cx="9" cy="9" r="2"></circle><path d="M7 21v-4a2 2 0 0 1 2-2h4"></path><circle cx="15" cy="15" r="2"></circle></svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" data-lucide="circuit-board"
+                                    class="lucide lucide-circuit-board h-4 group-data-[sidebar-size=sm]:h-5 group-data-[sidebar-size=sm]:w-5 transition group-hover/menu-link:animate-icons fill-slate-100 group-hover/menu-link:fill-blue-200 group-data-[sidebar=dark]:fill-vertical-menu-item-bg-active-dark group-data-[sidebar=dark]:dark:fill-zink-600 group-data-[layout=horizontal]:dark:fill-zink-600 group-data-[sidebar=brand]:fill-vertical-menu-item-bg-active-brand group-data-[sidebar=modern]:fill-vertical-menu-item-bg-active-modern group-data-[sidebar=dark]:group-hover/menu-link:fill-vertical-menu-item-bg-active-dark group-data-[sidebar=dark]:group-hover/menu-link:dark:fill-custom-500/20 group-data-[layout=horizontal]:dark:group-hover/menu-link:fill-custom-500/20 group-data-[sidebar=brand]:group-hover/menu-link:fill-vertical-menu-item-bg-active-brand group-data-[sidebar=modern]:group-hover/menu-link:fill-vertical-menu-item-bg-active-modern group-data-[sidebar-size=md]:block group-data-[sidebar-size=md]:mx-auto group-data-[sidebar-size=md]:mb-2">
+                                    <rect width="18" height="18" x="3" y="3" rx="2"></rect>
+                                    <path d="M11 9h4a2 2 0 0 0 2-2V3"></path>
+                                    <circle cx="9" cy="9" r="2"></circle>
+                                    <path d="M7 21v-4a2 2 0 0 1 2-2h4"></path>
+                                    <circle cx="15" cy="15" r="2"></circle>
+                                </svg>
                                 <span>HRM</span>
                             </div>
                             <div>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-chevron-right">
+                                    <polyline points="9 18 15 12 9 6"></polyline>
+                                </svg>
                             </div>
                         </a>
                         <ul class="submenu list-unstyled collapse" id="hr" data-bs-parent="#accordionExample" style="">
@@ -280,61 +294,112 @@
                             <li>
                                 <a href="table-datatable-custom.html"> Advance Payout </a>
                             </li>
-                            
+
                         </ul>
                     </li>
-                   
-                    <li class="menu {{request()->segment(1) == 'vendor' || request()->segment(1)=='stock-in' ||request()->segment(1) == 'category'  ? 'active' : '' }}">
-                        <a href="#vendor" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle collapsed">
+                    <li class="menu {{request()->segment(1) == 'vendor'  ? 'active' : '' }}">
+                        <a href="#vendor" data-bs-toggle="collapse" aria-expanded="false"
+                            class="dropdown-toggle collapsed">
                             <div class="">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-users">
+                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="9" cy="7" r="4"></circle>
+                                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                                </svg>
                                 <span>Vendor</span>
                             </div>
                             <div>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-chevron-right">
+                                    <polyline points="9 18 15 12 9 6"></polyline>
+                                </svg>
                             </div>
                         </a>
-                        <ul class="submenu list-unstyled collapse" id="vendor" data-bs-parent="#accordionExample" style="">
+                        <ul class="submenu list-unstyled collapse" id="vendor" data-bs-parent="#accordionExample"
+                            style="">
                             <li class="{{request()->segment(1) == 'vendor'  ? 'active' : '' }}">
                                 <a href="{{route('vendors')}}"> Lists </a>
                             </li>
-                            <li class="{{request()->segment(1) == 'category'  ? 'active' : '' }}">
-                                <a href="{{route('categories')}}"> Transactions </a>
-                            </li>
-                           
                         </ul>
                     </li>
-                    <li class="menu {{request()->segment(1) == 'inventory' || request()->segment(1)=='stock-in' ||request()->segment(1) == 'category'  ? 'active' : '' }}">
-                        <a href="#inventory" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle collapsed">
+                    <li
+                        class="menu {{request()->segment(1) == 'inventory' ||  request()->segment(1)=='prefix' ||request()->segment(1) == 'category'  ? 'active' : '' }}">
+                        <a href="#inventory" data-bs-toggle="collapse" aria-expanded="false"
+                            class="dropdown-toggle collapsed">
                             <div class="">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-layers"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-layers">
+                                    <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                                    <polyline points="2 17 12 22 22 17"></polyline>
+                                    <polyline points="2 12 12 17 22 12"></polyline>
+                                </svg>
                                 <span>Inventory</span>
                             </div>
                             <div>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-chevron-right">
+                                    <polyline points="9 18 15 12 9 6"></polyline>
+                                </svg>
                             </div>
                         </a>
-                        <ul class="submenu list-unstyled collapse" id="inventory" data-bs-parent="#accordionExample" style="">
+                        <ul class="submenu list-unstyled collapse" id="inventory" data-bs-parent="#accordionExample"
+                            style="">
                             <li class="{{request()->segment(1) == 'inventory'  ? 'active' : '' }}">
                                 <a href="{{route('inventories')}}"> Lists </a>
                             </li>
                             <li class="{{request()->segment(1) == 'category'  ? 'active' : '' }}">
                                 <a href="{{route('categories')}}"> Category </a>
                             </li>
+                            <li class="{{request()->segment(1) == 'prefix'  ? 'active' : '' }}">
+                                <a href="{{route('prefixes')}}"> Prefix </a>
+                            </li>
+                          
+                        </ul>
+                    </li>
+                    <li
+                        class="menu {{request()->segment(1) == 'stock-in' || request()->segment(1)=='bill' ||request()->segment(1) == 'payment_out'  ? 'active' : '' }}">
+                        <a href="#requisition" data-bs-toggle="collapse" aria-expanded="false"
+                            class="dropdown-toggle collapsed">
+                            <div class="">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-shopping-cart">
+                                    <circle cx="9" cy="21" r="1"></circle>
+                                    <circle cx="20" cy="21" r="1"></circle>
+                                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                                </svg>
+                                <span>Purchase</span>
+
+                            </div>
+                            <div>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-chevron-right">
+                                    <polyline points="9 18 15 12 9 6"></polyline>
+                                </svg>
+                            </div>
+                        </a>
+                        <ul class="submenu list-unstyled collapse" id="requisition" data-bs-parent="#accordionExample"
+                            style="">
                             <li class="{{request()->segment(1) == 'stock-in'  ? 'active' : '' }}">
                                 <a href="{{route('stocks')}}"> Stock In </a>
                             </li>
-
+                            <li class="{{request()->segment(1) == 'bill'  ? 'active' : '' }}">
+                                <a href="{{route('bills')}}"> Purchase Bill</a>
+                            </li>
+                            <li class="{{request()->segment(1) == 'payment-out'  ? 'active' : '' }}">
+                                <a href="{{route('payments')}}"> Payment Out </a>
+                            </li>
+                           
                         </ul>
                     </li>
-                    <li class="menu">
-                        <a href="{{route('requisitions')}}" aria-expanded="false" class="dropdown-toggle">
-                            <div class="">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-git-pull-request"><circle cx="18" cy="18" r="3"></circle><circle cx="6" cy="6" r="3"></circle><path d="M13 6h3a2 2 0 0 1 2 2v7"></path><line x1="6" y1="9" x2="6" y2="21"></line></svg>
-                                <span>Requisition</span>
-                            </div>
-                        </a>
-                    </li>
+                  
                 </ul>
 
             </nav>
@@ -380,17 +445,6 @@
     <script src="{{asset('layouts/vertical-dark-menu/app.js')}}"></script>
     <!-- END GLOBAL MANDATORY SCRIPTS -->
 
-    <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->
-    <script src="{{asset('src/plugins/src/filepond/filepond.min.js')}}"></script>
-    <script src="{{asset('src/plugins/src/filepond/FilePondPluginFileValidateType.min.js')}}"></script>
-    <script src="{{asset('src/plugins/src/filepond/FilePondPluginImageExifOrientation.min.js')}}"></script>
-    <script src="{{asset('src/plugins/src/filepond/FilePondPluginImagePreview.min.js')}}"></script>
-    <script src="{{asset('src/plugins/src/filepond/FilePondPluginImageCrop.min.js')}}"></script>
-    <script src="{{asset('src/plugins/src/filepond/FilePondPluginImageResize.min.js')}}"></script>
-    <script src="{{asset('src/plugins/src/filepond/FilePondPluginImageTransform.min.js')}}"></script>
-    <script src="{{asset('src/plugins/src/filepond/filepondPluginFileValidateSize.min.js')}}"></script>
-
-    <script src="{{asset('src/plugins/src/tagify/tagify.min.js')}}"></script>
     <script>
         flatpickr("#date", {
             enableTime: false,

@@ -8,8 +8,7 @@ use App\Models\Department;
 use Livewire\Attributes\Validate;
 use Illuminate\Support\Str;
 use Livewire\WithFileUploads;
-use Intervention\Image\Facades\Image;
-use Illuminate\Support\Facades\Storage;
+
 
 class Create extends Component
 {

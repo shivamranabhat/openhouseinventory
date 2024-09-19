@@ -1,7 +1,7 @@
 <form class="widget-content widget-content-area ecommerce-create-section" wire:submit.prevent='update'>
     <div class="form-group mb-4">
         <label for="product_id">Product</label>
-        <select class="form-select" wire:model="product_id">
+        <select class="form-select" wire:model="product_id" wire:change='category($event.target.value)'>
             <option value="{{$item_in->product_id}}">{{$item_in->product->name}}</option>
             @forelse($products as $product)
             <option value="{{$product->id}}">{{$product->name}}</option>
@@ -62,18 +62,7 @@
             <input type="text" class="form-control" wire:model="total" placeholder="Total amount" readonly>
         </div>
     </div>
-    <div class="row mb-4">
-        <div class="col-sm-12">
-            <label for="prefix">Barcode Prefix</label>
-            <input type="text" class="form-control" wire:model="prefix" placeholder="Prefix"
-                wire:change="updateBarcodeValue">
-        </div>
-        @error('prefix')
-        <div class="feedback text-danger">
-            Please provide a barcode prefix.
-        </div>
-        @enderror
-    </div>
+   
     <div class="row mb-4">
         <div class="col-sm-12">
             <label for="barcode">No.of barcode</label>

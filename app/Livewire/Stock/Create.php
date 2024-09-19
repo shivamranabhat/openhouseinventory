@@ -26,7 +26,6 @@ class Create extends Component
     public $unit_price;
     #[Validate('required')]
     public $total;
-    #[Validate('nullable')]
     public $prefix;
     #[Validate('required|numeric|min:1')]
     public $barcode;
@@ -48,6 +47,19 @@ class Create extends Component
         $this->unit_price = $this->unit_price;
         $this->stock = $this->stock;
         $this->total = $this->unit_price * $this->stock;
+    }
+    public function category($value)
+    {
+        $product = Product::find($value);
+        if($product->category->prefix)
+        {
+            $this->prefix = $product->category->prefix->prefix;
+            $this->updateBarcodeValue();
+        }
+        else{
+            $this->prefix='';
+            $this->updateBarcodeValue();
+        }
     }
 
     public function updateBarcodeValue()

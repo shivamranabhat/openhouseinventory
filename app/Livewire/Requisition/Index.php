@@ -4,14 +4,22 @@ namespace App\Livewire\Requisition;
 
 use Livewire\Component;
 use App\Models\Requisition;
+use App\Models\ItemIn;
+use Livewire\WithPagination;
 use Livewire\Attributes\Url;
-use Livewire\Attributes\On;
 
 class Index extends Component
 {
+    use WithPagination;
     #[Url] 
     public $search = '';
-    #[On('request-added')]
+    public $page=10;
+    public function updatePage($page)
+    {
+        $this->page = $page;
+        $this->resetPage();
+    }
+   
     public function render()
     {
         $requests = Requisition::where(function ($query) {
@@ -19,7 +27,28 @@ class Index extends Component
                   ->orWhereHas('employee', function($query) {
                       $query->where('name', 'like', '%' . $this->search . '%');
                   });
-        })->latest()->get();
+        })->where('status','Pending')->latest()->get();
         return view('livewire.requisition.index',compact('requests'));
     }
+    public function approve($slug)
+    {
+        $request = Requisition::whereSlug($slug)->first();
+        $requestStock = $request->quantity;
+        $item = ItemIn::find($request->item_in_id);
+        // if($item->stock >= $requestStock)
+        // {
+            
+        // }
+        $newStock = $item->stock - $requestStock;
+        $item->update(['stock'=>$newStock]);
+        $request->update(['status'=>'Approved']);
+        session()->flash('success','Request approved successfully');
+    }
+    public function decline($slug)
+    {
+        $request = Requisition::whereSlug($slug)->first();
+        $request->update(['status'=>'Declined']);
+        session()->flash('success','Request declined successfully');
+    }
+    
 }

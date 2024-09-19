@@ -31,12 +31,11 @@
     <link rel="stylesheet" type="text/css"
         href="{{asset('src/plugins/css/light/table/datatable/dt-global_style.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('src/plugins/css/dark/table/datatable/dt-global_style.css')}}">
-    <link href="{{asset('src/assets/css/dark/components/tabs.css')}}" rel="stylesheet" type="text/css">
-    <link href="{{asset('src/assets/css/light/components/tabs.css')}}" rel="stylesheet" type="text/css">
-    <link href="{{asset('src/assets/css/light/apps/mailbox.css')}}" rel="stylesheet" type="text/css">
-    <link href="{{asset('src/assets/css/dark/apps/mailbox.css')}}" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" type="text/css" href="{{asset('src/plugins/css/dark/editors/quill/quill.snow.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('src/plugins/css/light/editors/quill/quill.snow.css')}}">
+    <link href="{{asset('src/assets/css/dark/apps/invoice-list.css')}}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    {{$css}}
+
     <!-- END PAGE LEVEL PLUGINS/CUSTOM STYLES -->
 
     @livewireStyles
@@ -283,8 +282,7 @@
 
                         </ul>
                     </li>
-                    <li
-                        class="menu {{request()->segment(1) == 'vendor' || request()->segment(1)=='stock-in' ||request()->segment(1) == 'category'  ? 'active' : '' }}">
+                    <li class="menu {{request()->segment(1) == 'vendor'  ? 'active' : '' }}">
                         <a href="#vendor" data-bs-toggle="collapse" aria-expanded="false"
                             class="dropdown-toggle collapsed">
                             <div class="">
@@ -311,14 +309,10 @@
                             <li class="{{request()->segment(1) == 'vendor'  ? 'active' : '' }}">
                                 <a href="{{route('vendors')}}"> Lists </a>
                             </li>
-                            <li class="{{request()->segment(1) == 'category'  ? 'active' : '' }}">
-                                <a href="{{route('categories')}}"> Transactions </a>
-                            </li>
-
                         </ul>
                     </li>
                     <li
-                        class="menu {{request()->segment(1) == 'inventory' || request()->segment(1)=='stock-in' ||request()->segment(1) == 'category'  ? 'active' : '' }}">
+                        class="menu {{request()->segment(1) == 'inventory' ||  request()->segment(1)=='prefix' ||request()->segment(1) == 'category'  ? 'active' : '' }}">
                         <a href="#inventory" data-bs-toggle="collapse" aria-expanded="false"
                             class="dropdown-toggle collapsed">
                             <div class="">
@@ -347,28 +341,49 @@
                             <li class="{{request()->segment(1) == 'category'  ? 'active' : '' }}">
                                 <a href="{{route('categories')}}"> Category </a>
                             </li>
-                            <li class="{{request()->segment(1) == 'stock-in'  ? 'active' : '' }}">
-                                <a href="{{route('stocks')}}"> Stock In </a>
+                            <li class="{{request()->segment(1) == 'prefix'  ? 'active' : '' }}">
+                                <a href="{{route('prefixes')}}"> Prefix </a>
                             </li>
-
+                          
                         </ul>
                     </li>
-
-                    <li class="menu">
-                        <a href="{{route('requisitions')}}" aria-expanded="false" class="dropdown-toggle">
+                    <li
+                        class="menu {{request()->segment(1) == 'stock-in' || request()->segment(1)=='bill' ||request()->segment(1) == 'payment_out'  ? 'active' : '' }}">
+                        <a href="#requisition" data-bs-toggle="collapse" aria-expanded="false"
+                            class="dropdown-toggle collapsed">
                             <div class="">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round" class="feather feather-git-pull-request">
-                                    <circle cx="18" cy="18" r="3"></circle>
-                                    <circle cx="6" cy="6" r="3"></circle>
-                                    <path d="M13 6h3a2 2 0 0 1 2 2v7"></path>
-                                    <line x1="6" y1="9" x2="6" y2="21"></line>
+                                    stroke-linejoin="round" class="feather feather-shopping-cart">
+                                    <circle cx="9" cy="21" r="1"></circle>
+                                    <circle cx="20" cy="21" r="1"></circle>
+                                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
                                 </svg>
-                                <span>Requisition</span>
+                                <span>Purchase</span>
+
+                            </div>
+                            <div>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-chevron-right">
+                                    <polyline points="9 18 15 12 9 6"></polyline>
+                                </svg>
                             </div>
                         </a>
+                        <ul class="submenu list-unstyled collapse" id="requisition" data-bs-parent="#accordionExample"
+                            style="">
+                            <li class="{{request()->segment(1) == 'stock-in'  ? 'active' : '' }}">
+                                <a href="{{route('stocks')}}"> Stock In </a>
+                            </li>
+                            <li class="{{request()->segment(1) == 'bill'  ? 'active' : '' }}">
+                                <a href="{{route('bills')}}"> Purchase Bill</a>
+                            </li>
+                            <li class="{{request()->segment(1) == 'payment-out'  ? 'active' : '' }}">
+                                <a href="{{route('payments')}}"> Payment Out </a>
+                            </li>
+                        </ul>
                     </li>
+                   
                 </ul>
 
             </nav>
@@ -414,13 +429,12 @@
     <script src="{{asset('src/plugins/src/waves/waves.min.js')}}"></script>
     <script src="{{asset('layouts/vertical-dark-menu/app.js')}}"></script>
     <!-- END GLOBAL MANDATORY SCRIPTS -->
-
-    <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->
-    <script src="{{asset('src/plugins/src/editors/quill/quill.js')}}"></script>
-    <script src="{{asset('src/assets/js/dashboard/dash_1.js')}}"></script>
-    <script src="{{asset('src/assets/js/apps/mailbox.js')}}"></script>
-
-    <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->
+    <script>
+        flatpickr("#date", {
+            enableTime: false,
+            dateFormat: "M d Y",
+        });
+    </script>
 
 </body>
 

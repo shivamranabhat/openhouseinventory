@@ -44,7 +44,19 @@ class Edit extends Component
             $this->total = $this->unit_price * $this->stock;
         }
     }
-
+    public function category($value)
+    {
+        $product = Product::find($value);
+        if($product->category->prefix)
+        {
+            $this->prefix = $product->category->prefix->prefix;
+            $this->updateBarcodeValue();
+        }
+        else{
+            $this->prefix='';
+            $this->updateBarcodeValue();
+        }
+    }
 
     public function regenerateBarcode()
     {

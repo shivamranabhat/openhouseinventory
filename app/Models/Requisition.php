@@ -12,6 +12,7 @@ class Requisition extends Model
         'employee_id',
         'item_in_id',
         'quantity',
+        'status',
         'slug',
         'created_at'
     ];

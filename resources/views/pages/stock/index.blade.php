@@ -1,4 +1,6 @@
 <x-layouts.app>
+    @slot('css')
+    @endslot
     <div class="middle-content container-xxl p-0">
         <x-breadcrumb />
         <div class="row layout-top-spacing">

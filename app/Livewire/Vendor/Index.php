@@ -12,7 +12,7 @@ class Index extends Component
     use WithPagination;
     #[Url] 
     public $search = '';
-    public $page=1;
+    public $page=10;
 
     public function updatePage($page)
     {

@@ -1,4 +1,4 @@
-<div class="row">
+{{-- <div class="row">
 
     <div class="col-xl-12  col-md-12">
 
@@ -290,7 +290,6 @@
                 </div>
 
                 <div class="content-box" style="width: 0px; left: auto; right: -46px;">
-                    @forelse($requests as $request)
                     <div class="d-flex msg-close">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -300,6 +299,7 @@
                         </svg>
                         <h2 class="mail-title" data-selectedmailtitle="New Request">New Request</h2>
                     </div>
+                    @forelse($requests as $request)
 
                     <div id="{{$request->id}}" class="collapse ps" aria-labelledby="{{$request->id}}"
                         data-bs-parent="#mailbox-inbox">
@@ -308,7 +308,8 @@
                                 <div class="d-flex user-info">
                                     <div class="f-head">
                                         <div class="avatar avatar-sm">
-                                            <span class="avatar-title rounded-circle">{{collect(explode(' ', $request->employee->name))
+                                            <span class="avatar-title rounded-circle">{{collect(explode(' ',
+                                                $request->employee->name))
                                                 ->map(fn($name) => strtoupper(substr($name, 0, 1)))
                                                 ->take(2)
                                                 ->implode('')
@@ -323,17 +324,22 @@
                                         <div class="meta-mail-time">
                                             <p class="user-email">
                                                 ({{$request->employee->department->name}})</p>
-                                            <p class="mail-content-meta-date">{{\Carbon\Carbon::parse($request->created_at)->format('M d Y')}} -</p>
-                                            <p class="meta-time align-self-center">{{\Carbon\Carbon::parse($request->created_at)->format('g:i A')}}</p>
+                                            <p class="mail-content-meta-date">
+                                                {{\Carbon\Carbon::parse($request->created_at)->format('M d Y')}} -</p>
+                                            <p class="meta-time align-self-center">
+                                                {{\Carbon\Carbon::parse($request->created_at)->format('g:i A')}}</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
                             <p class="mail-content" data-mailtitle="New Request">
-                                {{$request->employee->name}} from  {{$request->employee->department->name}} is requesting for product with the following details: </p>
+                                {{$request->employee->name}} from {{$request->employee->department->name}} is requesting
+                                for product with the following details: </p>
 
-                            <p>Product: {{$request->itemIn->product->quantity ? $request->itemIn->product->quantity : '' }} {{$request->itemIn->product->sku ? $request->itemIn->product->sku : '' }} {{$request->itemIn->product->name}}.</p>
+                            <p>Product: {{$request->itemIn->product->quantity ? $request->itemIn->product->quantity : ''
+                                }} {{$request->itemIn->product->sku ? $request->itemIn->product->sku : '' }}
+                                {{$request->itemIn->product->name}}.</p>
                             <p>Quantity: {{$request->quantity}}</p>
                             <p>Best Regards,</p>
                             <p>Openhouse</p>
@@ -346,7 +352,7 @@
                             <div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 0px;"></div>
                         </div>
                     </div>
-                    @empty 
+                    @empty
                     @endforelse
                 </div>
             </div>
@@ -545,5 +551,380 @@
                 </div>
             </div>
         </div>
+    </div>
+</div> --}}
+
+
+{{-- <div class="row app-notes layout-top-spacing" id="cancel-row">
+    <div class="col-lg-12">
+        <div class="app-hamburger-container">
+            <div class="hamburger"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="feather feather-menu chat-menu d-xl-none">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg></div>
+        </div>
+
+        <div class="app-container">
+
+            <div class="app-note-container">
+
+                <div class="app-note-overlay"></div>
+
+                <div class="tab-title">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-12 mb-5">
+                            <ul class="nav nav-pills d-block" id="pills-tab3" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link list-actions active" id="all-request"><svg
+                                            xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round"
+                                            class="feather feather-plus-circle">
+                                            <circle cx="12" cy="12" r="10"></circle>
+                                            <line x1="12" y1="8" x2="12" y2="16"></line>
+                                            <line x1="8" y1="12" x2="16" y2="12"></line>
+                                        </svg> New Requests</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link list-actions" id="approved"><svg
+                                            xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round"
+                                            class="feather feather-check-circle">
+                                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                                        </svg> Approved</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link list-actions" id="declined"><svg
+                                            xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round"
+                                            class="feather feather-x-circle">
+                                            <circle cx="12" cy="12" r="10"></circle>
+                                            <line x1="15" y1="9" x2="9" y2="15"></line>
+                                            <line x1="9" y1="9" x2="15" y2="15"></line>
+                                        </svg> Declined</a>
+                                </li>
+                            </ul>
+
+
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-12 text-center">
+                            <a id="btn-add-notes"
+                                class="btn btn-secondary w-100 _effect--ripple waves-effect waves-light"
+                                href="javascript:void(0);">Add Request</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="ct" class="note-container note-grid">
+                    @forelse($requests as $request)
+                    <div class="note-item all-request note-social">
+                        <div class="note-inner-content">
+                            <div class="note-content">
+                                <p class="note-title"
+                                    data-notetitle="New Request for {{$request->itemIn->product->name}}">New Request for
+                                    {{$request->itemIn->product->name}}</p>
+                                <p class="meta-time">{{\Carbon\Carbon::parse($request->created_at)->format('M d Y')}},
+                                    {{\Carbon\Carbon::parse($request->created_at)->format('g:i A')}}</p>
+                                <div class="note-description-content">
+                                    <p class="note-description"
+                                        data-notedescription="Curabitur facilisis vel elit sed dapibus sodales purus rhoncus.">
+                                        Curabitur facilisis vel elit sed dapibus sodales purus rhoncus.</p>
+                                </div>
+                            </div>
+                            <div class="note-action">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-star fav-note">
+                                    <polygon
+                                        points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+                                    </polygon>
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-trash-2 delete-note">
+                                    <polyline points="3 6 5 6 21 6"></polyline>
+                                    <path
+                                        d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
+                                    </path>
+                                    <line x1="10" y1="11" x2="10" y2="17"></line>
+                                    <line x1="14" y1="11" x2="14" y2="17"></line>
+                                </svg>
+                            </div>
+                            <div class="note-footer">
+                                <div class="tags-selector btn-group">
+                                    <a class="nav-link dropdown-toggle d-icon label-group" data-bs-toggle="dropdown"
+                                        href="#" role="button" aria-haspopup="true" aria-expanded="true">
+                                        <div class="tags">
+                                            <div class="g-dot-personal"></div>
+                                            <div class="g-dot-work"></div>
+                                            <div class="g-dot-social"></div>
+                                            <div class="g-dot-important"></div>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round"
+                                                class="feather feather-more-vertical">
+                                                <circle cx="12" cy="12" r="1"></circle>
+                                                <circle cx="12" cy="5" r="1"></circle>
+                                                <circle cx="12" cy="19" r="1"></circle>
+                                            </svg>
+                                        </div>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right d-icon-menu">
+                                        <a class="note-personal label-group-item label-personal dropdown-item position-relative g-dot-personal"
+                                            href="javascript:void(0);"> Personal</a>
+                                        <a class="note-work label-group-item label-work dropdown-item position-relative g-dot-work"
+                                            href="javascript:void(0);"> Work</a>
+                                        <a class="note-social label-group-item label-social dropdown-item position-relative g-dot-social"
+                                            href="javascript:void(0);"> Social</a>
+                                        <a class="note-important label-group-item label-important dropdown-item position-relative g-dot-important"
+                                            href="javascript:void(0);"> Important</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @empty
+                    <div class="note-item all-request note-social">
+                        <div class="note-inner-content">
+                            <div class="note-content">
+                                <p class="note-title" data-notetitle="Meeting with Kelly">Meeting with Kelly</p>
+                                <p class="meta-time">07 May</p>
+                                <div class="note-description-content">
+                                    <p class="note-description"
+                                        data-notedescription="Curabitur facilisis vel elit sed dapibus sodales purus rhoncus.">
+                                        Curabitur facilisis vel elit sed dapibus sodales purus rhoncus.</p>
+                                </div>
+                            </div>
+                            <div class="note-action">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-star fav-note">
+                                    <polygon
+                                        points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+                                    </polygon>
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-trash-2 delete-note">
+                                    <polyline points="3 6 5 6 21 6"></polyline>
+                                    <path
+                                        d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
+                                    </path>
+                                    <line x1="10" y1="11" x2="10" y2="17"></line>
+                                    <line x1="14" y1="11" x2="14" y2="17"></line>
+                                </svg>
+                            </div>
+                            <div class="note-footer">
+                                <div class="tags-selector btn-group">
+                                    <a class="nav-link dropdown-toggle d-icon label-group" data-bs-toggle="dropdown"
+                                        href="#" role="button" aria-haspopup="true" aria-expanded="true">
+                                        <div class="tags">
+                                            <div class="g-dot-personal"></div>
+                                            <div class="g-dot-work"></div>
+                                            <div class="g-dot-social"></div>
+                                            <div class="g-dot-important"></div>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round"
+                                                class="feather feather-more-vertical">
+                                                <circle cx="12" cy="12" r="1"></circle>
+                                                <circle cx="12" cy="5" r="1"></circle>
+                                                <circle cx="12" cy="19" r="1"></circle>
+                                            </svg>
+                                        </div>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right d-icon-menu">
+                                        <a class="note-personal label-group-item label-personal dropdown-item position-relative g-dot-personal"
+                                            href="javascript:void(0);"> Personal</a>
+                                        <a class="note-work label-group-item label-work dropdown-item position-relative g-dot-work"
+                                            href="javascript:void(0);"> Work</a>
+                                        <a class="note-social label-group-item label-social dropdown-item position-relative g-dot-social"
+                                            href="javascript:void(0);"> Social</a>
+                                        <a class="note-important label-group-item label-important dropdown-item position-relative g-dot-important"
+                                            href="javascript:void(0);"> Important</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @endforelse
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="notesMailModal" tabindex="-1" role="dialog" aria-labelledby="notesMailModalTitle"
+            aria-hidden="true" wire:ignore>
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title add-title" id="notesMailModalTitleeLabel">Add Task</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+                                <line x1="18" y1="6" x2="6" y2="18"></line>
+                                <line x1="6" y1="6" x2="18" y2="18"></line>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="notes-box">
+                            <div class="notes-content">
+                                <livewire:requisition.create />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn _effect--ripple waves-effect waves-light"
+                            data-bs-dismiss="modal">Discard</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div> --}}
+
+<div id="zero-config_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
+    <div class="dt--top-section">
+        <div class="row">
+            <div class="col-12 col-sm-6 d-flex justify-content-start">
+                <div class="dataTables_length" id="zero-config_length"><label>Results : <select
+                            name="zero-config_length" aria-controls="zero-config"
+                            wire:change="updatePage($event.target.value)" class="form-control">
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="50">50</option>
+                        </select></label>
+                </div>
+            </div>
+            <div
+                class="col-12 col-sm-6 d-flex justify-content-between justify-content-md-end align-items-center gap-0 gap-md-5 mt-sm-0 mt-3">
+                <div id="zero-config_filter" class="dataTables_filter"><label><svg xmlns="http://www.w3.org/2000/svg"
+                            width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="feather feather-search">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg><input type="search" wire:model.live="search" class="form-control" placeholder="Search..."
+                            aria-controls="zero-config"></label></div>
+                <a href="{{route('requisition.create')}}"
+                    class="form-create flex justify-content-between align-items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-plus-circle">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="8" x2="12" y2="16"></line>
+                        <line x1="8" y1="12" x2="16" y2="12"></line>
+                    </svg>
+                    Create
+                </a>
+
+            </div>
+        </div>
+    </div>
+    {{-- <div class="row">
+        <div class="col-lg-4">
+            <div class="card style-4">
+                <div class="card-body pt-3">
+
+                    <div class="media mt-0 mb-3">
+                        <div class="">
+                            <div class="avatar avatar-md avatar-indicators avatar-online me-3">
+                                <img alt="avatar" src="../src/assets/img/profile-2.jpeg"
+                                    class="rounded-circle avatar-img">
+                            </div>
+                        </div>
+                        <div class="media-body">
+                            <h4 class="media-heading mb-0">Kelly Young</h4>
+                            <p class="media-text">Project Manager</p>
+                        </div>
+                    </div>
+                    <p class="card-text mt-4 mb-0">Powerful CRM admin dashboard template based on Bootstrap and Sass for
+                        all kind of back-end projects.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="col-6">
+                            <a href="javascript:void(0);"
+                                class="btn btn-dark w-100 _effect--ripple waves-effect waves-light">Cancel</a>
+                        </div>
+                        <div class="col-6">
+                            <a href="javascript:void(0);"
+                                class="btn btn-secondary w-100 _effect--ripple waves-effect waves-light">Approve</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> --}}
+    <div class="table-responsive">
+        <table id="zero-config" class="table table-striped dt-table-hover dataTable" style="width:100%" role="grid"
+            aria-describedby="zero-config_info">
+            <thead>
+                <tr role="row">
+                    <th>S.N.</th>
+                    <th>Name</th>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Requested At</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody wire:poll.keep-alive>
+                @forelse($requests as $request)
+
+                <tr role="row">
+                    <td>{{$loop->iteration}}</td>
+                    <td class="d-flex gap-3">
+                        <div class="avatar avatar-sm">
+                            <span class="avatar-title rounded-circle">{{
+                                collect(explode(' ', $request->employee->name))
+                                ->map(fn($name) => strtoupper(substr($name, 0, 1)))
+                                ->take(2)
+                                ->implode('')
+                                }}</span>
+                        </div>
+                        <div class="d-flex flex-column">
+                            <span>{{$request->employee->name}}</span>
+                            <span>{{$request->employee->department->name}}</span>
+                        </div>
+                    </td>
+                    <td>{{$request->itemIn->product->name ?? ''}}</td>
+                    <td>{{$request->quantity}}</td>
+                    <td>{{\Carbon\Carbon::parse($request->created_at)->format('M d Y')}},  {{\Carbon\Carbon::parse($request->created_at)->format('g:i A')}}</td>
+                    <td class="d-flex gap-3">
+                        <a title="approve" wire:click="approve('{{ $request->slug }}')" role="button">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                        </a>
+                        
+                        <a title="decline" wire:click="decline('{{ $request->slug }}')" role="button">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                        </a>
+
+                    </td>
+                </tr>
+                @empty
+                <tr>
+                    <td colspan="6" class="text-center">No records found</td>
+                </tr>
+
+                @endforelse
+            </tbody>
+
+        </table>
     </div>
 </div>

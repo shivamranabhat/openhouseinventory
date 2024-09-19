@@ -15,4 +15,8 @@ class Category extends Model
     {
         return $this->hasMany(Product::class);
     }
+    public function prefix()
+    {
+        return $this->hasOne(Prefix::class);
+    }
 }

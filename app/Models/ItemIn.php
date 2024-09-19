@@ -15,7 +15,6 @@ class ItemIn extends Model
          'unit_price',
          'total', 
          'purchase_date', 
-         'prefix',
          'rack_no', 
          'slug', 
      ];

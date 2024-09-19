@@ -90,6 +90,50 @@ class PageController extends Controller
     {
         return view('pages.stock.edit',compact('slug'));
     }
+    public function prefix()
+    {
+        return view('pages.prefix.index');
+    }
+    public function prefixCreate()
+    {
+        return view('pages.prefix.create');
+    }
+    public function prefixEdit($slug)
+    {
+        return view('pages.prefix.edit',compact('slug'));
+    }
+    public function bill()
+    {
+        return view('pages.bill.index');
+    }
+    public function billPreview($slug)
+    {
+        return view('pages.bill.preview',compact('slug'));
+    }
+    public function billCreate()
+    {
+        return view('pages.bill.create');
+    }
+    public function billEdit($slug)
+    {
+        return view('pages.bill.edit',compact('slug'));
+    }
+    public function payment()
+    {
+        return view('pages.payment.index');
+    }
+    public function paymentPreview($slug)
+    {
+        return view('pages.payment.preview',compact('slug'));
+    }
+    public function paymentCreate()
+    {
+        return view('pages.payment.create');
+    }
+    public function paymentEdit($slug)
+    {
+        return view('pages.payment.edit',compact('slug'));
+    }
     public function requisition()
     {
         return view('pages.requisition.index');
@@ -101,5 +145,13 @@ class PageController extends Controller
     public function requisitionEdit($slug)
     {
         return view('pages.requisition.edit',compact('slug'));
+    }
+    public function approve()
+    {
+        return view('pages.requisition.approve.index');
+    }
+    public function decline()
+    {
+        return view('pages.requisition.decline.index');
     }
 }

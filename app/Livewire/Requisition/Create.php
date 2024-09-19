@@ -8,7 +8,6 @@ use App\Models\Requisition;
 use Livewire\Attributes\Validate;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
-use Livewire\Attributes\On;
 
 class Create extends Component
 {
@@ -19,16 +18,38 @@ class Create extends Component
     // #[Validate('required')]
     // public $employee_id;
 
+    public function checkQuantity()
+    {
+        $item = ItemIn::find($this->item_in_id);
+        $currentStock = $item->stock;
+        $requestStock = $this->quantity;
+        if($currentStock >= $requestStock)
+        {
+        }
+        else{
+            session()->flash('stock','Stock:alert! Request quantity is not available');
+        }
+    }
     public function save()
     {
         $validated = $this->validate();
         $createdAt = Carbon::now('Asia/Kathmandu');
         sleep(1);
         $slug = Str::slug('REQ'.'-'.$this->quantity.'-'.now());
-        Requisition::create($validated+['slug'=>$slug,'employee_id'=>3,'created_at'=>$createdAt]);
-        session()->flash('success','Request sent successfully');
-        $this->reset();
-        $this->dispatch('request-added');
+        $item = ItemIn::find($this->item_in_id);
+        $currentStock = $item->stock;
+        $requestStock = $this->quantity;
+        if($currentStock >= $requestStock)
+        {
+            $updatedStock = $currentStock - $requestStock;
+            $item->update(['stock'=>$updatedStock]);
+            Requisition::create($validated+['slug'=>$slug,'employee_id'=>3,'created_at'=>$createdAt]);
+            session()->flash('success','Request sent successfully');
+            $this->reset();
+        }
+        else{
+            session()->flash('success','Stock:alert! Request item with ":input" is not available');
+        }
     }
 
     public function render()
