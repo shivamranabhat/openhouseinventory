@@ -21,6 +21,8 @@ return new class extends Migration
             $table->string('cheque_no')->nullable();
             $table->string('image')->nullable();
             $table->string('total');
+            $table->string('paid');
+            $table->string('remain');
             $table->string('slug');
             $table->timestamps();
         });

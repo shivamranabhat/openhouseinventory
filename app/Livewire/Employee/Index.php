@@ -34,7 +34,7 @@ class Index extends Component
     {
         $employees = Employee::where(function ($query) {
             $query->where('name', 'like', '%' . $this->search . '%');
-        })->paginate($this->page);
+        })->latest()->paginate($this->page);
         return view('livewire.employee.index',['employees'=>$employees]);
     }
 }

@@ -13,6 +13,7 @@ Route::prefix('/department')->controller(PageController::class)->group(function(
 Route::prefix('/vendor')->controller(PageController::class)->group(function(){
     Route::get('','vendor')->name('vendors');
     Route::get('/create','vendorCreate')->name('vendor.create');
+    Route::get('/transaction/{slug}','transaction')->name('vendor.trans');
     Route::get('/edit/{slug}','vendorEdit')->name('vendor.edit');
 });
 Route::prefix('/category')->controller(PageController::class)->group(function(){

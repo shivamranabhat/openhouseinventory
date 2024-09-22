@@ -348,7 +348,7 @@
                         </ul>
                     </li>
                     <li
-                        class="menu {{request()->segment(1) == 'stock-in' || request()->segment(1)=='bill' ||request()->segment(1) == 'payment_out'  ? 'active' : '' }}">
+                        class="menu {{request()->segment(1) == 'stock-in' || request()->segment(1)=='bill' ||request()->segment(1) == 'payment-out'  ? 'active' : '' }}">
                         <a href="#requisition" data-bs-toggle="collapse" aria-expanded="false"
                             class="dropdown-toggle collapsed">
                             <div class="">

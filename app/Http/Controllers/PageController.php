@@ -26,6 +26,10 @@ class PageController extends Controller
     {
         return view('pages.vendor.create');
     }
+    public function transaction($slug)
+    {
+        return view('pages.vendor.transaction',compact('slug'));
+    }
     public function vendorEdit($slug)
     {
         return view('pages.vendor.edit',compact('slug'));

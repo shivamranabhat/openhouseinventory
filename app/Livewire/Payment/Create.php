@@ -16,28 +16,23 @@ class Create extends Component
     use WithFileUploads;
     public $receipt_no;
     public $type;
-    public $amount;
     public $payment_date;
     public $total;
+    public $paid;
     public $cheque_no;
     public $vendor_id;
     public $image;
     protected function rules()
     {
         $rules = [
-            'vendor_id' => 'required|unique:employees,name',
+            'vendor_id' => 'required',
             'receipt_no' => 'required',
             'type' => 'required',
             'payment_date' => 'required',
             'cheque_no' => 'nullable',
-            'total' => 'required',
+            'paid' => 'required',
             'image' => 'nullable|image|max:1024'
         ];
-        // if (in_array($this->type, ['Online Banking', 'Cheque'])) {
-        //     $rules['image'] = 'required|image|max:1024';
-        // } else {
-        //     $rules['image'] = 'nullable|image|max:1024';
-        // }
         if ($this->type === 'Cheque') {
             $rules['cheque_no'] = 'required';
         } else {
@@ -55,45 +50,91 @@ class Create extends Component
         ];
     }
 
-    // public function showAmount($value)
-    // {
-    //     if ($value) {
-    //         $this->vendor_id = $value;
-    //         $this->amount = ItemIn::where('vendor_id', $value)
-    //             ->where('status', 'Pending')
-    //             ->selectRaw('SUM(total) as total_sum')
-    //             ->groupBy('vendor_id')
-    //             ->first();
-    //         if (!$this->amount) {
-    //             $this->amount = null;
-    //         }
-    //     } else {
-    //         $this->amount = null;
-    //     }
-    // }
 
-    public function payMethod($value)
-    {
-        $this->type= $value;
-    }
+
     public function save()
     {
         $validated = $this->validate();
         $vendor = Vendor::find($this->vendor_id);
+        $this->total = ItemIn::where('vendor_id', $this->vendor_id)
+        ->where('status', 'Pending')
+        ->selectRaw('SUM(total) as total_sum')
+        ->groupBy('vendor_id')
+        ->first();
         $slug = Str::slug('PAY'.'-'.$vendor->name.'-'.now());
         if ($this->image) {
             $fileName = $this->image->getClientOriginalName();
             $filePath = $this->image->storeAs('payments', $fileName, 'public');
-            $validated['image'] = $filePath;  // Add the stored image path to the validated data
+            $validated['image'] = $filePath;
         }
-        
-        // Create PaymentOut record with validated data
-        PaymentOut::create($validated + ['slug' => $slug]);
-        
+        sleep(1);
+
+        if ($this->total) {
+            $previousRemain = PaymentOut::where('vendor_id',$this->vendor_id)->first();
+            if(!$previousRemain)
+            {
+                PaymentOut::create($validated + ['total'=>$this->total->total_sum,'remain'=>$remain,'slug' => $slug]);
+            }
+            $check = (float)$this->total->total_sum + (float)$previousRemain->remain;
+            if($check >= $this->paid)
+            {
+                $remain = (float)$this->total->total_sum - (float)$this->paid;
+                //Update the pending status of the ItemIn
+                ItemIn::where('vendor_id', $this->vendor_id)
+                ->where('status', 'Pending') 
+                ->update(['status' => 'Paid']); 
+               
+                // Create PaymentOut record with validated data
+                PaymentOut::create($validated + ['total'=>$this->total->total_sum+$previousRemain->remain,'remain'=>$remain+$previousRemain->remain,'slug' => $slug]);
+                $previousRemain->update(['remain'=>0]);
+            }
+            else{
+                session()->flash('error', 'Total Amount is Rs.'. $check);
+            }
+        }
+        else{
+            
+            $previousRemain = PaymentOut::where('vendor_id',$this->vendor_id)->where('remain','<>',0)->first();
+           
+            if(!$previousRemain)
+            {
+                session()->flash('error', 'Not found/Amount Paid');
+            }
+            if($this->paid == $previousRemain->remain)
+            {
+                // Create PaymentOut record with validated data
+                PaymentOut::create($validated + ['total'=>$previousRemain->remain,'remain'=>0,'slug' => $slug]);
+                $previousRemain->update(['remain'=>0]);
+            }
+            else{
+                session()->flash('error', 'Previous Due remaining Rs.'. $previousRemain->remain);
+            }
+        }
         // Display success message and reset form fields
         session()->flash('success', 'Payment data stored successfully');
         $this->reset();
-    
+    }
+    public function showAmount($value)
+    {
+        
+        if ($value) {
+            $this->vendor_id = $value;
+            $this->total = ItemIn::where('vendor_id', $value)
+                ->where('status', 'Pending')
+                ->selectRaw('SUM(total) as total_sum')
+                ->groupBy('vendor_id')
+                ->first();
+            if (!$this->total) {
+                $this->total = null;
+            }
+        } else {
+            $this->total = null;
+        }
+    }
+
+    public function payMethod($method)
+    {
+        $this->type= $method;
     }
     public function render()
     {

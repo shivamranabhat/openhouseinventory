@@ -40,18 +40,18 @@
                                                 @endforelse
                                             </select>
                                             {{-- @if($vendor_id)
-                                            @if($amount)
-                                            <label>Total Remaining: Rs. {{ number_format($amount->total_sum,0)
+                                            @if($total)
+                                            <label>Total Remaining: Rs. {{ number_format($total->total_sum,0)
                                                 }}</label>
                                             @else
                                             <label>Paid / Amount not found</label>
                                             @endif
-                                            @endif --}}
+                                            @endif
                                             @error('vendor_id')
                                             <div class="feedback text-danger">
                                                 Please select a vendor.
                                             </div>
-                                            @enderror
+                                            @enderror --}}
                                         </div>
                                     </div>
 
@@ -102,13 +102,16 @@
                                     <div class="col-md-4">
                                         <div class="form-group mb-4">
                                             <label for="amount">Amount</label>
-                                            <input type="text" class="form-control form-control-sm" wire:model='total'
-                                                placeholder="Amount">
-                                            @error('total')
+                                            <input type="text" class="form-control form-control-sm" wire:model='paid'
+                                                placeholder="Paid Amount">
+                                            @error('paid')
                                             <div class="feedback text-danger">
                                                 Please provide an amount.
                                             </div>
                                             @enderror
+                                            <div class="feedback text-danger">
+                                                {{session('error')}}
+                                            </div>
                                         </div>
                                     </div>
 

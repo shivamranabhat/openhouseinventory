@@ -16,6 +16,8 @@ class PaymentOut extends Model
        'cheque_no',
        'image',
        'total',
+       'paid',
+       'remain',
        'slug',
     ];
     public function vendor()

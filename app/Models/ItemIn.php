@@ -16,6 +16,7 @@ class ItemIn extends Model
          'total', 
          'purchase_date', 
          'rack_no', 
+         'status',
          'slug', 
      ];
 
