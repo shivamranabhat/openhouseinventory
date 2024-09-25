@@ -16,8 +16,16 @@ class Vendor extends Model
      {
         return $this->hasMany(ItemIn::class);
      }
+     public function bills()
+     {
+        return $this->hasMany(Bill::class);
+     }
      public function paymentOuts()
      {
         return $this->hasMany(PaymentOut::class);
+     }
+     public function cheques()
+     {
+         return $this->hasMany(Cheque::class);
      }
 }

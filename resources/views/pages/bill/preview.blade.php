@@ -17,7 +17,7 @@
             </a>
         </div>
         <div class="mb-4 layout-spacing layout-top-spacing">
-            <livewire:bill.preview />
+            <livewire:bill.preview :slug="$slug"/>
         </div>
     </div>
 </x-layouts.app>

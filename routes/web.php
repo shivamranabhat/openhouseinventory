@@ -47,6 +47,11 @@ Route::prefix('/prefix')->controller(PageController::class)->group(function(){
     Route::get('/create','prefixCreate')->name('prefix.create');
     Route::get('/edit/{slug}','prefixEdit')->name('prefix.edit');
 });
+Route::prefix('/charge')->controller(PageController::class)->group(function(){
+    Route::get('','charge')->name('charges');
+    Route::get('/create','chargeCreate')->name('charge.create');
+    Route::get('/edit/{slug}','chargeEdit')->name('charge.edit');
+});
 Route::prefix('/bill')->controller(PageController::class)->group(function(){
     Route::get('','bill')->name('bills');
     Route::get('/create','billCreate')->name('bill.create');
@@ -68,4 +73,7 @@ Route::prefix('/approved')->controller(PageController::class)->group(function(){
 });
 Route::prefix('/declined')->controller(PageController::class)->group(function(){
     Route::get('','decline')->name('declines');
+});
+Route::prefix('/cheques')->controller(PageController::class)->group(function(){
+    Route::get('','cheque')->name('cheques');
 });

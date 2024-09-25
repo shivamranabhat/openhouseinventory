@@ -42,11 +42,10 @@
                 <tr role="row">
                     <th></th>
                     <th>S.N.</th>
-                    <th>Bill NO</th>
-                    <th>Name</th>
+                    <th>Receipt N.o.</th>
+                    <th>Vendor</th>
                     <th>Contact Person</th>
-                    <th>Status</th>
-                    <th>Amount</th>
+                    <th>Bill Date</th>
                     <th>Created At</th>
                     <th>Action</th>
                 </tr>
@@ -61,13 +60,19 @@
                     </td>
                     <td>1</td>
                     <td class="sorting_1"><a href="{{route('bill.preview',$bill->slug)}}"><span
-                                class="inv-number">#081451</span></a></td>
+                                class="inv-number">{{$bill->receipt_no}}</span></a></td>
                     <td>
                         <p class="align-self-center mb-0 user-name"> {{$bill->vendor->name}} </p>
                     </td>
                     <td> {{$bill->vendor->contact_person}}</td>
-                    <td><span class="badge badge-light-success inv-status">Paid</span></td>
-                    <td><span class="inv-amount">{{number_format($bill->total_sum, 2)}}</span></td>
+                    <td><span class="inv-date"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                <line x1="16" y1="2" x2="16" y2="6"></line>
+                                <line x1="8" y1="2" x2="8" y2="6"></line>
+                                <line x1="3" y1="10" x2="21" y2="10"></line>
+                            </svg> {{\Carbon\Carbon::parse($bill->bill_date)->format('M d Y')}} </span></td>
                     <td><span class="inv-date"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
                                 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                 stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar">
@@ -85,7 +90,7 @@
                                 <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
                             </svg></a>
 
-                        <a class="badge badge-light-danger text-start action-delete" href="javascript:void(0);"><svg
+                        <a class="badge badge-light-danger text-start action-delete" href="{{route('bill.preview',$bill->slug)}}"><svg
                                 xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                 stroke-linejoin="round" class="feather feather-eye">
@@ -97,7 +102,7 @@
                 </tr>
                 @empty 
                 <tr>
-                    <td colspan="9" class="text-center">No records found</td>
+                    <td colspan="7" class="text-center">No records found</td>
                 </tr>
                 @endforelse
                

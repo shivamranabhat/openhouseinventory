@@ -89,16 +89,7 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    @if($type=='Cheque')
-                                    <div class="col-md-2">
-                                        <div class="form-group mb-4">
-                                            <label for="cheque_no">Cheque N.o.</label>
-                                            <input type="text" class="form-control form-control-sm"
-                                                wire:model='cheque_no' placeholder="Cheque no">
-                                            
-                                        </div>
-                                    </div>
-                                    @endif
+                                    
                                     <div class="col-md-4">
                                         <div class="form-group mb-4">
                                             <label for="amount">Amount</label>
@@ -114,7 +105,28 @@
                                             </div>
                                         </div>
                                     </div>
-
+                                    @if($type=='Cheque')
+                                    <div class="col-md-6">
+                                        <div class="form-group mb-4">
+                                            <label for="cheque_no">Cheque N.o.</label>
+                                            <input type="text" class="form-control form-control-sm"
+                                                wire:model='cheque_no' placeholder="Cheque no">
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group mb-4">
+                                            <label for="date">Withdraw Date</label>
+                                            <input type="text" class="form-control form-control-sm flatpickr-input"
+                                                id="date" wire:model='withdraw_date' placeholder="Date">
+                                        </div>
+                                        @error('withdraw_date')
+                                        <div class="feedback text-danger">
+                                            Please provide a withdraw date.
+                                        </div>
+                                        @enderror
+                                    </div>
+                                    @endif
                                     <div class="col-md-8 mb-4">
                                         <div x-data="fileUpload()">
                                             <label for="fileInput">

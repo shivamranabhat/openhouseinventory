@@ -36,4 +36,8 @@ class ItemIn extends Model
      {
         return $this->belongsTo(Vendor::class);
      }
+     public function billProducts()
+     {
+         return $this->hasMany(BillProduct::class);
+     }
 }

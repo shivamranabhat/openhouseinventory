@@ -13,7 +13,7 @@
             </a>
         </div>
         <div class="mb-4 layout-spacing layout-top-spacing">
-            <livewire:charge.create />
+            <livewire:charge.edit :slug="$slug"/>
         </div>
     </div>
 </x-layouts.app-ii>

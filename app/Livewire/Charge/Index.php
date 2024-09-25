@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Livewire\Bill;
+namespace App\Livewire\Charge;
 
 use Livewire\Component;
-use App\Models\Bill;
+use App\Models\ExtraCharge;
 use Livewire\WithPagination;
 use Livewire\Attributes\Url;
 
@@ -20,11 +20,16 @@ class Index extends Component
         $this->resetPage();
     }
 
-
+    public function remove($slug)
+    {
+       
+    }
 
     public function render()
     {
-        $bills = Bill::latest()->paginate($this->page);
-        return view('livewire.bill.index',['bills'=>$bills]);
+        $charges = ExtraCharge::where(function ($query) {
+            $query->where('name', 'like', '%' . $this->search . '%');
+        })->latest()->paginate($this->page);
+        return view('livewire.charge.index',['charges'=>$charges]);
     }
 }

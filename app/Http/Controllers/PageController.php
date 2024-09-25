@@ -46,6 +46,22 @@ class PageController extends Controller
     {
         return view('pages.category.edit',compact('slug'));
     }
+    public function cheque()
+    {
+        return view('pages.cheque.index');
+    }
+    public function charge()
+    {
+        return view('pages.charge.index');
+    }
+    public function chargeCreate()
+    {
+        return view('pages.charge.create');
+    }
+    public function chargeEdit($slug)
+    {
+        return view('pages.charge.edit',compact('slug'));
+    }
     public function inventory()
     {
         return view('pages.inventory.index');

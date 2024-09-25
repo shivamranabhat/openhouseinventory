@@ -4,6 +4,7 @@ namespace App\Livewire\Payment;
 
 use Livewire\Component;
 use App\Models\ItemIn;
+use App\Models\Cheque;
 use App\Models\Vendor;
 use App\Models\PaymentOut;
 use Livewire\Attributes\Validate;
@@ -80,7 +81,10 @@ class Edit extends Component
     
         // Find the vendor
         $vendor = Vendor::find($this->vendor_id);
-    
+        if($this->type === 'Cheque')
+        {
+            Cheque::create(['vendor_id'=>$this->vendor_id,'pay_date'=>$this->payment_date]);
+        }
         // Calculate the total amount for pending status
         $this->total = ItemIn::where('vendor_id', $this->vendor_id)
             ->where('status', 'Pending')
