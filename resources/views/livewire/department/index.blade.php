@@ -8,6 +8,7 @@
                             <option value="10">10</option>
                             <option value="20">20</option>
                             <option value="50">50</option>
+                            <option value="100">100</option>
                         </select></label>
                 </div>
             </div>
@@ -92,20 +93,5 @@
         </table>
     </div>
     
-    <div class="dt--bottom-section d-sm-flex justify-content-sm-between text-center">
-        <div class="dt--pages-count mb-sm-0 mb-3">
-            <div class="dataTables_info" role="status" aria-live="polite">
-                Showing page {{ $departments->currentPage() }} of {{ $departments->lastPage() }}
-            </div>
-        </div>
-        <div class="paginating-container pagination-default">
-            <ul class="pagination">
-                <li class="prev"><a href="javascript:void(0);">Prev</a></li>
-                <li><a href="javascript:void(0);">1</a></li>
-                <li class="active"><a href="javascript:void(0);">2</a></li>
-                <li><a href="javascript:void(0);">3</a></li>
-                <li class="next"><a href="javascript:void(0);">Next</a></li>
-            </ul>
-        </div>
-    </div>
+    {{$departments->links('vendor.pagination.pagination')}}
 </div>

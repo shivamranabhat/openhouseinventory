@@ -8,6 +8,7 @@
                             <option value="10">10</option>
                             <option value="20">20</option>
                             <option value="50">50</option>
+                            <option value="100">100</option>
                         </select></label>
                 </div>
             </div>
@@ -82,7 +83,7 @@
                                 <line x1="3" y1="10" x2="21" y2="10"></line>
                             </svg> {{\Carbon\Carbon::parse($bill->created_at)->format('M d Y')}} </span></td>
                     <td>
-                        <a class="badge badge-light-primary text-start me-2 action-edit" href="javascript:void(0);"><svg
+                        <a class="badge badge-light-primary text-start me-2 action-edit" href="{{route('bill.edit',$bill->slug)}}"><svg
                                 xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                 stroke-linejoin="round" class="feather feather-edit-3">

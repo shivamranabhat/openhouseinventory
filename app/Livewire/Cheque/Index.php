@@ -28,7 +28,7 @@ class Index extends Component
 
     public function render()
     {
-        $cheques = Cheque::where(function ($query) {
+        $cheques = Cheque::latest()->where(function ($query) {
             $query->where('status', 'like', '%' . $this->search . '%')
                   ->orWhere('withdraw_date', 'like', '%' . $this->search . '%')
                   ->orWhere('pay_date', 'like', '%' . $this->search . '%')

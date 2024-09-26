@@ -65,10 +65,6 @@ class Create extends Component
         ->groupBy('vendor_id')
         ->first();
         $this->slug = Str::slug('PAY'.'-'.$vendor->name.'-'.now());
-        if($this->type === 'Cheque')
-        {
-            Cheque::create(['vendor_id'=>$this->vendor_id,'pay_date'=>$this->payment_date,'withdraw_date'=>$this->withdraw_date,'slug'=>$this->slug]);
-        }
         if ($this->image) {
             $fileName = $this->image->getClientOriginalName();
             $filePath = $this->image->storeAs('payments', $fileName, 'public');
@@ -80,7 +76,7 @@ class Create extends Component
             $previousRemain = PaymentOut::where('vendor_id',$this->vendor_id)->first();
             if(!$previousRemain)
             {
-                PaymentOut::create($validated + ['total'=>$this->total->total_sum,'remain'=>$remain,'slug' => $this->slug]);
+                $paymentOut = PaymentOut::create($validated + ['total'=>$this->total->total_sum,'remain'=>$remain,'slug' => $this->slug]);
             }
             $check = (float)$this->total->total_sum + (float)$previousRemain->remain;
             if($check >= $this->paid)
@@ -92,7 +88,7 @@ class Create extends Component
                 ->update(['status' => 'Paid']); 
                
                 // Create PaymentOut record with validated data
-                PaymentOut::create($validated + ['total'=>$this->total->total_sum+$previousRemain->remain,'remain'=>$remain+$previousRemain->remain,'slug' => $this->slug]);
+                $paymentOut = PaymentOut::create($validated + ['total'=>$this->total->total_sum+$previousRemain->remain,'remain'=>$remain+$previousRemain->remain,'slug' => $this->slug]);
                 $previousRemain->update(['remain'=>0]);
             }
             else{
@@ -107,7 +103,7 @@ class Create extends Component
                 if($this->paid == $previousRemain->remain)
                 {
                     // Create PaymentOut record with validated data
-                    PaymentOut::create($validated + ['total'=>$previousRemain->remain,'remain'=>0,'slug' => $this->slug]);
+                    $paymentOut = PaymentOut::create($validated + ['total'=>$previousRemain->remain,'remain'=>0,'slug' => $this->slug]);
                     $previousRemain->update(['remain'=>0]);
                 }
                 else{
@@ -117,6 +113,10 @@ class Create extends Component
             else{
                 session()->flash('error', 'Not found/Amount Paid');
             }
+        }
+        if($this->type === 'Cheque')
+        {
+            Cheque::create(['vendor_id'=>$this->vendor_id,'payment_out_id'=>$paymentOut->id,'pay_date'=>$this->payment_date,'withdraw_date'=>$this->withdraw_date,'slug'=>$this->slug]);
         }
         // Display success message and reset form fields
         session()->flash('success', 'Payment data stored successfully');

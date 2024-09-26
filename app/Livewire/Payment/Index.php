@@ -27,7 +27,7 @@ class Index extends Component
 
     public function render()
     {
-        $payments = PaymentOut::where(function ($query) {
+        $payments = PaymentOut::latest()->where(function ($query) {
             $query->where('cheque_no', 'like', '%' . $this->search . '%')
                   ->orWhere('type', 'like', '%' . $this->search . '%')
                   ->orWhere('payment_date', 'like', '%' . $this->search . '%')

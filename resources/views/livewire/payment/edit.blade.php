@@ -74,23 +74,10 @@
                                                 Please provide a payment type.
                                             </div>
                                             @enderror
-                                            @error('cheque_no')
-                                            <div class="feedback text-danger">
-                                               {{$message}}
-                                            </div>
-                                            @enderror
+                                           
                                         </div>
                                     </div>
-                                    @if($type=='Cheque')
-                                    <div class="col-md-2">
-                                        <div class="form-group mb-4">
-                                            <label for="cheque_no">Cheque N.o.</label>
-                                            <input type="text" class="form-control form-control-sm"
-                                                wire:model='cheque_no' placeholder="Cheque no">
-                                            
-                                        </div>
-                                    </div>
-                                    @endif
+
                                     <div class="col-md-4">
                                         <div class="form-group mb-4">
                                             <label for="amount">Amount</label>
@@ -101,11 +88,61 @@
                                                 Please provide an amount.
                                             </div>
                                             @enderror
+                                            @if(session()->has('error'))
+                                            <div class="feedback text-danger">
+                                                {{ session('error') }}
+                                            </div>
+                                            @endif
                                         </div>
                                     </div>
-
+                                    @if($type=='Cheque')
+                                    <div class="col-md-6">
+                                        <div class="form-group mb-4">
+                                            <label for="cheque_no">Cheque N.o.</label>
+                                            <input type="text" class="form-control form-control-sm"
+                                                wire:model='cheque_no' placeholder="Cheque no">
+                                                @error('cheque_no')
+                                                <div class="feedback text-danger">
+                                                    {{$message}}
+                                                </div>
+                                                @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group mb-4">
+                                            <label for="date">Withdraw Date</label>
+                                            <input type="text" class="form-control form-control-sm flatpickr-input"
+                                                id="withdraw" wire:model='withdraw_date' placeholder="Withdraw Date">
+                                        </div>
+                                        @error('withdraw_date')
+                                        <div class="feedback text-danger">
+                                            Please provide a withdraw date.
+                                        </div>
+                                        @enderror
+                                    </div>
+                                    @endif
                                     <div class="col-md-8 mb-4">
+                                        @if($payment->image && $type !=='Cash')
+                                        <div class="d-flex align-items-center gap-5">
+                                            <a role="button" class="mt-2" wire:click='deleteImage'>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                    class="feather feather-trash">
+                                                    <polyline points="3 6 5 6 21 6"></polyline>
+                                                    <path
+                                                        d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
+                                                    </path>
+                                                </svg>
+                                            </a>
+                                            <a href="{{ asset('storage/' . $payment->image) }}" target="_blank"
+                                                role="button"><img src="{{ asset('storage/' . $payment->image) }}"
+                                                    alt="Existing Image" class="mt-3" style="max-width: 150px;">
+                                            </a>
+                                        </div>
+                                        @elseif($type !=='Cash')
                                         <div x-data="fileUpload()" class="d-flex gap-3">
+
                                             <label for="fileInput">
                                                 <svg xmlns="http://www.w3.org/2000/svg" role="button" width="24"
                                                     height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -117,31 +154,37 @@
                                                     <circle cx="12" cy="13" r="4"></circle>
                                                 </svg>
                                             </label>
-                                            <input type="file" class="d-none" id="fileInput" wire:model='image'
+                                            <input type="file" class="d-none" id="fileInput" wire:model='newImage'
                                                 @change="showPreview">
 
                                             <!-- Image preview -->
                                             <template x-if="imageUrl">
-                                                <img :src="imageUrl" alt="Image Preview" class="image-preview mt-3" style="max-width: 100px;">
+                                                <img :src="imageUrl" alt="Image Preview" class="image-preview mt-3"
+                                                    style="max-width: 150px;">
                                             </template>
-                                        
-                                            <!-- Show existing image if available -->
-                                            @if ($payment && $payment->image)
-                                                <img src="{{ asset('storage/' . $payment->image) }}" alt="Existing Image" class="mt-3" style="max-width: 100px;">
-                                            @endif
                                         </div>
+                                        @endif
                                         @error('image')
                                         <div class="feedback text-danger">
                                             {{$message}}
                                         </div>
                                         @enderror
+
                                     </div>
+                                    @if($type=='Cheque' && $newImage == '' && $image == '' || $type=='Online Banking' && $newImage == '' && $image == '')
+                                    <div class="col-12">
+                                        <button class="btn btn-primary _effect--ripple waves-effect waves-light"
+                                            disabled>Submit
+                                        </button>
+                                    </div>
+                                    @else
                                     <div class="col-12">
                                         <button class="btn btn-primary _effect--ripple waves-effect waves-light"
                                             type="submit">
                                             <x-spinner />Submit
                                         </button>
                                     </div>
+                                    @endif
                                 </div>
                             </div>
                         </div>

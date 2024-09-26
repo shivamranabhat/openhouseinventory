@@ -3,14 +3,13 @@
 namespace App\Livewire\Payment;
 
 use Livewire\Component;
-use App\Models\ItemIn;
 use App\Models\Cheque;
 use App\Models\Vendor;
 use App\Models\PaymentOut;
 use Livewire\Attributes\Validate;
 use Illuminate\Support\Str;
 use Livewire\WithFileUploads;
-
+use Livewire\Attributes\On;
 
 class Edit extends Component
 {
@@ -19,12 +18,14 @@ class Edit extends Component
     public $receipt_no;
     public $type;
     public $payment_date;
-    public $total;
+    public $withdraw_date='';
     public $paid;
     public $cheque_no;
     public $vendor_id;
     public $image;
+    public $newImage;
     public $payment;
+    public $cheque;
 
     protected function rules()
     {
@@ -35,13 +36,8 @@ class Edit extends Component
             'payment_date' => 'required',
             'cheque_no' => 'nullable',
             'paid' => 'required',
-            'image' => 'nullable|image|max:1024'
+            // 'image' => 'nullable|image|max:1024|mimes:jpg,png,webp,jpeg'
         ];
-        // if (in_array($this->type, ['Online Banking', 'Cheque'])) {
-        //     $rules['image'] = 'required|image|max:1024';
-        // } else {
-        //     $rules['image'] = 'nullable|image|max:1024';
-        // }
         if ($this->type === 'Cheque') {
             $rules['cheque_no'] = 'required';
         } else {
@@ -62,6 +58,11 @@ class Edit extends Component
     public function mount()
     {
         $this->payment = PaymentOut::whereSlug($this->slug)->first();
+        $this->cheque = Cheque::where('payment_out_id',$this->payment->id)->first();
+        if($this->cheque)
+        {
+            $this->withdraw_date = $this->cheque->withdraw_date;
+        }
         $this->vendor_id = $this->payment->vendor_id;
         $this->receipt_no = $this->payment->receipt_no;
         $this->type = $this->payment->type;
@@ -70,109 +71,101 @@ class Edit extends Component
         $this->paid = $this->payment->paid;
         $this->image = $this->payment->image;
     }
+   
+    public function update()
+    {
+        $validated = $this->validate();
+
+        $vendor = Vendor::find($this->vendor_id);
+
+        $slug = Str::slug('PAY'.'-'.$vendor->name.'-'.now());
+        $newAmount = $this->paid;
+        $prevAmount = $this->payment->paid;
+        $this->updateImage();
+        if($newAmount >=$prevAmount)
+        {
+            $updatedAmount = (int)$newAmount - (int)$prevAmount;
+            if($this->payment->remain>=$updatedAmount)
+            {
+                $updatedRemain = (int) $this->payment->remain - (int) $updatedAmount;
+                $this->payment->update([
+                    'vendor_id'=>$this->vendor_id,
+                    'receipt_no'=>$this->receipt_no,
+                    'type'=>$this->type,
+                    'payment_date'=>$this->payment_date,
+                    'cheque_no'=>$this->cheque_no,
+                    'paid'=>$newAmount,
+                    'remain'=>$updatedRemain,
+                ]);
+                if ($this->type === 'Cash' || $this->type==='Online Banking')
+                {
+                    if($this->cheque)
+                    {
+                        $this->cheque->delete();
+                    }
+                    $this->payment->update([
+                        'cheque_no'=>'',
+                    ]);
+                }
+                if ($this->type === 'Cash')
+                {
+                    $this->deleteImage();
+                }
+                if ($this->type === 'Cheque') {
+                    Cheque::updateOrCreate(
+                        [
+                            'payment_out_id' => $this->payment->id, 
+                        ],
+                        [
+                            'vendor_id' => $this->vendor_id, 
+                            'pay_date' => $this->payment_date,
+                            'withdraw_date' => $this->withdraw_date,
+                            'slug' => $slug,
+                        ]
+                    );
+                }
+                sleep(1);
+        
+                session()->flash('success', 'Payment data updated successfully');
+            }
+            else{
+                session()->flash('error', 'This value is greater than remaining amount.');
+            }
+        }
+        else{
+            session()->flash('error', 'This value is less than remaining amount.');
+        }
+       
+    }
+
+    public function updateImage()
+    {
+        if ($this->newImage) 
+        {
+            $fileName = $this->newImage->getClientOriginalName();
+            $filePath = $this->newImage->storeAs('payments', $fileName, 'public');
+            $this->newImage = 'payments/' . $fileName;
+            $this->payment->update(['image' => $this->newImage]);
+        }
+    }
+
+    public function deleteImage()
+    {
+        if (!empty($this->payment->image)) {
+            $image_path = public_path('storage/' . $this->payment->image);
+            if (file_exists($image_path)) {
+                unlink($image_path);
+            }
+            $this->payment->update(['image' => '']);
+            // $this->dispatch('image-deleted');
+            $this->mount();
+        }
+    }
+
     public function payMethod($value)
     {
         $this->type= $value;
     }
-    public function update(PaymentOut $paymentOut)
-    {
-        // Validate the input data
-        $validated = $this->validate();
-    
-        // Find the vendor
-        $vendor = Vendor::find($this->vendor_id);
-        if($this->type === 'Cheque')
-        {
-            Cheque::create(['vendor_id'=>$this->vendor_id,'pay_date'=>$this->payment_date]);
-        }
-        // Calculate the total amount for pending status
-        $this->total = ItemIn::where('vendor_id', $this->vendor_id)
-            ->where('status', 'Pending')
-            ->selectRaw('SUM(total) as total_sum')
-            ->groupBy('vendor_id')
-            ->first();
-    
-        // Generate a unique slug if required
-        $slug = Str::slug('PAY'.'-'.$vendor->name.'-'.now());
-    
-        // Handle image upload if exists
-        if ($this->image) {
-            // Delete the old image if a new one is uploaded
-            if ($paymentOut->image) {
-                \Storage::disk('public')->delete($paymentOut->image);
-            }
-            $fileName = $this->image->getClientOriginalName();
-            $filePath = $this->image->storeAs('payments', $fileName, 'public');
-            $validated['image'] = $filePath;
-        } else {
-            // Keep the existing image if no new image is uploaded
-            $validated['image'] = $paymentOut->image;
-        }
-    
-        // Delay for 1 second
-        sleep(1);
-    
-        // Logic to handle updating the payment
-        if ($this->total) {
-            $previousRemain = PaymentOut::where('vendor_id', $this->vendor_id)->first();
-    
-            $check = (float)$this->total->total_sum + (float)$previousRemain->remain;
-    
-            if ($check >= (float)$this->paid) {
-                $remain = (float)$this->total->total_sum - (float)$this->paid;
-    
-                // Update the status of the ItemIn to "Paid"
-                ItemIn::where('vendor_id', $this->vendor_id)
-                    ->where('status', 'Pending')
-                    ->update(['status' => 'Paid']);
-    
-                // Update the existing PaymentOut record
-                $paymentOut->update($validated + [
-                    'total' => $this->total->total_sum + $previousRemain->remain,
-                    'remain' => $remain + $previousRemain->remain,
-                    'slug' => $slug,
-                ]);
-    
-                // Set the previous remaining amount to 0
-                $previousRemain->update(['remain' => 0]);
-    
-            } else {
-                session()->flash('error', 'Total Amount is Rs. ' . $check);
-                return;
-            }
-        } else {
-            // Handle cases where no new total is found, but previous remains exist
-            $previousRemain = PaymentOut::where('vendor_id', $this->vendor_id)
-                ->where('remain', '<>', 0)
-                ->first();
-    
-            if (!$previousRemain) {
-                session()->flash('error', 'Not found/Amount Paid');
-                return;
-            }
-    
-            if ($this->paid == $previousRemain->remain) {
-                // Update the existing PaymentOut record for the remaining amount
-                $paymentOut->update($validated + [
-                    'total' => $previousRemain->remain,
-                    'remain' => 0,
-                    'slug' => $slug,
-                ]);
-    
-                // Set the remaining amount to 0
-                $previousRemain->update(['remain' => 0]);
-    
-            } else {
-                session()->flash('error', 'Previous Due remaining Rs. ' . $previousRemain->remain);
-                return;
-            }
-        }
-    
-        // After successful update, reset the form and display a success message
-        session()->flash('success', 'Payment data updated successfully');
-        $this->reset();
-    }
-    
     public function render()
     {
         $vendors = Vendor::select('id','name')->latest()->get();

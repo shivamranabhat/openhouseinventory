@@ -118,7 +118,7 @@
                                         <div class="form-group mb-4">
                                             <label for="date">Withdraw Date</label>
                                             <input type="text" class="form-control form-control-sm flatpickr-input"
-                                                id="date" wire:model='withdraw_date' placeholder="Date">
+                                                id="withdraw" wire:model='withdraw_date' placeholder="Date">
                                         </div>
                                         @error('withdraw_date')
                                         <div class="feedback text-danger">
@@ -127,6 +127,7 @@
                                         @enderror
                                     </div>
                                     @endif
+                                    @if($type=='Cheque' || $type=='Online Banking')
                                     <div class="col-md-8 mb-4">
                                         <div x-data="fileUpload()">
                                             <label for="fileInput">
@@ -155,12 +156,21 @@
                                             @enderror
                                         </div>
                                     </div>
+                                    @endif
+                                    @if($type=='Cheque' && $image == '' || $type=='Online Banking' && $image == '')
+                                    <div class="col-12">
+                                        <button class="btn btn-primary _effect--ripple waves-effect waves-light"
+                                            disabled>Submit
+                                        </button>
+                                    </div>
+                                    @else
                                     <div class="col-12">
                                         <button class="btn btn-primary _effect--ripple waves-effect waves-light"
                                             type="submit">
                                             <x-spinner />Submit
                                         </button>
                                     </div>
+                                    @endif
                                 </div>
                             </div>
                         </div>

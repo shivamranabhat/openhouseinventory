@@ -485,6 +485,10 @@
             enableTime: false,
             dateFormat: "M d Y",
         });
+        flatpickr("#withdraw", {
+            enableTime: false,
+            dateFormat: "M d Y",
+        });
     </script>
 
     <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->

@@ -97,18 +97,33 @@ class Create extends Component
         }
         return $subtotal;
     }
+    // public function calculateGrandTotal()
+    // {
+    //     $subtotal = $this->calculateSubtotal();
+    //     $totalWithTax = $subtotal + $subtotal *(($this->value)/100 ?? 0);
+    //     return $totalWithTax;
+    // }
+
     public function calculateGrandTotal()
     {
         $subtotal = $this->calculateSubtotal();
-        $totalWithTax = $subtotal + $subtotal *(($this->value)/100 ?? 0);
-        return $totalWithTax;
+        $tax = $this->value ? ($subtotal * ($this->value / 100)) : 0;
+        return $subtotal + $tax;
     }
+
 
     public function charge($value)
     {
         $this->extra_charge = ExtraCharge::find($value);
-        $this->type = $this->extra_charge->name;
-        $this->value = $this->extra_charge->value;
+        if($this->extra_charge)
+        {
+            $this->type = $this->extra_charge->name;
+            $this->value = $this->extra_charge->value;
+        }
+        else{
+            $this->type = '';
+            $this->value = (int) 0;
+        }
     }
 
     public function vendor($value)
@@ -145,6 +160,7 @@ class Create extends Component
             ]);
         }
         session()->flash('success','Bill created successfully');
+        $this->reset(['receipt_no', 'bill_date', 'rows', 'extra_charge']);
         $this->reset();
     }
 

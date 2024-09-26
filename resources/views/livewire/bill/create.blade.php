@@ -21,7 +21,7 @@
                             <input type="text" class="form-control" wire:model='receipt_no' placeholder="Receipt N.o.">
                             @error('receipt_no')
                             <div class="feedback text-danger">
-                               {{$message}}
+                                {{$message}}
                             </div>
                             @enderror
                         </div>
@@ -48,7 +48,7 @@
                                         </div>
                                         @error('vendor_id')
                                         <div class="feedback text-danger">
-                                           {{$message}}
+                                            {{$message}}
                                         </div>
                                         @enderror
                                     </div>
@@ -57,11 +57,11 @@
                                             <label for="date">Bill Date</label>
                                             <input type="text" class="form-control form-control-sm flatpickr-input"
                                                 id="date" wire:model='bill_date' placeholder="Bill Date">
-                                                @error('bill_date')
-                                                <div class="feedback text-danger">
-                                                   {{$message}}
-                                                </div>
-                                                @enderror
+                                            @error('bill_date')
+                                            <div class="feedback text-danger">
+                                                {{$message}}
+                                            </div>
+                                            @enderror
                                         </div>
                                     </div>
 
@@ -107,7 +107,8 @@
                                             <ul class="table-controls">
                                                 <li>
                                                     <a wire:click="removeRow({{ $index }})" class="delete-item"
-                                                        data-toggle="tooltip" data-placement="top" title="Delete" role="button">
+                                                        data-toggle="tooltip" data-placement="top" title="Delete"
+                                                        role="button">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                             viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                                             stroke-width="2" stroke-linecap="round"
@@ -146,29 +147,30 @@
                                                 @endforelse
 
                                             </select>
-                                            @error('item_in_id')
+                                            @error('rows.'.$index.'.item_in_id')
                                             <div class="feedback text-danger">
-                                               {{$message}}
+                                                {{$message}}
                                             </div>
                                             @enderror
+
                                         </td>
                                         <td class="rate">
                                             <input type="text" class="form-control form-control-sm" placeholder="0"
                                                 wire:model="rows.{{ $index }}.rate">
-                                                @error('rate')
-                                                <div class="feedback text-danger">
-                                                   {{$message}}
-                                                </div>
-                                                @enderror
+                                            @error('rate')
+                                            <div class="feedback text-danger">
+                                                {{$message}}
+                                            </div>
+                                            @enderror
                                         </td>
                                         <td class="text-right qty">
-                                            <input type="text" class="form-control form-control-sm"
-                                                placeholder="1" wire:model="rows.{{ $index }}.quantity">
-                                                @error('quantity')
-                                                <div class="feedback text-danger">
-                                                   {{$message}}
-                                                </div>
-                                                @enderror
+                                            <input type="text" class="form-control form-control-sm" placeholder="1"
+                                                wire:model="rows.{{ $index }}.quantity">
+                                            @error('quantity')
+                                            <div class="feedback text-danger">
+                                                {{$message}}
+                                            </div>
+                                            @enderror
                                         </td>
                                         <td class="text-right amount">
                                             <span class="editable-amount">
@@ -185,41 +187,51 @@
 
                         <button class="btn btn-dark additem _effect--ripple waves-effect waves-light"
                             wire:click="addRow">Add Item</button>
-                            <div class="inv--total-amounts">
-                                                            
-                                <div class="row mt-4">
-                                    <div class="col-sm-5 col-12 order-sm-0 order-1">
-                                    </div>
-                                    <div class="col-sm-7 col-12 order-sm-1 order-0">
-                                        <div class="text-sm-end">
-                                            <div class="row">
-                                                <div class="col-sm-8 col-7">
-                                                    <p class="">Sub Total :</p>
-                                                </div>
-                                                <div class="col-sm-4 col-5">
-                                                    <p class="">Rs.{{ number_format($this->calculateSubtotal(),0) }}</p>
-                                                </div>
-                                                @if($type)
-                                                <div class="col-sm-8 col-7">
-                                                    <p class="">{{$type}} {{$value}}%:</p>
-                                                </div>
-                                                <div class="col-sm-4 col-5">
-                                                    <p class="">Rs.{{ number_format($this->calculateGrandTotal(),0) }}</p>
-                                                </div>
-                                                @endif
-                                                
-                                                <div class="col-sm-8 col-7 grand-total-title mt-3">
-                                                    <h4 class="">Grand Total : </h4>
-                                                </div>
-                                                <div class="col-sm-4 col-5 grand-total-amount mt-3">
-                                                    <h4 class="">Rs.{{ number_format($this->calculateGrandTotal(),0) }}</h4>
-                                                </div>
+                        <div class="inv--total-amounts">
+
+                            <div class="row mt-4">
+                                <div class="col-sm-5 col-12 order-sm-0 order-1">
+                                </div>
+                                <div class="col-sm-7 col-12 order-sm-1 order-0">
+                                    <div class="text-sm-end">
+                                        <div class="row">
+                                            <div class="col-sm-8 col-7">
+                                                <p class="">Sub Total :</p>
+                                            </div>
+                                            <div class="col-sm-4 col-5">
+                                                <p class="">Rs.{{ number_format($this->calculateSubtotal(),0) }}</p>
+                                            </div>
+                                            {{-- @if($type)
+                                            <div class="col-sm-8 col-7">
+                                                <p class="">{{$type}} {{$value}}%:</p>
+                                            </div>
+                                            <div class="col-sm-4 col-5">
+                                                <p class="">Rs.{{ number_format($this->calculateGrandTotal(),0) }}</p>
+                                            </div>
+                                            @endif --}}
+                                            @if($type && $value)
+                                            <div class="col-sm-8 col-7">
+                                                <p class="">{{$type}} ({{$value}}%):</p>
+                                            </div>
+                                            <div class="col-sm-4 col-5">
+                                                <p class="">Rs.{{ number_format(($this->calculateSubtotal() *
+                                                    $this->value / 100), 0) }}</p>
+                                            </div>
+                                            @endif
+
+
+                                            <div class="col-sm-8 col-7 grand-total-title mt-3">
+                                                <h4 class="">Grand Total : </h4>
+                                            </div>
+                                            <div class="col-sm-4 col-5 grand-total-amount mt-3">
+                                                <h4 class="">Rs.{{ number_format($this->calculateGrandTotal(),0) }}</h4>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
+
+                        </div>
                     </div>
 
 
@@ -227,7 +239,9 @@
                         <div class="row">
                             <div class="col-xl-12 col-md-12 mt-4">
                                 <button wire:click='save'
-                                    class="btn btn-primary btn-download _effect--ripple waves-effect waves-light">Save<x-spinner/></button>
+                                    class="btn btn-primary btn-download _effect--ripple waves-effect waves-light"><x-spinner />Save
+                                    
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -246,7 +260,7 @@
                                     <label for="date">Type</label>
                                     <select class="form-select" wire:model='charge_id'
                                         wire:change='charge($event.target.value)'>
-                                        <option value="">Select an option</option>
+                                        <option value="">None</option>
                                         @forelse($charges as $charge)
                                         <option value="{{$charge->id}}">{{$charge->name}}</option>
                                         @empty

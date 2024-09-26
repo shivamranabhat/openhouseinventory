@@ -24,4 +24,8 @@ class PaymentOut extends Model
     {
         return $this->belongsTo(Vendor::class);
     }
+    public function cheque()
+    {
+        return $this->hasOne(Cheque::class);
+    }
 }

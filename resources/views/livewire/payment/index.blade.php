@@ -8,6 +8,7 @@
                             <option value="10">10</option>
                             <option value="20">20</option>
                             <option value="50">50</option>
+                            <option value="100">100</option>
                         </select></label>
                 </div>
             </div>
@@ -65,7 +66,7 @@
                         <p class="align-self-center mb-0 user-name"> {{$payment->vendor->name}} </p>
                     </td>
                     <td> {{$payment->type}}</td>
-                    <td>{{number_format($payment->total, 0)}}</td>
+                    <td>{{number_format($payment->paid, 0)}}</td>
                     <td><span class="inv-date"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
                                 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                 stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar">
