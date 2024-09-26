@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('pay_date');
             $table->string('withdraw_date')->nullable();
             $table->string('status')->default('Pending');
+            $table->unsignedBigInteger('company_id');
+            $table->foreign('company_id')->references('id')->on('companies')->onDelete('Cascade');
             $table->string('slug');
             $table->timestamps();
         });

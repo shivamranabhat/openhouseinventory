@@ -18,6 +18,9 @@ return new class extends Migration
             $table->foreign('employee_id')->references('id')->on('employees')->onCascade('delete');
             $table->foreign('item_in_id')->references('id')->on('item_ins')->onCascade('delete');
             $table->string('quantity');
+            $table->string('status');
+            $table->unsignedBigInteger('company_id');
+            $table->foreign('company_id')->references('id')->on('companies')->onDelete('Cascade');
             $table->string('slug');
             $table->timestamps();
         });

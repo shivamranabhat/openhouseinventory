@@ -23,6 +23,8 @@ return new class extends Migration
             $table->string('total');
             $table->string('paid');
             $table->string('remain');
+            $table->unsignedBigInteger('company_id');
+            $table->foreign('company_id')->references('id')->on('companies')->onDelete('Cascade');
             $table->string('slug');
             $table->timestamps();
         });

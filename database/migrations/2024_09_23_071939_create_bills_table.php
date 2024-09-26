@@ -17,6 +17,8 @@ return new class extends Migration
             $table->foreign('vendor_id')->references('id')->on('vendors')->onDelete('cascade');
             $table->string('receipt_no')->nullable();
             $table->string('bill_date');
+            $table->unsignedBigInteger('company_id');
+            $table->foreign('company_id')->references('id')->on('companies')->onDelete('Cascade');
             $table->string('slug');
             $table->timestamps();
         });

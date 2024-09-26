@@ -22,6 +22,9 @@ return new class extends Migration
             $table->string('total');
             $table->string('purchase_date');
             $table->string('rack_no')->nullable();
+            $table->string('status')->default('Pending');
+            $table->unsignedBigInteger('company_id');
+            $table->foreign('company_id')->references('id')->on('companies')->onDelete('Cascade');
             $table->string('slug');
             $table->timestamps();
         });

@@ -174,4 +174,12 @@ class PageController extends Controller
     {
         return view('pages.requisition.decline.index');
     }
+    public function login()
+    {
+        return view('pages.auth.login');
+    }
+    public function signup()
+    {
+        return view('pages.auth.signup');
+    }
 }

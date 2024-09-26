@@ -77,3 +77,9 @@ Route::prefix('/declined')->controller(PageController::class)->group(function(){
 Route::prefix('/cheques')->controller(PageController::class)->group(function(){
     Route::get('','cheque')->name('cheques');
 });
+Route::prefix('/login')->controller(PageController::class)->group(function(){
+    Route::get('','login')->name('login');
+});
+Route::prefix('/signup')->controller(PageController::class)->group(function(){
+    Route::get('','signup')->name('signup');
+});

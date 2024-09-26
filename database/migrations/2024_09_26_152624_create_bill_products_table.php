@@ -22,6 +22,8 @@ return new class extends Migration
             $table->string('quantity');
             $table->unsignedBigInteger('extra_charge_id')->nullable();
             $table->foreign('extra_charge_id')->references('id')->on('extra_charges')->onDelete('cascade');
+            $table->unsignedBigInteger('company_id');
+            $table->foreign('company_id')->references('id')->on('companies')->onDelete('Cascade');
             $table->timestamps();
         });
     }

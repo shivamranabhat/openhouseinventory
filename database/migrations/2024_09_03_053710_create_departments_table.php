@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('head');
             $table->string('phone')->nullable();
             $table->string('employee')->nullable();
+            $table->unsignedBigInteger('company_id');
+            $table->foreign('company_id')->references('id')->on('companies')->onDelete('Cascade');
             $table->string('slug');
             $table->timestamps();
         });

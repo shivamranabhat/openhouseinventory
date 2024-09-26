@@ -16,9 +16,11 @@ return new class extends Migration
             $table->string('name');
             $table->string('sku');
             $table->string('quantity');
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->unsignedBigInteger('category_id');
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
+            $table->unsignedBigInteger('company_id');
+            $table->foreign('company_id')->references('id')->on('companies')->onDelete('Cascade');
             $table->string('slug');
             $table->timestamps();
         });

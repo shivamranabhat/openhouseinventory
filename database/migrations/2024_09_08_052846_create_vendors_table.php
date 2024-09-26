@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('address');
             $table->string('pan/vat');
             $table->string('contact_person');
+            $table->unsignedBigInteger('company_id');
+            $table->foreign('company_id')->references('id')->on('companies')->onDelete('Cascade');
             $table->string('slug');
             $table->timestamps();
         });

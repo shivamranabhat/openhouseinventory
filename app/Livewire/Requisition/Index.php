@@ -27,7 +27,7 @@ class Index extends Component
                   ->orWhereHas('employee', function($query) {
                       $query->where('name', 'like', '%' . $this->search . '%');
                   });
-        })->where('status','Pending')->latest()->get();
+        })->where('status','Pending')->latest()->paginate($this->page);
         return view('livewire.requisition.index',compact('requests'));
     }
     public function approve($slug)
@@ -35,14 +35,17 @@ class Index extends Component
         $request = Requisition::whereSlug($slug)->first();
         $requestStock = $request->quantity;
         $item = ItemIn::find($request->item_in_id);
-        // if($item->stock >= $requestStock)
-        // {
+        if($item->stock >= $requestStock)
+        {
             
-        // }
-        $newStock = $item->stock - $requestStock;
-        $item->update(['stock'=>$newStock]);
-        $request->update(['status'=>'Approved']);
-        session()->flash('success','Request approved successfully');
+            $newStock = $item->stock - $requestStock;
+            $item->update(['stock'=>$newStock]);
+            $request->update(['status'=>'Approved']);
+            session()->flash('success','Request approved successfully');
+        }
+        else{
+            session()->flash('error','Stock Alert! Only '.$item->stock.' left');
+        }
     }
     public function decline($slug)
     {
