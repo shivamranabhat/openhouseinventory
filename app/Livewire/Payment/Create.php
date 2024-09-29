@@ -76,7 +76,7 @@ class Create extends Component
             $previousRemain = PaymentOut::where('vendor_id',$this->vendor_id)->first();
             if(!$previousRemain)
             {
-                $paymentOut = PaymentOut::create($validated + ['total'=>$this->total->total_sum,'remain'=>$remain,'slug' => $this->slug]);
+                $paymentOut = PaymentOut::create($validated + ['total'=>$this->total->total_sum,'remain'=>$remain,'company_id' => auth()->user()->company_id,'slug' => $this->slug]);
             }
             $check = (float)$this->total->total_sum + (float)$previousRemain->remain;
             if($check >= $this->paid)
@@ -88,7 +88,7 @@ class Create extends Component
                 ->update(['status' => 'Paid']); 
                
                 // Create PaymentOut record with validated data
-                $paymentOut = PaymentOut::create($validated + ['total'=>$this->total->total_sum+$previousRemain->remain,'remain'=>$remain+$previousRemain->remain,'slug' => $this->slug]);
+                $paymentOut = PaymentOut::create($validated + ['total'=>$this->total->total_sum+$previousRemain->remain,'remain'=>$remain+$previousRemain->remain,'company_id' => auth()->user()->company_id,'slug' => $this->slug]);
                 $previousRemain->update(['remain'=>0]);
             }
             else{
@@ -103,7 +103,7 @@ class Create extends Component
                 if($this->paid == $previousRemain->remain)
                 {
                     // Create PaymentOut record with validated data
-                    $paymentOut = PaymentOut::create($validated + ['total'=>$previousRemain->remain,'remain'=>0,'slug' => $this->slug]);
+                    $paymentOut = PaymentOut::create($validated + ['total'=>$previousRemain->remain,'remain'=>0,'company_id' => auth()->user()->company_id,'slug' => $this->slug]);
                     $previousRemain->update(['remain'=>0]);
                 }
                 else{
@@ -116,7 +116,7 @@ class Create extends Component
         }
         if($this->type === 'Cheque')
         {
-            Cheque::create(['vendor_id'=>$this->vendor_id,'payment_out_id'=>$paymentOut->id,'pay_date'=>$this->payment_date,'withdraw_date'=>$this->withdraw_date,'slug'=>$this->slug]);
+            Cheque::create(['vendor_id'=>$this->vendor_id,'payment_out_id'=>$paymentOut->id,'pay_date'=>$this->payment_date,'withdraw_date'=>$this->withdraw_date,'company_id' => auth()->user()->company_id,'slug'=>$this->slug]);
         }
         // Display success message and reset form fields
         session()->flash('success', 'Payment data stored successfully');

@@ -25,7 +25,7 @@ class Create extends Component
         $validated = $this->validate();
         sleep(1);
         $slug = Str::slug('VEN'.'-'.$this->name);
-        Vendor::create($validated+['slug'=>$slug]);
+        Vendor::create($validated+['company_id' => auth()->user()->company_id,'slug'=>$slug]);
         session()->flash('success','Vendor added successfully');
         $this->reset();
     }

@@ -17,7 +17,7 @@ class Create extends Component
         $validated = $this->validate();
         sleep(1);
         $slug = Str::slug($this->name);
-        Category::create($validated+['slug'=>$slug]);
+        Category::create($validated+['company_id' => auth()->user()->company_id,'slug'=>$slug]);
         session()->flash('success','Category added successfully');
         $this->reset();
     }

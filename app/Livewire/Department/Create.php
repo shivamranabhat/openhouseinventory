@@ -31,7 +31,7 @@ class Create extends Component
         $validated = $this->validate();
         sleep(1);
         $slug = Str::slug('DEP'.'-'.$this->name);
-        Department::create($validated+['slug'=>$slug]);
+        Department::create($validated+['company_id' => auth()->user()->company_id,'slug'=>$slug]);
         session()->flash('success','Department added successfully');
         $this->reset();
     }

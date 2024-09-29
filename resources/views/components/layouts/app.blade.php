@@ -334,7 +334,7 @@
 
                         </ul>
                     </li>
-                    <li class="menu {{request()->segment(1) == 'charge'  ? 'active' : '' }}">
+                    <li class="menu {{request()->segment(1) == 'charge' || request()->segment(1) == 'account' || request()->segment(1) == 'profile'  ? 'active' : '' }}">
                         <a href="#charges" data-bs-toggle="collapse" aria-expanded="false"
                             class="dropdown-toggle collapsed">
                             <div class="">
@@ -361,6 +361,12 @@
                             style="">
                             <li class="{{request()->segment(1) == 'charge'  ? 'active' : '' }}">
                                 <a href="{{route('charges')}}"> Charges </a>
+                            </li>
+                            <li class="{{request()->segment(1) == 'account'  ? 'active' : '' }}">
+                                <a href="{{route('accounts')}}"> Accounts </a>
+                            </li>
+                            <li class="{{request()->segment(1) == 'profile'  ? 'active' : '' }}">
+                                <a href="{{route('profile')}}"> Profile </a>
                             </li>
 
                         </ul>

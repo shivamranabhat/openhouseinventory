@@ -4,13 +4,19 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Scopes\CompanyScope;
 
 class ItemIn extends Model
 {
     use HasFactory;
+    protected static function booted()
+    {
+        static::addGlobalScope(new CompanyScope);
+    }
     protected $fillable=[
         'product_id',
          'vendor_id',
+         'company_id',
          'stock',
          'unit_price',
          'total', 
@@ -39,5 +45,9 @@ class ItemIn extends Model
      public function billProducts()
      {
          return $this->hasMany(BillProduct::class);
+     }
+     public function company()
+     {
+         return $this->belongsTo(Company::class);
      }
 }

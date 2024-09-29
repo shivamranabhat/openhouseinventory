@@ -3,7 +3,11 @@
         data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <div class="avatar-container">
             <div class="avatar avatar-sm avatar-indicators avatar-online">
+                @if($user->image)
+                <img alt="avatar" src="{{asset('storage/'.$user->image)}}" class="rounded-circle">
+                @else
                 <img alt="avatar" src="../src/assets/img/profile-30.png" class="rounded-circle">
+                @endif
             </div>
         </div>
     </a>
@@ -15,13 +19,13 @@
                     &#x1F44B;
                 </div>
                 <div class="media-body">
-                    <h5>Shaun Park</h5>
-                    <p>Project Leader</p>
+                    <h5>{{$user->name}}</h5>
+                    <p>{{$user->role}}</p>
                 </div>
             </div>
         </div>
         <div class="dropdown-item">
-            <a href="user-profile.html">
+            <a href="{{route('profile')}}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                     stroke-linejoin="round" class="feather feather-user">
@@ -46,7 +50,7 @@
         @endif
        
         <div class="dropdown-item">
-            <a href="auth-boxed-signin.html">
+            <a wire:click='logout' role="button">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                     stroke-linejoin="round" class="feather feather-log-out">

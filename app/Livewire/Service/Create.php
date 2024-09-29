@@ -25,7 +25,7 @@ class Create extends Component
         $validated = $this->validate();
         sleep(1);
         $slug = Str::slug($this->name);
-        Service::create($validated+['slug'=>$slug]);
+        Service::create($validated+['company_id' => auth()->user()->company_id,'slug'=>$slug]);
         session()->flash('success','Service added successfully');
         $this->reset();
     }

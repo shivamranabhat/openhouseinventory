@@ -43,7 +43,7 @@ class Create extends Component
         {
             $updatedStock = $currentStock - $requestStock;
             $item->update(['stock'=>$updatedStock]);
-            Requisition::create($validated+['slug'=>$slug,'employee_id'=>3,'created_at'=>$createdAt]);
+            Requisition::create($validated+['company_id' => auth()->user()->company_id,'slug'=>$slug,'employee_id'=>3,'created_at'=>$createdAt]);
             session()->flash('success','Request sent successfully');
             $this->reset();
         }

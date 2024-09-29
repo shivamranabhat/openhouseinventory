@@ -13,23 +13,30 @@ use Livewire\WithFileUploads;
 class Create extends Component
 {
     use WithFileUploads;
-    #[Validate('required|unique:employees')]
     public $name;
-    #[Validate('required')]
     public $age;
-    #[Validate('required')]
     public $address;
-    #[Validate('required')]
     public $salary;
-    #[Validate('required')]
     public $join_date;
-    #[Validate('required')]
     public $department_id;
-    #[Validate('required')]
     public $designation;
-    #[Validate('required|image|max:10240')]
     public $doc_img;
   
+    protected function rules()
+    {
+        return [
+            'name' => 'required|unique:employees,name,NULL,id,department_id,' . $this->department_id . ',company_id,' . auth()->user()->company_id,
+            'age' => 'required|numeric',
+            'address' => 'required',
+            'salary' => 'required',
+            'join_date' => 'required',
+            'department_id' => 'required',
+            'designation' => 'required',
+            'doc_img' => 'required|image|max:1024',
+        ];
+    }
+
+
     protected function messages()
     {
         return [
@@ -49,7 +56,8 @@ class Create extends Component
             // Add image name to validated data
             $validated['doc_img'] = $filePath;
         }
-        Employee::create($validated+['slug'=>$slug]);
+        $company_id = auth()->user()->company_id;
+        Employee::create($validated+['company_id'=>$company_id,'slug'=>$slug]);
         session()->flash('success','Employee added successfully');
         $this->reset();
     }

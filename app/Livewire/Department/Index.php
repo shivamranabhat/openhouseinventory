@@ -14,6 +14,7 @@ class Index extends Component
     public $search = '';
     public $page=10;
 
+    
     public function updatePage($page)
     {
         $this->page = $page;

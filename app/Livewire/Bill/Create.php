@@ -148,7 +148,7 @@ class Create extends Component
     public function save()
     {
         $validated = $this->validate();
-        $bill = Bill::create(['vendor_id'=>$this->vendor_id,'receipt_no'=>$this->receipt_no,'bill_date'=>$this->bill_date,'slug'=>$this->slug]);
+        $bill = Bill::create(['vendor_id'=>$this->vendor_id,'receipt_no'=>$this->receipt_no,'bill_date'=>$this->bill_date,'company_id' => auth()->user()->company_id,'slug'=>$this->slug]);
         foreach ($this->rows as $row) {
             // Create a new BillProduct instance and save data
             BillProduct::create([
@@ -156,6 +156,7 @@ class Create extends Component
                 'item_in_id' => $row['item_in_id'],
                 'quantity' => $row['quantity'],
                 'rate' => $row['rate'],
+                'company_id' => auth()->user()->company_id,
                 'extra_charge_id' => $this->extra_charge ? $this->extra_charge->id : null
             ]);
         }

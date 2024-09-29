@@ -30,7 +30,7 @@ class Create extends Component
         $validated = $this->validate();
         sleep(1);
         $slug = Str::slug($this->prefix);
-        Prefix::create($validated+['slug'=>$slug]);
+        Prefix::create($validated+['company_id' => auth()->user()->company_id,'slug'=>$slug]);
         session()->flash('success','Prefix added successfully');
         $this->reset();
     }

@@ -24,6 +24,7 @@ class Edit extends Component
     public $department_id;
     public $designation;
     public $doc_img;
+    #[Validate('nullable|image|max:1024')]
     public $new_doc_img;
     public $employee;
 
@@ -46,13 +47,12 @@ class Edit extends Component
     {
         return [
             'name' => 'required|unique:employees,name,' . $this->employee->id,
-            'age' => 'required',
+            'age' => 'required|numeric',
             'address' => 'required',
             'salary' => 'required',
             'join_date' => 'required',
             'department_id' => 'nullable',
             'designation' => 'required',
-            'doc_img' => 'nullable|image|max:10240',
         ];
     }
     
@@ -66,21 +66,10 @@ class Edit extends Component
     public function update()
     {
         $validated = $this->validate();
-        $slug = Str::slug('DEP'.'-'.$this->name);
-        // Handle the image upload and compression if a new image is uploaded
-        if ($this->new_doc_img) {
-            if ($this->employee->doc_img) {
-                $oldImagePath = public_path('storage/' . $this->employee->doc_img);
-                if (file_exists($oldImagePath)) {
-                    unlink($oldImagePath);
-                }
-            }
-
-            $fileName = $this->new_doc_img->getClientOriginalName();
-            $filePath = $this->new_doc_img->storeAs('employees', $fileName, 'public');
-            $this->new_doc_img = 'employees/' . $fileName;
-            // Update the new image name in the database
-            $validated['doc_img'] = $this->new_doc_img->getClientOriginalName();
+        $slug = Str::slug('EMP'.'-'.$this->name);
+        if($this->new_doc_img)
+        {
+            $this->updateImage();
         }
         $this->employee->update([
             'name' => $this->name,
@@ -90,12 +79,36 @@ class Edit extends Component
             'join_date' => $this->join_date,
             'department_id' => $this->department_id,
             'designation' => $this->designation,
-            'doc_img' => $this->doc_img,
+            'doc_img' => $this->doc_img ? $this->doc_img : $this->new_doc_img,
             'slug' => Str::slug('DEP' . '-' . $this->name),
         ]);
         sleep(1);
         session()->flash('success','Employee updated successfully');
         return redirect('/employee');
+    }
+
+    public function updateImage()
+    {
+        if ($this->new_doc_img) 
+        {
+            $fileName = $this->new_doc_img->getClientOriginalName();
+            $filePath = $this->new_doc_img->storeAs('employees', $fileName, 'public');
+            $this->new_doc_img = 'employees/' . $fileName;
+            $this->employee->update(['doc_img' => $this->new_doc_img]);
+        }
+    }
+
+    public function deleteImage()
+    {
+        if (!empty($this->employee->doc_img)) {
+            $image_path = public_path('storage/' . $this->employee->doc_img);
+            if (file_exists($image_path)) {
+                unlink($image_path);
+            }
+            $this->employee->update(['doc_img' => '']);
+            // $this->dispatch('image-deleted');
+            $this->mount();
+        }
     }
 
     public function render()

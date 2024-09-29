@@ -54,7 +54,7 @@ class Edit extends Component
             'cheque_no.required' => 'Cheque number is required when payment type is Cheque.',
         ];
     }
-    
+    #[On('imaged-deleted')] 
     public function mount()
     {
         $this->payment = PaymentOut::whereSlug($this->slug)->first();
@@ -157,8 +157,7 @@ class Edit extends Component
                 unlink($image_path);
             }
             $this->payment->update(['image' => '']);
-            // $this->dispatch('image-deleted');
-            $this->mount();
+            $this->dispatch('image-deleted')->self();
         }
     }
 

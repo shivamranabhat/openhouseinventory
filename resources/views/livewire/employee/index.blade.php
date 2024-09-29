@@ -98,5 +98,5 @@
 
         </table>
     </div>
-
+    {{$employees->links('vendor.pagination.pagination')}}
 </div>

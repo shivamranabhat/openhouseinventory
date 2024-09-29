@@ -27,7 +27,7 @@ class Create extends Component
         $validated = $this->validate();
         sleep(1);
         $slug = Str::slug($this->name);
-        Product::create($validated+['slug'=>$slug]);
+        Product::create($validated+['company_id' => auth()->user()->company_id,'slug'=>$slug]);
         session()->flash('success','Product added successfully');
         $this->reset();
     }

@@ -147,7 +147,7 @@
                                             <!-- Image preview -->
                                             <template x-if="imageUrl">
                                                 <img :src="imageUrl" alt="Image Preview" class="image-preview mt-3"
-                                                    style="max-width: 100px;">
+                                                    style="max-width: 150px;margin-left:2rem">
                                             </template>
                                             @error('image')
                                             <div class="feedback text-danger">

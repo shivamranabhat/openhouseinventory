@@ -89,10 +89,11 @@ class Create extends Component
         $validated = $this->validate();
         sleep(1);
         $slug = Str::slug('STOCK'.'-'.$this->product_id.'-'.$this->stock);
-        $item = ItemIn::create($validated+['slug'=>$slug]);
+        $item = ItemIn::create($validated+['company_id' => auth()->user()->company_id,'slug'=>$slug]);
         // Save each generated barcode
         foreach ($this->barcodeList as $barcodeValue) {
             Barcode::create([
+                'company_id' => auth()->user()->company_id,
                 'item_in_id' => $item->id,
                 'barcode'    => $barcodeValue
             ]);

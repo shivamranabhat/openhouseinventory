@@ -4,13 +4,19 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Scopes\CompanyScope;
 
 class Cheque extends Model
 {
     use HasFactory;
+    protected static function booted()
+    {
+        static::addGlobalScope(new CompanyScope);
+    }
     protected $fillable=[
         'vendor_id',
         'payment_out_id',
+        'company_id',
         'pay_date',
         'withdraw_date',
         'status',
@@ -23,5 +29,9 @@ class Cheque extends Model
     public function paymentOut()
     {
         return $this->belongsTo(PaymentOut::class);
+    }
+    public function company()
+    {
+        return $this->belongsTo(Company::class);
     }
 }

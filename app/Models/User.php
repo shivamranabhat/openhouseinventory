@@ -21,12 +21,19 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
-        'employee_id'
+        'employee_id',
+        'company_id',
+        'image',
+        'slug'
     ];
 
     public function employee()
     {
         return $this->belongsTo(Employee::class);
+    }
+    public function company()
+    {
+        return $this->belongsTo(Company::class);
     }
 
     /**

@@ -154,6 +154,18 @@ class PageController extends Controller
     {
         return view('pages.payment.edit',compact('slug'));
     }
+    public function account()
+    {
+        return view('pages.account.index');
+    }
+    public function accountCreate()
+    {
+        return view('pages.account.create');
+    }
+    public function accountEdit($slug)
+    {
+        return view('pages.account.edit',compact('slug'));
+    }
     public function requisition()
     {
         return view('pages.requisition.index');
@@ -177,6 +189,10 @@ class PageController extends Controller
     public function login()
     {
         return view('pages.auth.login');
+    }
+    public function profile()
+    {
+        return view('pages.auth.profile');
     }
     public function signup()
     {

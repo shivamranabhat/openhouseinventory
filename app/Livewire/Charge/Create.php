@@ -28,7 +28,7 @@ class Create extends Component
         $validated = $this->validate();
         sleep(1);
         $slug = Str::slug($this->name);
-        ExtraCharge::create($validated+['slug'=>$slug]);
+        ExtraCharge::create($validated+['company_id' => auth()->user()->company_id,'slug'=>$slug]);
         session()->flash('success','Charge added successfully');
         $this->reset();
     }
