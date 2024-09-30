@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class PageController extends Controller
 {
@@ -12,11 +13,23 @@ class PageController extends Controller
     }
     public function departmentCreate()
     {
-        return view('pages.department.create');
+        if (Gate::allows('action-create')) {
+            return view('pages.department.create');
+        } else {
+            // Handle unauthorized action
+            return redirect()->back()->with('error','You do not have permission to create.');
+        }
     }
     public function departmentEdit($slug)
     {
-        return view('pages.department.edit',compact('slug'));
+        if (Gate::allows('action-edit')) {
+            return view('pages.department.edit',compact('slug'));
+        } 
+        else 
+        {
+            // Handle unauthorized action
+            return redirect()->back()->with('error','You do not have permission to edit.');
+        }
     }
     public function vendor()
     {
@@ -24,7 +37,12 @@ class PageController extends Controller
     }
     public function vendorCreate()
     {
-        return view('pages.vendor.create');
+        if (Gate::allows('action-create')) {
+            return view('pages.vendor.create');
+        } else {
+            // Handle unauthorized action
+            return redirect()->back()->with('error','You do not have permission to create.');
+        }
     }
     public function transaction($slug)
     {
@@ -32,7 +50,12 @@ class PageController extends Controller
     }
     public function vendorEdit($slug)
     {
-        return view('pages.vendor.edit',compact('slug'));
+        if (Gate::allows('action-edit')) {
+            return view('pages.vendor.edit',compact('slug'));
+        } else {
+            // Handle unauthorized action
+            return redirect()->back()->with('error','You do not have permission to edit.');
+        }
     }
     public function category()
     {
@@ -40,11 +63,22 @@ class PageController extends Controller
     }
     public function categoryCreate()
     {
-        return view('pages.category.create');
+        if (Gate::allows('action-create')) {
+            return view('pages.category.create');
+        } else {
+            // Handle unauthorized action
+            return redirect()->back()->with('error','You do not have permission to create.');
+        }
+
     }
     public function categoryEdit($slug)
     {
-        return view('pages.category.edit',compact('slug'));
+        if (Gate::allows('action-edit')) {
+            return view('pages.category.edit',compact('slug'));
+        } else {
+            // Handle unauthorized action
+            return redirect()->back()->with('error','You do not have permission to edit.');
+        }
     }
     public function cheque()
     {
@@ -56,11 +90,23 @@ class PageController extends Controller
     }
     public function chargeCreate()
     {
-        return view('pages.charge.create');
+        if (Gate::allows('action-create')) {
+            return view('pages.charge.create');
+        } else {
+            // Handle unauthorized action
+            return redirect()->back()->with('error','You do not have permission to create.');
+        }
+        
     }
     public function chargeEdit($slug)
     {
-        return view('pages.charge.edit',compact('slug'));
+        if (Gate::allows('action-edit')) {
+            return view('pages.charge.edit',compact('slug'));
+        } else {
+            // Handle unauthorized action
+            return redirect()->back()->with('error','You do not have permission to edit.');
+        }
+        
     }
     public function inventory()
     {
@@ -68,11 +114,22 @@ class PageController extends Controller
     }
     public function inventoryCreate()
     {
-        return view('pages.inventory.create');
+        if (Gate::allows('action-create')) {
+            return view('pages.inventory.create');
+        } else {
+            // Handle unauthorized action
+            return redirect()->back()->with('error','You do not have permission to create.');
+        }
     }
     public function inventoryEdit($slug)
     {
-        return view('pages.inventory.edit',compact('slug'));
+        if (Gate::allows('action-edit')) {
+            return view('pages.inventory.edit',compact('slug'));
+        } else {
+            // Handle unauthorized action
+            return redirect()->back()->with('error','You do not have permission to edit.');
+        }
+        
     }
     public function service()
     {
@@ -80,11 +137,21 @@ class PageController extends Controller
     }
     public function serviceCreate()
     {
-        return view('pages.service.create');
+        if (Gate::allows('action-create')) {
+            return view('pages.service.create');
+        } else {
+            // Handle unauthorized action
+            return redirect()->back()->with('error','You do not have permission to create.');
+        }
     }
     public function serviceEdit($slug)
     {
-        return view('pages.service.edit',compact('slug'));
+        if (Gate::allows('action-edit')) {
+            return view('pages.service.edit',compact('slug'));
+        } else {
+            // Handle unauthorized action
+            return redirect()->back()->with('error','You do not have permission to edit.');
+        }
     }
     public function employee()
     {
@@ -92,11 +159,21 @@ class PageController extends Controller
     }
     public function employeeCreate()
     {
-        return view('pages.employee.create');
+        if (Gate::allows('action-create')) {
+            return view('pages.employee.create');
+        } else {
+            // Handle unauthorized action
+            return redirect()->back()->with('error','You do not have permission to create.');
+        }
     }
     public function employeeEdit($slug)
     {
-        return view('pages.employee.edit',compact('slug'));
+        if (Gate::allows('action-edit')) {
+            return view('pages.employee.edit',compact('slug'));
+        } else {
+            // Handle unauthorized action
+            return redirect()->back()->with('error','You do not have permission to edit.');
+        }
     }
     public function stock()
     {
@@ -104,11 +181,23 @@ class PageController extends Controller
     }
     public function stockCreate()
     {
-        return view('pages.stock.create');
+        if (Gate::allows('action-create')) {
+            return view('pages.stock.create');
+        } else {
+            // Handle unauthorized action
+            return redirect()->back()->with('error','You do not have permission to create.');
+        }
+        
     }
     public function stockEdit($slug)
     {
-        return view('pages.stock.edit',compact('slug'));
+        if (Gate::allows('action-edit')) {
+            return view('pages.stock.edit',compact('slug'));
+        } else {
+            // Handle unauthorized action
+            return redirect()->back()->with('error','You do not have permission to edit.');
+        }
+        
     }
     public function prefix()
     {
@@ -116,11 +205,22 @@ class PageController extends Controller
     }
     public function prefixCreate()
     {
-        return view('pages.prefix.create');
+        if (Gate::allows('action-create')) {
+            return view('pages.prefix.create');
+        } else {
+            // Handle unauthorized action
+            return redirect()->back()->with('error','You do not have permission to create.');
+        }
+        
     }
     public function prefixEdit($slug)
     {
-        return view('pages.prefix.edit',compact('slug'));
+        if (Gate::allows('action-edit')) {
+            return view('pages.prefix.edit',compact('slug'));
+        } else {
+            // Handle unauthorized action
+            return redirect()->back()->with('error','You do not have permission to edit.');
+        }
     }
     public function bill()
     {
@@ -132,11 +232,22 @@ class PageController extends Controller
     }
     public function billCreate()
     {
-        return view('pages.bill.create');
+        if (Gate::allows('action-create')) {
+            return view('pages.bill.create');
+        } else {
+            // Handle unauthorized action
+            return redirect()->back()->with('error','You do not have permission to create.');
+        }
+        
     }
     public function billEdit($slug)
     {
-        return view('pages.bill.edit',compact('slug'));
+        if (Gate::allows('action-edit')) {
+            return view('pages.bill.edit',compact('slug'));
+        } else {
+            // Handle unauthorized action
+            return redirect()->back()->with('error','You do not have permission to edit.');
+        }
     }
     public function payment()
     {
@@ -144,15 +255,32 @@ class PageController extends Controller
     }
     public function paymentPreview($slug)
     {
-        return view('pages.payment.preview',compact('slug'));
+        if (Gate::allows('action-create')) {
+            return view('pages.payment.preview',compact('slug'));
+        } else {
+            // Handle unauthorized action
+            return redirect()->back()->with('error','You do not have permission to preview.');
+        }
     }
     public function paymentCreate()
     {
-        return view('pages.payment.create');
+        if (Gate::allows('action-create')) {
+            return view('pages.payment.create');
+        } else {
+            // Handle unauthorized action
+            return redirect()->back()->with('error','You do not have permission to create.');
+        }
+        
     }
     public function paymentEdit($slug)
     {
-        return view('pages.payment.edit',compact('slug'));
+        if (Gate::allows('action-edit')) {
+            return view('pages.payment.edit',compact('slug'));
+        } else {
+            // Handle unauthorized action
+            return redirect()->back()->with('error','You do not have permission to edit.');
+        }
+        
     }
     public function account()
     {
@@ -160,11 +288,21 @@ class PageController extends Controller
     }
     public function accountCreate()
     {
-        return view('pages.account.create');
+        if (Gate::allows('action-create')) {
+            return view('pages.account.create');
+        } else {
+            // Handle unauthorized action
+            return redirect()->back()->with('error','You do not have permission to create.');
+        }
     }
     public function accountEdit($slug)
     {
-        return view('pages.account.edit',compact('slug'));
+        if (Gate::allows('action-edit')) {
+            return view('pages.account.edit',compact('slug'));
+        } else {
+            // Handle unauthorized action
+            return redirect()->back()->with('error','You do not have permission to edit.');
+        }
     }
     public function requisition()
     {
@@ -180,11 +318,22 @@ class PageController extends Controller
     }
     public function approve()
     {
-        return view('pages.requisition.approve.index');
+        if (Gate::allows('action-approve')) {
+            return view('pages.requisition.approve.index');
+        } else {
+            // Handle unauthorized action
+            return redirect()->back()->with('error','You do not have permission to approve.');
+        }
+        
     }
     public function decline()
     {
-        return view('pages.requisition.decline.index');
+        if (Gate::allows('action-decline')) {
+            return view('pages.requisition.decline.index');
+        } else {
+            // Handle unauthorized action
+            return redirect()->back()->with('error','You do not have permission to decline.');
+        }
     }
     public function login()
     {

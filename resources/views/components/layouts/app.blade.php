@@ -55,16 +55,9 @@
     <!--  BEGIN NAVBAR  -->
     <div class="header-container container-xxl">
         <header class="header navbar navbar-expand-sm expand-header">
-
             <ul class="navbar-item theme-brand flex-row  text-center">
-                <li class="nav-item theme-logo">
-                    {{-- <a href="index.html">
-                        <img src="https://designreset.com/cork/html/src/assets/img/logo2.svg" class="navbar-logo"
-                            alt="logo">
-                    </a> --}}
-                </li>
                 <li class="nav-item theme-text">
-                    <a href="index.html" class="nav-link"> OPENHOUSE </a>
+                    <a href="index.html" class="nav-link"> {{auth()->user()->name}} </a>
                 </li>
             </ul>
 
@@ -159,13 +152,8 @@
 
                 <div class="navbar-nav theme-brand flex-row  text-center">
                     <div class="nav-logo">
-                        <div class="nav-item theme-logo">
-                            <a href="#">
-                                <img src="" class="navbar-logo" alt="logo">
-                            </a>
-                        </div>
                         <div class="nav-item theme-text">
-                            <a href="#" class="nav-link"> CORK </a>
+                            <a href="#" class="nav-link"> {{auth()->user()->name}} </a>
                         </div>
                     </div>
                     <div class="nav-item sidebar-toggle">
@@ -182,7 +170,7 @@
                 <div class="shadow-bottom"></div>
                 <ul class="list-unstyled menu-categories" id="accordionExample">
                     <li class="menu {{request()->segment(1) == 'employee' ||request()->segment(1) == 'department'  ? 'active' : '' }}">
-                        <a href="{{auth()->user()->role === 1 ? '#hr' : ''}}" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle {{auth()->user()->role === 1 ? 'collapsed' : 'disabled'}}" style="cursor: pointer">
+                        <a href="#hr" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle collapsed" style="cursor: pointer">
                             <div class="">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -197,20 +185,18 @@
                                 <span>HRM</span>
                             </div>
                             <div>
-                                @if(auth()->user()->role == 1)
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                     stroke-linejoin="round" class="feather feather-chevron-right">
                                     <polyline points="9 18 15 12 9 6"></polyline>
                                 </svg>
-                                @else
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+
+                                {{-- <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                     stroke-linejoin="round" class="feather feather-lock">
                                     <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
                                     <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-                                </svg>
-                                @endif
+                                </svg> --}}
                             </div>
                         </a>
                         <ul class="submenu list-unstyled collapse" id="hr" data-bs-parent="#accordionExample" style="">

@@ -59,7 +59,7 @@
                     <td>{{$department->name}}</td>
                     <td>{{$department->head}}</td>
                     <td>{{$department->phone}}</td>
-                    <td>{{$department->email}}</td>
+                    <td>{{$department->email ?? 'Not Provided'}}</td>
                     <td>{{$department->employee}}</td>
                     <td class="d-flex">
                         <a class="badge badge-light-primary text-start me-2 action-edit"

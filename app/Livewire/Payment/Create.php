@@ -71,28 +71,32 @@ class Create extends Component
             $validated['image'] = $filePath;
         }
         sleep(1);
-
         if ($this->total) {
+            $remain = (float)$this->total->total_sum - (float)$this->paid;
             $previousRemain = PaymentOut::where('vendor_id',$this->vendor_id)->first();
             if(!$previousRemain)
             {
-                $paymentOut = PaymentOut::create($validated + ['total'=>$this->total->total_sum,'remain'=>$remain,'company_id' => auth()->user()->company_id,'slug' => $this->slug]);
-            }
-            $check = (float)$this->total->total_sum + (float)$previousRemain->remain;
-            if($check >= $this->paid)
-            {
-                $remain = (float)$this->total->total_sum - (float)$this->paid;
-                //Update the pending status of the ItemIn
                 ItemIn::where('vendor_id', $this->vendor_id)
                 ->where('status', 'Pending') 
                 ->update(['status' => 'Paid']); 
-               
-                // Create PaymentOut record with validated data
-                $paymentOut = PaymentOut::create($validated + ['total'=>$this->total->total_sum+$previousRemain->remain,'remain'=>$remain+$previousRemain->remain,'company_id' => auth()->user()->company_id,'slug' => $this->slug]);
-                $previousRemain->update(['remain'=>0]);
+                $paymentOut = PaymentOut::create($validated + ['total'=>$this->total->total_sum,'remain'=>$remain,'company_id' => auth()->user()->company_id,'slug' => $this->slug]);
             }
             else{
-                session()->flash('error', 'Total Amount is Rs.'. $check);
+                $check = (float)$this->total->total_sum + (float)$previousRemain->remain;
+                if($check >= $this->paid)
+                {
+                    //Update the pending status of the ItemIn
+                    ItemIn::where('vendor_id', $this->vendor_id)
+                    ->where('status', 'Pending') 
+                    ->update(['status' => 'Paid']); 
+                   
+                    // Create PaymentOut record with validated data
+                    $paymentOut = PaymentOut::create($validated + ['total'=>$this->total->total_sum+$previousRemain->remain,'remain'=>$remain+$previousRemain->remain,'company_id' => auth()->user()->company_id,'slug' => $this->slug]);
+                    $previousRemain->update(['remain'=>0]);
+                }
+                else{
+                    session()->flash('error', 'Total Amount is Rs.'. $check);
+                }
             }
         }
         else{
@@ -102,6 +106,9 @@ class Create extends Component
             {
                 if($this->paid == $previousRemain->remain)
                 {
+                    ItemIn::where('vendor_id', $this->vendor_id)
+                    ->where('status', 'Pending') 
+                    ->update(['status' => 'Paid']); 
                     // Create PaymentOut record with validated data
                     $paymentOut = PaymentOut::create($validated + ['total'=>$previousRemain->remain,'remain'=>0,'company_id' => auth()->user()->company_id,'slug' => $this->slug]);
                     $previousRemain->update(['remain'=>0]);

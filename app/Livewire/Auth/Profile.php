@@ -14,11 +14,14 @@ class Profile extends Component
 {
     use WithFileUploads;
     public $user;
+    #[Validate('nullable')]
     public $name;
+    #[Validate('nullable')]
     public $email;
+    #[Validate('nullable')]
     public $address;
+    #[Validate('nullable|numeric')]
     public $age;
-    public $designation;
     public $image;
     #[Validate('required|min:6')]
     public $password;
@@ -34,10 +37,12 @@ class Profile extends Component
         $this->user = auth()->user();
         $this->name = $this->user->name;
         $this->email = $this->user->email;
-        $this->address = $this->user->address;
-        $this->age = $this->user->age;
-        $this->designation = $this->user->designation;
-        $this->employee = Employee::find($this->user->employee_id);
+        if($this->user->role != 'Company')
+        {
+            $this->address = $this->user->employee->address;
+            $this->age = $this->user->employee->age;
+            $this->employee = Employee::find($this->user->employee_id);
+        }
     }
     public function save()
     {
@@ -49,7 +54,6 @@ class Profile extends Component
                     'name' => $this->name,
                     'address' => $this->address,
                     'age' => $this->age,
-                    'designation' => $this->designation,
                 ]);
                 $this->dispatch('name-changed');
             }

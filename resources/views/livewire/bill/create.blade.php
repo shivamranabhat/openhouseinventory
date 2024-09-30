@@ -141,7 +141,7 @@
                                                 wire:change="item({{ $index }}, $event.target.value)">
                                                 <option value="">Select an item</option>
                                                 @forelse($items as $item)
-                                                <option value="{{$item->id}}">{{$item->product->name}}</option>
+                                                <option value="{{$item->id}}">{{$item->product->name}} (Quantity:{{$item->stock}} {{$item->product->sku}})</option>
                                                 @empty
                                                 <option value="">No item found</option>
                                                 @endforelse

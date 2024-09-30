@@ -135,9 +135,8 @@ class Create extends Component
             ->whereIn('id', function ($query) {
                 $query->selectRaw('MAX(id)')
                     ->from('item_ins')
-                    // ->where('status','Pending')
-                    ->where('vendor_id', $this->vendor_id)
-                    ->groupBy('vendor_id', 'product_id');
+                    ->where('status','Pending')
+                    ->groupBy('vendor_id', 'product_id','purchase_date');
             })
             ->get();
         } else {

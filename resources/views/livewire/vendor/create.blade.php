@@ -2,7 +2,7 @@
     <div class="row mb-4">
         <div class="col-sm-12">
             <label for="exampleFormControlInput1">Vendor Name</label>
-            <input type="text" class="form-control" wire:model="name" placeholder="Department Name">
+            <input type="text" class="form-control" wire:model="name" placeholder="Name">
         </div>
         @error('name')
         <div class="feedback text-danger">

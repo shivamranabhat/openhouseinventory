@@ -25,6 +25,12 @@ class Create extends Component
     #[Validate('required|same:password')]
     public $password_confirmation;
 
+    public $can_create = false;
+    public $can_edit = false;
+    public $can_delete = false;
+    public $can_approve = false;
+    public $can_decline = false;
+
     protected function messages()
     {
         return [
@@ -44,6 +50,11 @@ class Create extends Component
             'email' => $this->email,
             'password' => Hash::make($this->password),
             'company_id' => auth()->user()->company_id,
+            'can_create' => $this->can_create ? 'Yes' : null,
+            'can_edit' => $this->can_edit ? 'Yes' : null,
+            'can_delete' => $this->can_delete ? 'Yes' : null,
+            'can_approve' => $this->can_approve ? 'Yes' : null,
+            'can_decline' => $this->can_decline ? 'Yes' : null,
             'slug'=>$this->employee->slug,
         ]);
         session()->flash('success', 'Account created successfully.');

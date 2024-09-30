@@ -67,14 +67,9 @@
         <header class="header navbar navbar-expand-sm expand-header">
 
             <ul class="navbar-item theme-brand flex-row  text-center">
-                <li class="nav-item theme-logo">
-                    {{-- <a href="index.html">
-                        <img src="https://designreset.com/cork/html/src/assets/img/logo2.svg" class="navbar-logo"
-                            alt="logo">
-                    </a> --}}
-                </li>
+               
                 <li class="nav-item theme-text">
-                    <a href="index.html" class="nav-link"> OPENHOUSE </a>
+                    <a href="index.html" class="nav-link"> {{auth()->user()->name}} </a>
                 </li>
             </ul>
 
@@ -170,14 +165,9 @@
 
                 <div class="navbar-nav theme-brand flex-row  text-center">
                     <div class="nav-logo">
-                        <div class="nav-item theme-logo">
-                            {{-- <a href="index.html">
-                                <img src="https://designreset.com/cork/html/src/assets/img/logo.svg" class="navbar-logo"
-                                    alt="logo">
-                            </a> --}}
-                        </div>
+                       
                         <div class="nav-item theme-text">
-                            <a href="index.html" class="nav-link"> CORK </a>
+                            <a href="#" class="nav-link"> {{auth()->user()->name}} </a>
                         </div>
                     </div>
                     <div class="nav-item sidebar-toggle">

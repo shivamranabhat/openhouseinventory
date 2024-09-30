@@ -18,6 +18,11 @@ class Edit extends Component
     public $email;
     public $password;
     public $password_confirmation;
+    public $can_create;
+    public $can_edit;
+    public $can_delete;
+    public $can_approve;
+    public $can_decline;
 
     protected function rules()
     {
@@ -42,7 +47,11 @@ class Edit extends Component
         $this->email = $this->account->email;
         $this->employee_id = $this->account->employee_id;
         $this->employee = Employee::find($this->employee_id);
-
+        $this->can_create = $this->account->can_create==='Yes';
+        $this->can_edit = $this->account->can_edit==='Yes';
+        $this->can_delete = $this->account->can_delete==='Yes';
+        $this->can_approve = $this->account->can_approve==='Yes';
+        $this->can_decline = $this->account->can_decline==='Yes';
     }
     public function update()
     {
@@ -53,6 +62,11 @@ class Edit extends Component
             'email' => $this->email,
             'password' => $this->password ? Hash::make($this->password) : $this->account->password,
             'company_id' => auth()->user()->company_id,
+            'can_create' => $this->can_create ? 'Yes' : 'No',
+            'can_edit' => $this->can_edit ? 'Yes' : 'No',
+            'can_delete' => $this->can_delete ? 'Yes' : 'No',
+            'can_approve' => $this->can_approve ? 'Yes' : 'No',
+            'can_decline' => $this->can_decline ? 'Yes' : 'No',
             'slug'=>$this->employee->slug,
         ]);
         return redirect()->route('accounts');

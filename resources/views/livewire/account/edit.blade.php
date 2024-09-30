@@ -48,6 +48,41 @@
         </div>
         
     </div>
+    <div class="form-group mb-4">
+        <label for="permissions">Permissions</label>
+        <div class="d-flex flex-wrap gap-3">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" wire:model="can_create" id="can_create" 
+                    {{ $can_create === 'Yes' ? 'checked' : '' }}>
+                <label class="form-check-label" for="can_create">Create</label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" wire:model="can_edit" id="can_edit"
+                    {{ $can_edit === 'Yes' ? 'checked' : '' }}>
+                <label class="form-check-label" for="can_edit">Edit</label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" wire:model="can_delete" id="can_delete"
+                    {{ $can_delete === 'Yes' ? 'checked' : '' }}>
+                <label class="form-check-label" for="can_delete">Delete</label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" wire:model="can_approve" id="can_approve"
+                    {{ $can_approve === 'Yes' ? 'checked' : '' }}>
+                <label class="form-check-label" for="can_approve">Approve</label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" wire:model="can_decline" id="can_decline"
+                    {{ $can_decline === 'Yes' ? 'checked' : '' }}>
+                <label class="form-check-label" for="can_decline">Decline</label>
+            </div>
+        </div>
+    </div>
+
   
     <div class="col-12">
         <button class="btn btn-primary _effect--ripple waves-effect waves-light" type="submit"><x-spinner />Submit

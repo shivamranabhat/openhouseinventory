@@ -5,7 +5,11 @@
             
             <h2>Sign In</h2>
             <p>Enter your email and password to login</p>
-            
+            @if (session()->has('error'))
+            <span class="text-danger d-block mb-2">
+                {{ session('error') }}
+            </span>
+            @endif
         </div>
         <div class="col-md-12">
             <div class="mb-3">

@@ -46,9 +46,10 @@
                                                         @if($user->image)
                                                         <div class="d-flex align-items-center gap-3">
                                                             <a role="button" class="mt-2" wire:click='deleteImage'>
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                                                    height="24" viewBox="0 0 24 24" fill="none"
+                                                                    stroke="currentColor" stroke-width="2"
+                                                                    stroke-linecap="round" stroke-linejoin="round"
                                                                     class="feather feather-trash">
                                                                     <polyline points="3 6 5 6 21 6"></polyline>
                                                                     <path
@@ -56,17 +57,21 @@
                                                                     </path>
                                                                 </svg>
                                                             </a>
-                                                            <a href="{{ asset('storage/' . $user->image) }}" target="_blank" class="border rounded-circle px-3 py-4"
-                                                                role="button"><img src="{{ asset('storage/' . $user->image) }}"
-                                                                    alt="Existing Image" class="mt-3" style="max-width: 100px;">
+                                                            <a href="{{ asset('storage/' . $user->image) }}"
+                                                                target="_blank" class="border px-3 py-4"
+                                                                role="button"><img
+                                                                    src="{{ asset('storage/' . $user->image) }}"
+                                                                    alt="Existing Image" class="mt-3"
+                                                                    style="max-width: 100px;">
                                                             </a>
                                                         </div>
                                                         @else
                                                         <div x-data="fileUpload()">
                                                             <label for="fileInput">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" role="button" width="24"
-                                                                    height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                                <svg xmlns="http://www.w3.org/2000/svg" role="button"
+                                                                    width="24" height="24" viewBox="0 0 24 24"
+                                                                    fill="none" stroke="currentColor" stroke-width="2"
+                                                                    stroke-linecap="round" stroke-linejoin="round"
                                                                     class="feather feather-camera">
                                                                     <path
                                                                         d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z">
@@ -74,12 +79,13 @@
                                                                     <circle cx="12" cy="13" r="4"></circle>
                                                                 </svg>
                                                             </label>
-                                                            <input type="file" class="d-none" id="fileInput" wire:model='image'
-                                                                @change="showPreview">
-                                            
+                                                            <input type="file" class="d-none" id="fileInput"
+                                                                wire:model='image' @change="showPreview">
+
                                                             <!-- Image preview -->
                                                             <template x-if="imageUrl">
-                                                                <img :src="imageUrl" alt="Image Preview" class="image-preview mt-3"
+                                                                <img :src="imageUrl" alt="Image Preview"
+                                                                    class="image-preview mt-3"
                                                                     style="max-width: 100px;margin-left:1rem">
                                                             </template>
                                                             @error('doc_img')
@@ -99,7 +105,8 @@
                                                         <div class="col-md-6">
                                                             <div class="form-group">
                                                                 <label for="fullName">Full Name</label>
-                                                                <input type="text" class="form-control mb-3"wire:model='name' placeholder="Full Name">
+                                                                <input type="text" class="form-control mb-3"
+                                                                    wire:model='name' placeholder="Full Name">
                                                             </div>
                                                         </div>
 
@@ -111,48 +118,45 @@
                                                             </div>
                                                         </div>
 
-                                                       @if($user->role != 'Company')
-                                                        <div class="col-md-5">
+                                                        @if($user->role != 'Company')
+                                                        <div class="col-md-6">
                                                             <div class="form-group">
                                                                 <label for="address">Address</label>
                                                                 <input type="text" class="form-control mb-3"
                                                                     wire:model="address" placeholder="Address">
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-2">
+                                                        <div class="col-md-6">
                                                             <div class="form-group">
                                                                 <label for="age">Age</label>
                                                                 <input type="text" class="form-control mb-3"
                                                                     wire:model="age" placeholder="Age">
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-5">
-                                                            <div class="form-group">
-                                                                <label for="designation">Designation</label>
-                                                                <input type="text" class="form-control mb-3" wire:model="designation"
-                                                                    placeholder="Designation">
-                                                            </div>
-                                                        </div>
                                                         @endif
                                                         <div class="col-md-6">
                                                             <div class="form-group">
                                                                 <label for="password">Password</label>
-                                                                <input type="password" class="form-control mb-3" wire:model="password"
-                                                                    placeholder="Password">
+                                                                <input type="password" class="form-control mb-3"
+                                                                    wire:model="password" placeholder="Password">
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6">
                                                             <div class="form-group">
-                                                                <label for="password_confirmation">Confirm Password</label>
-                                                                <input type="password" class="form-control mb-3" wire:model="password_confirmation"
+                                                                <label for="password_confirmation">Confirm
+                                                                    Password</label>
+                                                                <input type="password" class="form-control mb-3"
+                                                                    wire:model="password_confirmation"
                                                                     placeholder="Password">
                                                             </div>
                                                         </div>
-                                                     
+
                                                         <div class="col-md-12 mt-1">
                                                             <div class="form-group text-end">
                                                                 <button
-                                                                    class="btn btn-secondary _effect--ripple waves-effect waves-light"><x-spinner />Save</button>
+                                                                    class="btn btn-secondary _effect--ripple waves-effect waves-light">
+                                                                    <x-spinner />Save
+                                                                </button>
                                                             </div>
                                                         </div>
 
@@ -171,9 +175,38 @@
             </div>
             <div class="tab-pane fade" id="animated-underline-profile" role="tabpanel"
                 aria-labelledby="animated-underline-profile-tab">
-                <div class="row">
+                <div class="section general-info">
+                    <div class="info row">
+                        <h6 class="">Department Information</h6>
 
-
+                        @if($user->role != 'Company')
+                        
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="name">Name</label>
+                                <input type="text" class="form-control mb-3" value="{{$user->employee->department->name}}" disabled>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="head">Head</label>
+                                <input type="text" class="form-control mb-3" value="{{$user->employee->department->head}}" disabled>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="employee">Number of Employees</label>
+                                <input type="text" class="form-control mb-3" value="{{$user->employee->department->employee}}" disabled>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="phone">Contact Number</label>
+                                <input type="text" class="form-control mb-3" value="{{$user->employee->department->phone}}" disabled>
+                            </div>
+                        </div>
+                        @endif
+                    </div>
                 </div>
             </div>
 

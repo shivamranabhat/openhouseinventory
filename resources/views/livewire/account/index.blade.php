@@ -55,7 +55,7 @@
                 <tr role="row">
                     <td>{{$loop->iteration}}</td>
                     <td>{{$account->name}}</td>
-                    <td>{{$account->employee->name ?? ''}}</td>
+                    <td>{{$account->department->name ?? ''}}</td>
                     <td>{{$account->email}}</td>
                     <td>
                         <span class="inv-date"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
