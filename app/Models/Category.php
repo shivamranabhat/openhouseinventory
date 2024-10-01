@@ -14,7 +14,7 @@ class Category extends Model
         static::addGlobalScope(new CompanyScope);
     }
     protected $fillable=[
-        'name','company_id','slug'
+        'name','company_id','type','status','slug'
     ];
     public function products()
     {

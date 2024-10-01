@@ -4,6 +4,7 @@ namespace App\Livewire\Requisition;
 
 use Livewire\Component;
 use App\Models\ItemIn;
+use App\Models\Stock;
 use App\Models\Requisition;
 use Livewire\Attributes\Validate;
 use Illuminate\Support\Str;
@@ -21,7 +22,8 @@ class Create extends Component
     public function checkQuantity()
     {
         $item = ItemIn::find($this->item_in_id);
-        $currentStock = $item->stock;
+        $product = Stock::where('product_id',$item->product_id)->first();
+        $currentStock = $product->stock;
         $requestStock = $this->quantity;
         if($currentStock >= $requestStock)
         {
@@ -37,13 +39,14 @@ class Create extends Component
         sleep(1);
         $slug = Str::slug('REQ'.'-'.$this->quantity.'-'.now());
         $item = ItemIn::find($this->item_in_id);
-        $currentStock = $item->stock;
+        $product = Stock::where('product_id',$item->product_id)->first();
+        $currentStock = $product->stock;
         $requestStock = $this->quantity;
         if($currentStock >= $requestStock)
         {
             $updatedStock = $currentStock - $requestStock;
             $item->update(['stock'=>$updatedStock]);
-            Requisition::create($validated+['company_id' => auth()->user()->company_id,'slug'=>$slug,'employee_id'=>3,'created_at'=>$createdAt]);
+            Requisition::create($validated+['company_id' => auth()->user()->company_id,'slug'=>$slug,'employee_id'=>auth()->user()->employee->id,'created_at'=>$createdAt]);
             session()->flash('success','Request sent successfully');
             $this->reset();
         }
@@ -54,7 +57,10 @@ class Create extends Component
 
     public function render()
     {
-        $stocks = ItemIn::select('id','product_id')->latest()->get();
+        $stocks = ItemIn::selectRaw('MAX(id) as id, product_id')
+                ->groupBy('product_id')
+                ->latest()
+                ->get();
         return view('livewire.requisition.create',compact('stocks'));
     }
 }

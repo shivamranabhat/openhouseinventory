@@ -17,6 +17,7 @@ class Prefix extends Model
         'category_id',
         'company_id',
          'prefix', 
+         'status',
          'slug', 
      ];
 

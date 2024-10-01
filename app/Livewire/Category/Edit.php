@@ -12,6 +12,8 @@ class Edit extends Component
     public $slug;
     #[Validate('required|unique:categories')]
     public $name;
+    #[Validate('required')]
+    public $type;
     public $category;
 
     public function mount()

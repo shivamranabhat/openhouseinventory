@@ -18,8 +18,8 @@ class Index extends Component
     public function updateChequeStatus()
     {
         $currentDateTime = Carbon::now('Asia/Kathmandu');
-        Cheque::where('withdraw_date', '<', $currentDateTime)
-            ->where('status', '!=', 'Withdraw')
+        Cheque::where('withdraw_date', '<=', $currentDateTime)
+            ->where('status', 'Pending')
             ->update(['status' => 'Withdraw']);
     }
 
@@ -29,9 +29,10 @@ class Index extends Component
         $this->resetPage();
     }
 
-    public function remove($slug)
+    public function delete($id)
     {
-       
+        Cheque::find($id)->delete();
+        session()->flash('success','Cheque deleted successfully');
     }
 
     public function render()

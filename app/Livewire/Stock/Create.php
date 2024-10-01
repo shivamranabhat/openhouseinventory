@@ -6,10 +6,11 @@ use Livewire\Component;
 use App\Models\Vendor;
 use App\Models\Product;
 use App\Models\ItemIn;
+use App\Models\Stock;
 use Livewire\Attributes\Validate;
 use Illuminate\Support\Str;
 use App\Models\Barcode;
-use Picqer\Barcode\BarcodeGeneratorPNG;
+use Illuminate\Support\Facades\DB;
 
 class Create extends Component
 {
@@ -100,6 +101,19 @@ class Create extends Component
                     'barcode'    => $barcodeValue
                 ]);
             }
+        }
+        $stockRecord = Stock::where('product_id', $this->product_id)->first();
+        if ($stockRecord) {
+            // If stock record exists, update the stock
+            $stockRecord->update([
+                'stock' => $stockRecord->stock + $this->stock
+            ]);
+        } else {
+            // If stock record doesn't exist, create a new one
+            Stock::create([
+                'product_id' => $this->product_id,
+                'stock' => $this->stock,
+            ]);
         }
         session()->flash('success','Item stocked in successfully');
         $this->reset();

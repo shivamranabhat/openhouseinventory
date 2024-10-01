@@ -18,6 +18,7 @@ class Bill extends Model
        'company_id',
        'receipt_no',
        'bill_date',
+       'status',
        'slug',
     ];
     public function billProducts()

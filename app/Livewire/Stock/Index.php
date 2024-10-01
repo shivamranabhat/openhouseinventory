@@ -7,6 +7,7 @@ use App\Models\ItemIn;
 use Livewire\WithPagination;
 use Livewire\Attributes\Url;
 
+
 class Index extends Component
 {
     use WithPagination;
@@ -20,13 +21,10 @@ class Index extends Component
         $this->resetPage();
     }
 
-    public function remove($slug)
+    public function delete($id)
     {
-        dd('Hello');
-        // $department = Department::whereSlug($slug)->first();
-        // dd($department);
-        // $department->delete();
-        // session()->flash('success','Department deleted successfully');
+        ItemIn::find($id)->delete();
+        session()->flash('success','Stock deleted successfully');
     }
 
     public function render()
@@ -38,7 +36,9 @@ class Index extends Component
                   })->orWhereHas('vendor', function($query) {
                     $query->where('name', 'like', '%' . $this->search . '%');
                 });
-        })->paginate($this->page); 
+        })
+        ->latest()
+        ->paginate($this->page); 
         return view('livewire.stock.index',['stocks'=>$stocks]);
     }
 }

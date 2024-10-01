@@ -60,7 +60,7 @@
                             <input class="form-check-input child-chk" type="checkbox" id="form-check-default">
                         </div>
                     </td>
-                    <td>1</td>
+                    <td>{{$loop->iteration}}</td>
                     <td class="sorting_1"><span class="inv-number">{{$payment->receipt_no}}</span></td>
                     <td>
                         <p class="align-self-center mb-0 user-name"> {{$payment->vendor->name}} </p>

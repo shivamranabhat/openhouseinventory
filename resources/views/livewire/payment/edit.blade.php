@@ -8,7 +8,7 @@
 
                         <div class="invoice-logo">
                             <div class="profile-image">
-                                <img src="https://catwalkpokhara.com/assets/images/logo.png" class="rounded-circle"
+                                <img src="{{asset('storage/'.auth()->user()->image)}}" class="rounded-circle"
                                     width="100" alt="logo">
                             </div>
                         </div>

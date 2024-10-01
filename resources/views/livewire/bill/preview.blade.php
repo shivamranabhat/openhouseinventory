@@ -21,8 +21,8 @@
 
                                                 <div class="col-sm-6 col-12 mr-auto">
                                                     <div class="d-flex">
-                                                        <img src="https://catwalkpokhara.com/assets/images/logo.png"
-                                                            class="rounded-circle" width="100" alt="logo">
+                                                        <img src="{{asset('storage/'.auth()->user()->image)}}" class="rounded-circle"
+                                                        width="100" alt="logo">
                                                     </div>
                                                     {{-- <p class="inv-street-addr mt-3">XYZ Delta Street</p>
                                                     <p class="inv-email-address">info@company.com</p>
@@ -164,7 +164,7 @@
                                         class="btn btn-success btn-download _effect--ripple waves-effect waves-light">Download</a>
                                 </div>
                                 <div class="col-xl-12 col-md-3 col-sm-6">
-                                    <a href="./app-invoice-edit.html"
+                                    <a href="{{route('bill.edit',$details->slug)}}"
                                         class="btn btn-dark btn-edit _effect--ripple waves-effect waves-light">Edit</a>
                                 </div>
                             </div>

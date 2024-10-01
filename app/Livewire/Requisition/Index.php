@@ -5,6 +5,7 @@ namespace App\Livewire\Requisition;
 use Livewire\Component;
 use App\Models\Requisition;
 use App\Models\ItemIn;
+use App\Models\Stock;
 use Livewire\WithPagination;
 use Livewire\Attributes\Url;
 
@@ -35,16 +36,16 @@ class Index extends Component
         $request = Requisition::whereSlug($slug)->first();
         $requestStock = $request->quantity;
         $item = ItemIn::find($request->item_in_id);
-        if($item->stock >= $requestStock)
+        $product = Stock::where('product_id',$item->product_id)->first();
+        if($product->stock >= $requestStock)
         {
-            
-            $newStock = $item->stock - $requestStock;
-            $item->update(['stock'=>$newStock]);
+            $newStock = $product->stock - $requestStock;
+            $product->update(['stock'=>$newStock]);
             $request->update(['status'=>'Approved']);
             session()->flash('success','Request approved successfully');
         }
         else{
-            session()->flash('error','Stock Alert! Only '.$item->stock.' left');
+            session()->flash('error','Stock Alert! Only '.$product->stock.' left');
         }
     }
     public function decline($slug)

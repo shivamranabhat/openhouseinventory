@@ -11,6 +11,8 @@ class Create extends Component
 {
     #[Validate('required|unique:categories')]
     public $name;
+    #[Validate('required')]
+    public $type;
    
     public function save()
     {

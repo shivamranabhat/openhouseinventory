@@ -3,7 +3,7 @@
     <link href="{{asset('src/assets/css/light/apps/invoice-add.css')}}" rel="stylesheet" type="text/css">
     <link href="{{asset('src/assets/css/dark/apps/invoice-add.css')}}" rel="stylesheet" type="text/css">
     @endslot
-    <div class="middle-content p-0">
+    <div class="middle-content p-0 col-lg-8">
         <div class="d-flex justify-content-between align-items-center">
             <x-breadcrumb />
             <a href="{{route('payments')}}" class="mt-3">

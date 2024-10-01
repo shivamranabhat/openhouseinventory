@@ -47,7 +47,7 @@ class Edit extends Component
 
     public function render()
     {
-        $categories = Category::select('name','id')->get();
+        $categories = Category::select('name','id')->where('type','Product')->get();
         return view('livewire.inventory.edit',compact('categories'));
     }
 }

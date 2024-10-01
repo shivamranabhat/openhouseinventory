@@ -1,31 +1,50 @@
 <form class="widget-content widget-content-area ecommerce-create-section" wire:submit.prevent='update'>
     <div class="form-group mb-4">
-        <label for="product_id">Product</label>
-        <select class="form-select" wire:model="product_id">
-            <option value="">Select a product</option>
-            @forelse($categories as $product)
-            <option value="{{$product->id}}">{{$product->name}}</option>
-            @empty 
+        <label for="item_in_id">Product</label>
+        <select class="form-select" wire:model="item_in_id">
+            <option value="{{$requisition->item_in_id}}">{{$requisition->itemIn->product->name}}</option>
+            @forelse($stocks as $stock)
+            <option value="{{$stock->id}}">{{$stock->product->name}}</option>
+            @empty
             <option value="">No product found</option>
             @endforelse
-           
+
         </select>
-        @error('product_id')
+        @error('item_in_id')
         <div class="feedback text-danger">
             Please select a product.
         </div>
         @enderror
     </div>
-   
+
     <div class="row mb-4">
         <div class="col-sm-12">
-            <label for="exampleFormControlInput1">Quantity</label>
-            <input type="text" class="form-control" wire:model="quantity" placeholder="Quantity">
+            <label for="quantity">Quantity</label>
+            <input type="text" class="form-control" wire:model="quantity" wire:change='checkQuantity'
+                placeholder="Quantity">
         </div>
+        @error('quantity')
+        <div class="feedback text-danger">
+            Please provide a quantity.
+        </div>
+        @enderror
+        @if (session('stock'))
+        <div class="feedback text-danger">
+            {{ session('stock') }}
+        </div>
+        @endif
+
     </div>
-   
+
     <div class="col-12">
-        <button class="btn btn-primary _effect--ripple waves-effect waves-light" type="submit"><x-spinner />Submit
+        @if (session('stock'))
+        <button class="btn btn-primary _effect--ripple waves-effect waves-light" disabled>
+           Submit
         </button>
+        @else
+        <button class="btn btn-primary _effect--ripple waves-effect waves-light" type="submit">
+            <x-spinner />Submit
+        </button>
+        @endif
     </div>
 </form>

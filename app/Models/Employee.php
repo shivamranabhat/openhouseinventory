@@ -14,7 +14,7 @@ class Employee extends Model
         static::addGlobalScope(new CompanyScope);
     }
     protected $fillable=[
-        'name','age','address','salary','join_date','department_id','company_id','designation','doc_img','slug'
+        'name','age','address','salary','join_date','department_id','company_id','designation','doc_img','status','slug'
     ];
     public function department()
     {

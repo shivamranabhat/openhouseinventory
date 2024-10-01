@@ -80,10 +80,13 @@ class Edit extends Component
         $this->billProduct = $this->bill->billProducts->first(); // Adjust this to match your logic
    
         // Assign the extra_charge_id from the billProduct
-        $this->extra_charge_id = $this->billProduct->extra_charge_id;
-        $this->extra_charge = ExtraCharge::find($this->extra_charge_id);
-        $this->type = $this->extra_charge->name;
-        $this->value = $this->extra_charge->value;
+        if($this->billProduct->extra_charge_id)
+        {
+            $this->extra_charge_id = $this->billProduct->extra_charge_id;
+            $this->extra_charge = ExtraCharge::find($this->extra_charge_id);
+            $this->type = $this->extra_charge->name;
+            $this->value = $this->extra_charge->value;
+        }
         // Fetch available extra charges
         $this->charges = ExtraCharge::all();
         $this->items = ItemIn::where('vendor_id', $this->vendor_id)
@@ -202,6 +205,7 @@ class Edit extends Component
                 'item_in_id' => $row['item_in_id'],
                 'quantity' => $row['quantity'],
                 'rate' => $row['rate'],
+                'company_id' => auth()->user()->company_id,
                 'extra_charge_id' => $this->extra_charge ? $this->extra_charge->id : null,
             ]);
         }

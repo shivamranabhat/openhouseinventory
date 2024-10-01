@@ -20,11 +20,12 @@ class Index extends Component
         $this->resetPage();
     }
 
-    public function remove($slug)
+    public function delete($id)
     {
-       
+        Prefix::find($id)->delete();
+        session()->flash('success','Prefix deleted successfully');
     }
-
+    
     public function render()
     {
         $prefixes = Prefix::where(function ($query) {
@@ -33,6 +34,7 @@ class Index extends Component
                 $query->where('name', 'like', '%' . $this->search . '%');
             });
         })
+        ->latest()
         ->paginate($this->page);
         return view('livewire.prefix.index',['prefixes'=>$prefixes]);
     }

@@ -20,13 +20,10 @@ class Index extends Component
         $this->resetPage();
     }
 
-    public function remove($slug)
+    public function delete($id)
     {
-        dd('Hello');
-        // $department = Department::whereSlug($slug)->first();
-        // dd($department);
-        // $department->delete();
-        // session()->flash('success','Department deleted successfully');
+        Vendor::find($id)->delete();
+        session()->flash('success','Vendor deleted successfully');
     }
 
     public function render()
@@ -37,7 +34,7 @@ class Index extends Component
                 ->orWhere('address', 'like', '%' . $this->search . '%')
                 ->orWhere('phone', 'like', '%' . $this->search . '%')
                 ->orWhere('contact_person', 'like', '%' . $this->search . '%');
-        })->paginate($this->page);
+        })->latest()->paginate($this->page);
         return view('livewire.vendor.index',['vendors'=>$vendors]);
     }
 }

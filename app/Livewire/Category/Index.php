@@ -20,16 +20,18 @@ class Index extends Component
         $this->resetPage();
     }
 
-    public function remove($slug)
+    public function delete($id)
     {
-       
+        Category::find($id)->delete();
+        session()->flash('success','Category deleted successfully');
     }
 
     public function render()
     {
         $categories = Category::where(function ($query) {
-            $query->where('name', 'like', '%' . $this->search . '%');
-        })->paginate($this->page);
+            $query->where('name', 'like', '%' . $this->search . '%')
+            ->orWhere('type', 'like', '%' . $this->search . '%');
+        })->latest()->paginate($this->page);
         return view('livewire.category.index',['categories'=>$categories]);
     }
 }

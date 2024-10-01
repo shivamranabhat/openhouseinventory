@@ -86,17 +86,20 @@
             </div>
         </div>
         <ul class="list-group">
-            @foreach($existingBarcodes as $existingBarcode)
-            <li class="list-group-item d-flex justify-content-between align-items-center">
+            @foreach($existingBarcodes as $index => $existingBarcode)
+            <li class="list-group-item d-flex justify-content-between align-items-center" id="existingBarcode-{{ $index }}">
                 <span class="d-flex flex-column">
                     @php
-                    $generator = new Picqer\Barcode\BarcodeGeneratorHTML();
-                    $barcodeHtml = $generator->getBarcode($existingBarcode, $generator::TYPE_CODE_128);
+                    $barcodeImage = AgeekDev\Barcode\Facades\Barcode::imageType('svg')
+                    ->foregroundColor('#000000')
+                    ->height(30)
+                    ->widthFactor(2)
+                    ->type(AgeekDev\Barcode\Enums\Type::TYPE_CODE_128)
+                    ->generate($existingBarcode);
                     @endphp
-                    {!! $barcodeHtml !!}
-                    <span>{{ $existingBarcode }}</span> <!-- Display the barcode number -->
+                      {!! $barcodeImage !!}
                 </span>
-                <button type="button" class="badge bg-primary rounded-pill">Print</button>
+                <button type="button" class="badge bg-primary rounded-pill" onclick="printExistingBarcode({{ $index }})">Print</button>
             </li>
             @endforeach
         </ul>
@@ -110,15 +113,18 @@
             </div>
         </div>
         <ul class="list-group">
-            @foreach($barcodeList as $barcode)
-            <li class="list-group-item d-flex justify-content-between align-items-center">
+            @foreach($barcodeList as $index => $barcode)
+            <li class="list-group-item d-flex justify-content-between align-items-center" id="barcode-{{ $index }}">
                 <span class="d-flex flex-column">
                     @php
-                    $generator = new Picqer\Barcode\BarcodeGeneratorHTML();
-                    $barcodeHtml = $generator->getBarcode($barcode, $generator::TYPE_CODE_128);
+                    $barcodeImage = AgeekDev\Barcode\Facades\Barcode::imageType('svg')
+                    ->foregroundColor('#000000')
+                    ->height(30)
+                    ->widthFactor(2)
+                    ->type(AgeekDev\Barcode\Enums\Type::TYPE_CODE_128)
+                    ->generate($barcode);
                     @endphp
-                    {!! $barcodeHtml !!}
-                    <span>{{ $barcode }}</span> <!-- Display the barcode number -->
+                    {!! $barcodeImage !!}
                 </span>
                 <button type="button" class="badge bg-primary rounded-pill"
                     onclick="printBarcode('{{ $barcode }}')">Print</button>
@@ -132,8 +138,7 @@
     <div class="mb-4">
         <div class="col-sm-12">
             <label for="purchase_date">Purchased Date</label>
-            <input type="date" class="form-control" id="date" wire:model="purchase_date" placeholder="Purchase Date"
-                wire:ignore>
+            <input type="date" class="form-control" id="date" wire:model="purchase_date" placeholder="Purchase Date" wire:ignore.self>
         </div>
         @error('purchase_date')
         <div class="feedback text-danger">
@@ -157,4 +162,34 @@
             <x-spinner />Submit
         </button>
     </div>
+    <script>
+        function printExistingBarcode(index) {
+            var barcodeContent = document.getElementById('existingBarcode-' + index).querySelector('span').innerHTML;
+            var printWindow = window.open('', '_blank');
+            printWindow.document.write('<html><head><title>Barcode</title>');
+            printWindow.document.write('<style>@media print { body { margin: 0; padding: 0; } }</style>');
+            printWindow.document.write('</head><body>');
+            printWindow.document.write(barcodeContent);
+            printWindow.document.write('</body></html>');
+
+            printWindow.document.close();
+            printWindow.focus();
+            printWindow.print(); 
+            printWindow.close(); 
+        }
+        function printBarcode(index) {
+            var barcodeContent = document.getElementById('barcode-' + index).querySelector('span').innerHTML;
+            var printWindow = window.open('', '_blank');
+            printWindow.document.write('<html><head><title>Barcode</title>');
+            printWindow.document.write('<style>@media print { body { margin: 0; padding: 0; } }</style>');
+            printWindow.document.write('</head><body>');
+            printWindow.document.write(barcodeContent);
+            printWindow.document.write('</body></html>');
+
+            printWindow.document.close();
+            printWindow.focus();
+            printWindow.print(); 
+            printWindow.close(); 
+        }
+    </script>
 </form>

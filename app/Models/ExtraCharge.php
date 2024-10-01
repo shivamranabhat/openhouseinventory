@@ -14,7 +14,7 @@ class ExtraCharge extends Model
         static::addGlobalScope(new CompanyScope);
     }
     protected $fillable=[
-        'name','value','company_id','slug'
+        'name','value','company_id','status','slug'
     ];
     public function billProduct()
     {

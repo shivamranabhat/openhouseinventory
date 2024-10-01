@@ -41,7 +41,7 @@ class Edit extends Component
 
     public function render()
     {
-        $categories = Category::select('name','id')->get();
+        $categories = Category::select('name','id')->where('type','Service')->get();
         return view('livewire.service.edit',compact('categories'));
     }
 }

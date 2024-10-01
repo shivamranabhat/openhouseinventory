@@ -14,7 +14,7 @@ class Product extends Model
         static::addGlobalScope(new CompanyScope);
     }
     protected $fillable=[
-        'name','sku','quantity','category_id','description','company_id','slug'
+        'name','sku','quantity','category_id','description','company_id','status','slug'
     ];
     public function category()
     {
@@ -31,5 +31,9 @@ class Product extends Model
     public function company()
     {
         return $this->belongsTo(Company::class);
+    }
+    public function stock()
+    {
+        return $this->hasOne(Stock::class);
     }
 }

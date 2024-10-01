@@ -24,7 +24,7 @@ class Index extends Component
 
     public function render()
     {
-        $bills = Bill::latest()->paginate($this->page);
+        $bills = Bill::latest()->where('status','Active')->paginate($this->page);
         return view('livewire.bill.index',['bills'=>$bills]);
     }
 }

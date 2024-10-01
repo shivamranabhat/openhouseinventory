@@ -20,9 +20,10 @@ class Index extends Component
         $this->resetPage();
     }
 
-    public function remove($slug)
+    public function delete($id)
     {
-       
+        User::find($id)->update(['status'=>'Inactive']);
+        session()->flash('success','Account deleted successfully');
     }
 
     public function render()
@@ -30,7 +31,7 @@ class Index extends Component
         $accounts = User::where(function ($query) {
             $query->where('name', 'like', '%' . $this->search . '%')
             ->where('email', 'like', '%' . $this->search . '%');
-        })->where('id','<>',auth()->user()->id)->where('role','<>','Company')->where('company_id',auth()->user()->company_id)->paginate($this->page);
+        })->where('status','Active')->where('id','<>',auth()->user()->id)->where('role','<>','Company')->where('company_id',auth()->user()->company_id)->paginate($this->page);
         return view('livewire.account.index',['accounts'=>$accounts]);
     }
 }

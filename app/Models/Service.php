@@ -14,7 +14,7 @@ class Service extends Model
         static::addGlobalScope(new CompanyScope);
     }
     protected $fillable=[
-        'name','duration','category_id','description','company_id','slug'
+        'name','duration','category_id','description','company_id','status','slug'
     ];
     public function category()
     {

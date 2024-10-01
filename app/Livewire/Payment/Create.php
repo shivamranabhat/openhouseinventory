@@ -53,8 +53,6 @@ class Create extends Component
         ];
     }
 
-
-
     public function save()
     {
         $validated = $this->validate();
@@ -131,7 +129,6 @@ class Create extends Component
     }
     public function showAmount($value)
     {
-        
         if ($value) {
             $this->vendor_id = $value;
             $this->total = ItemIn::where('vendor_id', $value)

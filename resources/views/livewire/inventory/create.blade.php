@@ -1,45 +1,43 @@
 <form class="widget-content widget-content-area ecommerce-create-section" wire:submit.prevent='save'>
     <div class="row mb-4">
-        <div class="col-sm-12">
+        <div class="col-lg-6 form-group">
             <label for="exampleFormControlInput1">Name</label>
             <input type="text" class="form-control" wire:model="name" placeholder="Product Name">
+            @error('name')
+            <div class="feedback text-danger">
+                Please provide a valid name.
+            </div>
+            @enderror
         </div>
-        @error('name')
-        <div class="feedback text-danger">
-            Please provide a valid name.
+        <div class="col-lg-6 form-group">
+            <label for="category_id">Category</label>
+            <select class="form-select" wire:model="category_id">
+                <option value="">Select a category</option>
+                @forelse($categories as $category)
+                <option value="{{$category->id}}">{{$category->name}}</option>
+                @empty 
+                <option value="">No category found</option>
+                @endforelse
+               
+            </select>
+            @error('category_id')
+            <div class="feedback text-danger">
+                Please select a category.
+            </div>
+            @enderror
         </div>
-        @enderror
-    </div>
-    <div class="form-group mb-4">
-        <label for="category_id">Category</label>
-        <select class="form-select" wire:model="category_id">
-            <option value="">Select a category</option>
-            @forelse($categories as $category)
-            <option value="{{$category->id}}">{{$category->name}}</option>
-            @empty 
-            <option value="">No category found</option>
-            @endforelse
-           
-        </select>
-        @error('category_id')
-        <div class="feedback text-danger">
-            Please select a category.
-        </div>
-        @enderror
     </div>
     <div class="row mb-4">
-        <div class="col-sm-12">
+        <div class="col-lg-6 form-group">
             <label for="exampleFormControlInput1">Sku</label>
             <input type="text" class="form-control" wire:model="sku" placeholder="Sku">
+            @error('sku')
+            <div class="feedback text-danger">
+                Please provide a sku.
+            </div>
+            @enderror
         </div>
-        @error('sku')
-        <div class="feedback text-danger">
-            Please provide a sku.
-        </div>
-        @enderror
-    </div>
-    <div class="row mb-4">
-        <div class="col-sm-12">
+        <div class="col-lg-6 form-group">
             <label for="exampleFormControlInput1">Quantity</label>
             <input type="text" class="form-control" wire:model="quantity" placeholder="Quantity">
         </div>

@@ -14,7 +14,7 @@ class Department extends Model
         static::addGlobalScope(new CompanyScope);
     }
     protected $fillable=[
-        'name','head','phone','email','employee','company_id','slug'
+        'name','head','phone','email','employee','company_id','status','slug'
     ];
     public function employees()
     {

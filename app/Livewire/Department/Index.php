@@ -21,13 +21,10 @@ class Index extends Component
         $this->resetPage();
     }
 
-    public function remove($slug)
+    public function delete($id)
     {
-        dd('Hello');
-        // $department = Department::whereSlug($slug)->first();
-        // dd($department);
-        // $department->delete();
-        // session()->flash('success','Department deleted successfully');
+        Department::find($id)->update(['status'=>'Inactive']);
+        session()->flash('success','Department deleted successfully');
     }
 
     public function render()
@@ -38,7 +35,7 @@ class Index extends Component
                 ->orWhere('email', 'like', '%' . $this->search . '%')
                 ->orWhere('phone', 'like', '%' . $this->search . '%')
                 ->orWhere('employee', 'like', '%' . $this->search . '%');
-        })->paginate($this->page);
+        })->where('status','Active')->latest()->paginate($this->page);
         return view('livewire.department.index',['departments'=>$departments]);
     }
 }

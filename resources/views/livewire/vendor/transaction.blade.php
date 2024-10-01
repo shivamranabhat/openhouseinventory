@@ -67,7 +67,7 @@
                                         </table>
                                     </div>
                                 </div>
-
+                                @if($total)
                                 <div class="inv--total-amounts">
 
                                     <div class="row mt-4">
@@ -103,6 +103,7 @@
                                     </div>
 
                                 </div>
+                                @endif
 
                                 <div class="inv--note">
 

@@ -14,7 +14,7 @@ class Vendor extends Model
         static::addGlobalScope(new CompanyScope);
     }
     protected $fillable=[
-        'name','phone','address','pan_vat','contact_person','company_id','slug'
+        'name','phone','address','pan_vat','contact_person','company_id','status','slug'
     ];
 
      public function itemIns()

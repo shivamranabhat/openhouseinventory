@@ -13,6 +13,7 @@ class Index extends Component
     #[Url] 
     public $search = '';
     public $page=10;
+    public $selectedItems = [];
 
     public function updatePage($page)
     {
@@ -20,9 +21,10 @@ class Index extends Component
         $this->resetPage();
     }
 
-    public function remove($slug)
+    public function deleteSelected()
     {
-       
+        ExtraCharge::whereIn('id', $this->selectedItems)->delete();
+        $this->selectedItems = [];
     }
 
     public function render()

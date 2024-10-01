@@ -24,6 +24,7 @@ class PaymentOut extends Model
        'total',
        'paid',
        'remain',
+       'status',
        'slug',
     ];
     public function vendor()

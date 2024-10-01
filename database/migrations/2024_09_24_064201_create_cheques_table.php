@@ -18,6 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('payment_out_id');
             $table->foreign('payment_out_id')->references('id')->on('payment_outs')->onDelete('Cascade');
             $table->string('pay_date');
+            $table->string('image');
             $table->string('withdraw_date')->nullable();
             $table->string('status')->default('Pending');
             $table->unsignedBigInteger('company_id');

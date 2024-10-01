@@ -20,15 +20,12 @@ class Index extends Component
         $this->resetPage();
     }
 
-    public function remove($slug)
+    public function delete($id)
     {
-        dd('Hello');
-        // $department = Department::whereSlug($slug)->first();
-        // dd($department);
-        // $department->delete();
-        // session()->flash('success','Department deleted successfully');
+        Service::find($id)->delete();
+        session()->flash('success','Service deleted successfully');
     }
-
+    
     public function render()
     {
         $services = Service::where(function ($query) {

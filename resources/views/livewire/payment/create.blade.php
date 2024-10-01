@@ -1,6 +1,6 @@
 <div class="doc-container">
     <div class="row">
-        <div class="col-xl-9">
+        <div class="col-12">
             <form class="invoice-content" wire:submit.prevent='save'>
                 <div class="invoice-detail-body">
 
@@ -8,7 +8,7 @@
 
                         <div class="invoice-logo">
                             <div class="profile-image">
-                                <img src="https://catwalkpokhara.com/assets/images/logo.png" class="rounded-circle"
+                                <img src="{{asset('storage/'.auth()->user()->image)}}" class="rounded-circle"
                                     width="100" alt="logo">
                             </div>
                         </div>
@@ -46,12 +46,12 @@
                                             @else
                                             <label>Paid / Amount not found</label>
                                             @endif
-                                            @endif
+                                            @endif --}}
                                             @error('vendor_id')
                                             <div class="feedback text-danger">
                                                 Please select a vendor.
                                             </div>
-                                            @enderror --}}
+                                            @enderror
                                         </div>
                                     </div>
 

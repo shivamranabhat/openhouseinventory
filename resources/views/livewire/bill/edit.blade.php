@@ -1,7 +1,7 @@
 <div class="doc-container">
 
     <div class="row">
-        <div class="col-xl-9">
+        <div class="col-12">
 
             <div class="invoice-content">
 
@@ -11,9 +11,8 @@
 
                         <div class="invoice-logo">
                             <div class="profile-image">
-
-                                <img src="https://catwalkpokhara.com/assets/images/logo.png" class="rounded-circle"
-                                    width="100" alt="logo">
+                                <img src="{{asset('storage/'.auth()->user()->image)}}" class="rounded-circle"
+                                width="100" alt="logo">
                             </div>
                         </div>
 
