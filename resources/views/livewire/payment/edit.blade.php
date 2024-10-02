@@ -1,6 +1,6 @@
 <div class="doc-container">
     <div class="row">
-        <div class="col-xl-9">
+        <div class="col-12">
             <form class="invoice-content" wire:submit.prevent='update'>
                 <div class="invoice-detail-body">
 
@@ -51,7 +51,7 @@
                                         <div class="form-group mb-4">
                                             <label for="date">Date</label>
                                             <input type="text" class="form-control form-control-sm flatpickr-input"
-                                                id="date" wire:model='payment_date' placeholder="Date">
+                                                id="payment" wire:model='payment_date' placeholder="Date">
                                         </div>
                                         @error('payment_date')
                                         <div class="feedback text-danger">

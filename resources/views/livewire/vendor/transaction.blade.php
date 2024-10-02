@@ -4,7 +4,7 @@
 
         <div class="col-xl-9">
 
-            <div class="invoice-container">
+            <div class="invoice-container" id="invoice-container">
                 <div class="invoice-inbox">
 
                     <div id="ct" class="">
@@ -36,7 +36,7 @@
                                 </div>
 
                                 <div class="inv--product-table-section">
-                                    
+
                                     <div class="table-responsive">
                                         <table class="table">
                                             <thead class="">
@@ -134,16 +134,17 @@
                 <div class="invoice-action-btn">
 
                     <div class="row">
-                        
+
                         <div class="col-xl-12 col-md-3 col-sm-6">
                             <a href="javascript:void(0);"
-                                class="btn btn-secondary btn-print action-print _effect--ripple waves-effect waves-light">Print</a>
+                                class="btn btn-secondary btn-print action-print _effect--ripple waves-effect waves-light"
+                                onclick="printBill()">Print</a>
                         </div>
                         <div class="col-xl-12 col-md-3 col-sm-6">
-                            <a href="javascript:void(0);"
+                            <a href="{{route('downloadTransactionPdf',$slug)}}"
                                 class="btn btn-success btn-download _effect--ripple waves-effect waves-light">Download</a>
                         </div>
-                       
+
                     </div>
 
                 </div>
@@ -153,5 +154,62 @@
         </div>
 
     </div>
+    <script>
+        function printBill() {
+            // Get the invoice container
+            var invoiceContent = document.getElementById('invoice-container').innerHTML;
+    
+            // Create a new window
+            var printWindow = window.open('', '_blank');
+    
+            // Write the HTML content to the new window
+            printWindow.document.write(`
+                <!DOCTYPE html>
+                <html lang="en">
+                <head>
+                    <meta charset="utf-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>Print Invoice</title>
+
+                    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+                    <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700" rel="stylesheet">
+                    <link href="{{asset('src/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
+                    <link href="{{asset('layouts/vertical-dark-menu/css/light/plugins.css')}}" rel="stylesheet" type="text/css" />
+                    <link href="{{asset('layouts/vertical-dark-menu/css/dark/plugins.css')}}" rel="stylesheet" type="text/css" />
+                    <link href="{{asset('src/assets/css/light/elements/custom-pagination.css')}}" rel="stylesheet" type="text/css">
+                    <link href="{{asset('src/assets/css/dark/elements/custom-pagination.css')}}" rel="stylesheet" type="text/css">
+                    <link href="{{asset('src/assets/css/light/components/modal.css')}}" rel="stylesheet" type="text/css">
+                    <link href="{{asset('src/assets/css/dark/components/modal.css')}}" rel="stylesheet" type="text/css">
+                    <!-- END GLOBAL MANDATORY STYLES -->
+
+                    <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM STYLES -->
+                    <link href="{{asset('src/plugins/src/animate/animate.css')}}" rel="stylesheet" type="text/css" />
+                    <link href="{{asset('src/assets/css/light/dashboard/dash_1.css')}}" rel="stylesheet" type="text/css" />
+                    <link href="{{asset('src/assets/css/dark/dashboard/dash_1.css')}}" rel="stylesheet" type="text/css" />
+                    <link rel="stylesheet" type="text/css" href="{{asset('src/plugins/src/table/datatable/datatables.css')}}">
+
+                    <link rel="stylesheet" type="text/css" href="{{asset('src/plugins/css/light/table/datatable/dt-global_style.css')}}">
+                    <link rel="stylesheet" type="text/css" href="{{asset('src/plugins/css/dark/table/datatable/dt-global_style.css')}}">
+                    <link href="{{asset('src/assets/css/dark/apps/invoice-list.css')}}" rel="stylesheet" type="text/css">
+                    <link href="{{asset('assets/dark/invoice-preview.css')}}" rel="stylesheet" type="text/css">
+                    <link href="{{asset('assets/light/invoice-preview.css')}}" rel="stylesheet" type="text/css">
+                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.5.2/css/bootstrap.min.css">
+                    <style>
+                        /* Add your custom styles here */
+                        body {
+                            margin: 20px;
+                        }
+                    </style>
+                </head>
+                <body onload="window.print(); window.close();">
+                    ${invoiceContent}
+                    
+                </body>
+                </html>
+            `);
+    
+            printWindow.document.close();
+        }
+    </script>
 
 </div>

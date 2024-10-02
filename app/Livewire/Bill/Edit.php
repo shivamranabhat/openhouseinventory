@@ -73,6 +73,8 @@ class Edit extends Component
                 'quantity' => $product->quantity,
                 'rate' => $product->rate,
                 'extra_charge_id' => $product->extra_charge_id,
+                'product_name' => $product->itemIn->product->name,
+                'sku' => $product->itemIn->product->sku,
             ];
         }
 
@@ -124,7 +126,7 @@ class Edit extends Component
     
     public function addRow()
     {
-        $this->rows[] = ['item_in_id' => null, 'quantity' => 1, 'rate' => 0];
+        $this->rows[] = [ 'product_name' => '','item_in_id' => null, 'quantity' => 1, 'rate' => 0,'sku'=>''];
     }
 
     public function removeRow($index)

@@ -7,7 +7,7 @@ use Livewire\WithPagination;
 use App\Models\Vendor;
 use App\Models\ItemIn;
 use App\Models\PaymentOut;
-
+use Barryvdh\DomPDF\Facade\Pdf;
 class Transaction extends Component
 {
     use WithPagination;
@@ -17,6 +17,7 @@ class Transaction extends Component
     {
         $this->vendor = Vendor::whereSlug($this->slug)->first();
     }
+
 
     public function render()
     {
@@ -36,3 +37,4 @@ class Transaction extends Component
         return view('livewire.vendor.transaction',compact('purchases','total','transaction','remain'));
     }
 }
+

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\PdfController;
 use App\Http\Livewire\BarcodeComponent;
 use App\Http\Middleware\CompanyMiddleware;
 
@@ -90,4 +91,7 @@ Route::prefix('/login')->controller(PageController::class)->group(function(){
 });
 Route::prefix('/signup')->controller(PageController::class)->group(function(){
     Route::get('','signup')->name('signup');
+});
+Route::prefix('/transaction-pdf')->controller(PdfController::class)->group(function(){
+    Route::get('/{slug}','downloadTransactionPdf')->name('downloadTransactionPdf');
 });

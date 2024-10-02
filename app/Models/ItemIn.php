@@ -17,6 +17,7 @@ class ItemIn extends Model
         'product_id',
          'vendor_id',
          'company_id',
+         'stock',
          'unit_price',
          'total', 
          'purchase_date', 

@@ -1,7 +1,7 @@
 <div class="doc-container">
 
     <div class="row">
-        <div class="col-12">
+        <div class="col-xl-9">
 
             <div class="invoice-content">
 
@@ -125,9 +125,14 @@
                                         <td class="item_in_id">
                                             <select class="form-select" wire:model="rows.{{ $index }}.item_in_id"
                                                 wire:change="item({{ $index }}, $event.target.value)">
+                                                @if($rows[$index]['product_name'] != '')
+                                                <option value="{{ $rows[$index]['item_in_id'] }}" selected>
+                                                    {{ $rows[$index]['item_in_id'] ? $rows[$index]['product_name'] . ' (Quantity: ' . $rows[$index]['quantity'] . $rows[$index]['sku'] . ')' : 'Select an item' }}
+                                                @else
                                                 <option value="">Select an item</option>
+                                                @endif
                                                 @forelse($items as $item)
-                                                <option value="{{$item->id}}">{{$item->product->name}}</option>
+                                                <option value="{{$item->id}}">{{$item->product->name}} (Quantity:{{$item->stock}} {{$item->product->sku}})</option>
                                                 @empty
                                                 <option value="">No item found</option>
                                                 @endforelse
