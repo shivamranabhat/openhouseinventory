@@ -14,7 +14,18 @@ class Index extends Component
     public $search = '';
     public $page=10;
 
-    
+    public $confirmingDeletion = null; 
+
+    public function confirmDelete($department_id)
+    {
+        $this->confirmingDeletion = $department_id;
+    }
+
+    public function cancelDelete()
+    {
+        $this->confirmingDeletion = null;
+    }
+
     public function updatePage($page)
     {
         $this->page = $page;

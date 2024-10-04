@@ -15,6 +15,18 @@ class Index extends Component
     public $search = '';
     public $page=10;
 
+    public $confirmingDeletion = null; 
+
+    public function confirmDelete($item_in_id)
+    {
+        $this->confirmingDeletion = $item_in_id;
+    }
+    
+    public function cancelDelete()
+    {
+        $this->confirmingDeletion = null;
+    }
+
     public function updatePage($page)
     {
         $this->page = $page;
@@ -23,7 +35,7 @@ class Index extends Component
 
     public function delete($id)
     {
-        ItemIn::find($id)->delete();
+        ItemIn::find($id)->update(['status'=>'Inactive']);
         session()->flash('success','Stock deleted successfully');
     }
 

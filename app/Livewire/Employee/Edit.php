@@ -83,8 +83,7 @@ class Edit extends Component
             'slug' => Str::slug('DEP' . '-' . $this->name),
         ]);
         sleep(1);
-        session()->flash('success','Employee updated successfully');
-        return redirect('/employee');
+        return redirect()->route('employees')->with('message','Employee updated successfully.');
     }
 
     public function updateImage()

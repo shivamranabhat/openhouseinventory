@@ -14,6 +14,18 @@ class Index extends Component
     public $search = '';
     public $page=10;
 
+    public $confirmingDeletion = null; 
+
+    public function confirmDelete($product_id)
+    {
+        $this->confirmingDeletion = $product_id;
+    }
+    
+    public function cancelDelete()
+    {
+        $this->confirmingDeletion = null;
+    }
+
     public function updatePage($page)
     {
         $this->page = $page;
@@ -22,7 +34,7 @@ class Index extends Component
 
     public function delete($id)
     {
-        Product::find($id)->delete();
+        Product::find($id)->update(['status'=>'Inactive']);
         session()->flash('success','Product deleted successfully');
     }
 
@@ -34,7 +46,7 @@ class Index extends Component
                   ->orWhereHas('category', function($query) {
                       $query->where('name', 'like', '%' . $this->search . '%');
                   });
-        })->paginate($this->page);
+        })->where('status','Active')->paginate($this->page);
         return view('livewire.inventory.index',['products'=>$products]);
     }
 }

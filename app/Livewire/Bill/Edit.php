@@ -212,8 +212,7 @@ class Edit extends Component
             ]);
         }
         sleep(1.2);
-        session()->flash('success', 'Bill updated successfully');
-        return redirect()->route('bills');
+        return redirect()->route('bills')->with('message','Bill updated successfully.');
     }
 
     public function render()

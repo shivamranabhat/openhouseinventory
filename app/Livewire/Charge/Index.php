@@ -13,7 +13,18 @@ class Index extends Component
     #[Url] 
     public $search = '';
     public $page=10;
-    public $selectedItems = [];
+
+    public $confirmingDeletion = null; 
+
+    public function confirmDelete($charge_id)
+    {
+        $this->confirmingDeletion = $charge_id;
+    }
+    
+    public function cancelDelete()
+    {
+        $this->confirmingDeletion = null;
+    }
 
     public function updatePage($page)
     {
@@ -21,9 +32,9 @@ class Index extends Component
         $this->resetPage();
     }
 
-    public function deleteSelected()
+    public function delete($id)
     {
-        ExtraCharge::whereIn('id', $this->selectedItems)->delete();
+        ExtraCharge::find($id)->update(['status'=>'Inactive']);
         $this->selectedItems = [];
     }
 
@@ -31,7 +42,7 @@ class Index extends Component
     {
         $charges = ExtraCharge::where(function ($query) {
             $query->where('name', 'like', '%' . $this->search . '%');
-        })->latest()->paginate($this->page);
+        })->where('status','Active')->latest()->paginate($this->page);
         return view('livewire.charge.index',['charges'=>$charges]);
     }
 }

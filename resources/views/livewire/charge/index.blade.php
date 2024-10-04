@@ -42,7 +42,6 @@
             aria-describedby="zero-config_info">
             <thead>
                 <tr role="row">
-                    <th></th>
                     <th>S.N.</th>
                     <th>Name</th>
                     <th>Value (%)</th>
@@ -53,11 +52,6 @@
             <tbody wire:poll.keep-alive>
                 @forelse($charges as $charge)
                 <tr role="row">
-                    <td class="checkbox-column">
-                        <div class="form-check form-check-primary d-block new-control">
-                            <input class="form-check-input child-chk" type="checkbox" wire:model="selectedItems" value="{{ $charge->id }}" id="form-check-default">
-                        </div>
-                    </td>
                     <td>{{$loop->iteration}}</td>
                     <td>{{$charge->name}}</td>
                     <td>{{$charge->value}} %</td>
@@ -70,6 +64,13 @@
                                 <line x1="3" y1="10" x2="21" y2="10"></line>
                             </svg> {{\Carbon\Carbon::parse($charge->created_at)->format('M d Y')}} </span></td>
                     <td class="d-flex">
+                        @if($confirmingDeletion === $charge->id)
+                        <!-- Show Yes and No buttons -->
+                        <div class="d-flex gap-2">
+                            <button wire:click='delete({{$charge->id}})' class="btn badge badge-danger">Yes</button>
+                            <button wire:click="cancelDelete()" class="btn badge badge-secondary">No</button>
+                        </div>
+                        @else
                         <a class="badge badge-light-primary text-start me-2 action-edit"
                             href="{{route('charge.edit',$charge->slug)}}"><svg xmlns="http://www.w3.org/2000/svg"
                                 width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -78,15 +79,17 @@
                                 <path d="M12 20h9"></path>
                                 <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
                             </svg></a>
-                        <a class="badge badge-light-danger text-start action-delete" role="button" wire:click="deleteSelected"><svg
-                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round" class="feather feather-trash">
+                        <a class="badge badge-light-danger text-start action-delete" role="button"
+                            wire:click="confirmDelete({{$charge->id}})"><svg xmlns="http://www.w3.org/2000/svg"
+                                width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                class="feather feather-trash">
                                 <polyline points="3 6 5 6 21 6"></polyline>
                                 <path
                                     d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
                                 </path>
                             </svg></a>
+                        @endif
                     </td>
                 </tr>
                 @empty
@@ -101,4 +104,6 @@
     </div>
 
     {{$charges->links('vendor.pagination.pagination')}}
+    <x-success />
+    <x-error />
 </div>

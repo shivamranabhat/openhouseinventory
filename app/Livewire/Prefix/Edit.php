@@ -45,7 +45,7 @@ class Edit extends Component
         $slug = Str::slug($this->prefix);
         $this->category_prefix->update($validated+['slug'=>$slug]);
         sleep(1);
-        session()->flash('success','Prefix updated successfully');
+        return redirect()->route('prefixes')->with('message','Prefix updated successfully.');
     }
 
     public function render()

@@ -77,22 +77,22 @@ class Edit extends Component
                 // Update requisition
                 $requisition->update($validated + [
                     'slug' => $slug,
-                    'employee_id' => auth()->user()->employee->id,
+                    'employee_id' => auth()->user()->employee? auth()->user()->employee->id : '',
                     'company_id' => auth()->user()->company_id,
                     'created_at' => $createdAt
                 ]);
 
-                session()->flash('success', 'Requisition updated successfully');
+                return redirect()->route('requisitions')->with('message','Request sent successfully.');
             } else {
                 // Create operation
                 $item->update(['stock' => $updatedStock]);
                 Requisition::create($validated + [
                     'company_id' => auth()->user()->company_id,
                     'slug' => $slug,
-                    'employee_id' => auth()->user()->employee->id,
+                    'employee_id' => auth()->user()->employee? auth()->user()->employee->id : '',
                     'created_at' => $createdAt
                 ]);
-                session()->flash('success', 'Request sent successfully');
+                return redirect()->route('requisitions')->with('message','Request sent successfully.');
             }
             return redirect()->route('requisitions');
         } else {

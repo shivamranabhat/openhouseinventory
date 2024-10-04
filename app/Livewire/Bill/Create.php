@@ -159,9 +159,7 @@ class Create extends Component
                 'extra_charge_id' => $this->extra_charge ? $this->extra_charge->id : null
             ]);
         }
-        session()->flash('success','Bill created successfully');
-        $this->reset(['receipt_no', 'bill_date', 'rows', 'extra_charge']);
-        $this->reset();
+        return redirect()->route('bills')->with('message','Bill created successfully.');
     }
 
     public function render()

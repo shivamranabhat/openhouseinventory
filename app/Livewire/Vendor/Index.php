@@ -13,6 +13,7 @@ class Index extends Component
     #[Url] 
     public $search = '';
     public $page=10;
+    public $confirmingDeletion = null; 
 
     public function updatePage($page)
     {
@@ -20,9 +21,19 @@ class Index extends Component
         $this->resetPage();
     }
 
+    public function confirmDelete($vendor_id)
+    {
+        $this->confirmingDeletion = $vendor_id;
+    }
+    
+    public function cancelDelete()
+    {
+        $this->confirmingDeletion = null;
+    }
+
     public function delete($id)
     {
-        Vendor::find($id)->delete();
+        Vendor::find($id)->update(['status'=>'Inactive']);
         session()->flash('success','Vendor deleted successfully');
     }
 
@@ -34,7 +45,7 @@ class Index extends Component
                 ->orWhere('address', 'like', '%' . $this->search . '%')
                 ->orWhere('phone', 'like', '%' . $this->search . '%')
                 ->orWhere('contact_person', 'like', '%' . $this->search . '%');
-        })->latest()->paginate($this->page);
+        })->where('status','Active')->latest()->paginate($this->page);
         return view('livewire.vendor.index',['vendors'=>$vendors]);
     }
 }

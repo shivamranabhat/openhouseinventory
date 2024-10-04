@@ -10,17 +10,30 @@ use Livewire\Attributes\Validate;
 class Edit extends Component
 {
     public $slug;
-    #[Validate('required|unique:vendors')]
     public $name;
-    #[Validate('required|max:10')]
     public $phone;
-    #[Validate('required')]
     public $address;
-    #[Validate('required')]
     public $pan_vat;
-    #[Validate('required')]
     public $contact_person;
     public $vendor;
+
+    protected function rules()
+    {
+        return [
+            'name' => 'required|unique:vendors,name,' . $this->vendor->id,
+            'phone' => 'required|numeric',
+            'address' => 'required',
+            'pan_vat' => 'required',
+            'contact_person' => 'required',
+        ];
+    }
+    
+    protected function messages()
+    {
+        return [
+            'name.unique' => 'The vendor with name ":input" already exists. Please choose another name.',
+        ];
+    }
 
     public function mount()
     {
@@ -38,7 +51,7 @@ class Edit extends Component
         $slug = Str::slug('VEN'.'-'.$this->name);
         $this->vendor->update($validated+['slug'=>$slug]);
         sleep(1);
-        session()->flash('success','Vendor updated successfully');
+        return redirect()->route('vendors')->with('message','Vendor updated successfully.');
     }
 
     public function render()

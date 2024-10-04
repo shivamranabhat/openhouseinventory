@@ -34,6 +34,11 @@
         <div class="col-lg-5 form-group">
             <label for="email">Email</label>
             <input type="text" class="form-control" wire:model="email" placeholder="Enter Email">
+            @error('email')
+            <div class="feedback text-danger">
+              {{$message}}
+            </div>
+            @enderror
         </div>
         <div class="col-lg-2 form-group">
             <label for="employee">Total Employee</label>

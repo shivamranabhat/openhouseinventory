@@ -32,8 +32,7 @@ class Create extends Component
         sleep(1);
         $slug = Str::slug('DEP'.'-'.$this->name);
         Department::create($validated+['company_id' => auth()->user()->company_id,'slug'=>$slug]);
-        session()->flash('success','Department added successfully');
-        $this->reset();
+        return redirect()->route('departments')->with('message','Department created successfully.');
     }
 
     public function render()

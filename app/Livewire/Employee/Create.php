@@ -58,8 +58,7 @@ class Create extends Component
         }
         $company_id = auth()->user()->company_id;
         Employee::create($validated+['company_id'=>$company_id,'slug'=>$slug]);
-        session()->flash('success','Employee added successfully');
-        $this->reset();
+        return redirect()->route('employees')->with('message','Employee created successfully.');
     }
 
     public function render()

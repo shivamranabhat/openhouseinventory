@@ -50,7 +50,7 @@
                     <th>Action</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody wire:poll.keep-alive>
                 @forelse($cheques as $cheque)
                 <tr role="row">
                     <td>{{$loop->iteration}}</td>
@@ -67,14 +67,24 @@
                                 <line x1="3" y1="10" x2="21" y2="10"></line>
                             </svg> {{\Carbon\Carbon::parse($cheque->created_at)->format('M d Y')}} </span></td>
                     <td class="d-flex">
-                        <a class="badge badge-light-danger text-start me-2 action-edit" role="button" wire:model='delete({{$cheque->id}})'><svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash">
+                        @if($confirmingDeletion === $cheque->id)
+                        <!-- Show Yes and No buttons -->
+                        <div class="d-flex gap-2">
+                            <button wire:click='delete({{$cheque->id}})' class="btn badge badge-danger">Yes</button>
+                            <button wire:click="cancelDelete()" class="btn badge badge-secondary">No</button>
+                        </div>
+                        @else
+                        <a class="badge badge-light-danger text-start me-2 action-edit" role="button"
+                            wire:click='confirmDelete({{$cheque->id}})'><svg xmlns="http://www.w3.org/2000/svg"
+                                width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                class="feather feather-trash">
                                 <polyline points="3 6 5 6 21 6"></polyline>
                                 <path
                                     d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
                                 </path>
                             </svg></a>
+                        @endif
                     </td>
                 </tr>
                 @empty
@@ -89,5 +99,7 @@
     </div>
 
     {{$cheques->links('vendor.pagination.pagination')}}
-   
+    <x-success />
+    <x-error />
+
 </div>

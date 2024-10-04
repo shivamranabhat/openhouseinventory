@@ -5,7 +5,7 @@
             <input type="text" class="form-control" wire:model="name" placeholder="Name">
             @error('name')
             <div class="feedback text-danger">
-                Please provide a valid vendor name.
+                {{$message}}
             </div>
             @enderror
         </div>

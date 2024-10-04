@@ -14,14 +14,19 @@ class Create extends Component
     #[Validate('required')]
     public $type;
    
+    protected function messages()
+    {
+        return [
+            'name.unique' => 'The vendor with name ":input" already exists. Please choose another name.',
+        ];
+    }
     public function save()
     {
         $validated = $this->validate();
         sleep(1);
         $slug = Str::slug($this->name);
         Category::create($validated+['company_id' => auth()->user()->company_id,'slug'=>$slug]);
-        session()->flash('success','Category added successfully');
-        $this->reset();
+        return redirect()->route('categories')->with('message','Category created successfully.');
     }
 
     public function render()

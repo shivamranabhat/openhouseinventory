@@ -13,6 +13,17 @@ class Index extends Component
     #[Url] 
     public $search = '';
     public $page=10;
+    public $confirmingCategoryDeletion = null; 
+
+    public function confirmDelete($categoryId)
+    {
+        $this->confirmingCategoryDeletion = $categoryId;
+    }
+
+    public function cancelDelete()
+    {
+        $this->confirmingCategoryDeletion = null;
+    }
 
     public function updatePage($page)
     {
@@ -22,7 +33,8 @@ class Index extends Component
 
     public function delete($id)
     {
-        Category::find($id)->delete();
+        Category::find($id)->update(['status'=>'Inactive']);
+        $this->confirmingCategoryDeletion = null;
         session()->flash('success','Category deleted successfully');
     }
 
@@ -31,7 +43,7 @@ class Index extends Component
         $categories = Category::where(function ($query) {
             $query->where('name', 'like', '%' . $this->search . '%')
             ->orWhere('type', 'like', '%' . $this->search . '%');
-        })->latest()->paginate($this->page);
+        })->where('status','Active')->latest()->paginate($this->page);
         return view('livewire.category.index',['categories'=>$categories]);
     }
 }

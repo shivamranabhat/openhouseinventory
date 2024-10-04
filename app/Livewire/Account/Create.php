@@ -57,8 +57,7 @@ class Create extends Component
             'can_decline' => $this->can_decline ? 'Yes' : null,
             'slug'=>$this->employee->slug,
         ]);
-        session()->flash('success', 'Account created successfully.');
-        $this->reset();
+        return redirect()->route('accounts')->with('message','Account created successfully.');
     }
 
     public function render()

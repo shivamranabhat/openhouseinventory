@@ -69,8 +69,7 @@ class Edit extends Component
             'can_decline' => $this->can_decline ? 'Yes' : 'No',
             'slug'=>$this->employee->slug,
         ]);
-        return redirect()->route('accounts');
-        session()->flash('success', 'Account updated successfully.');
+        return redirect()->route('accounts')->with('message','Account updated successfully.');
     }
     public function render()
     {

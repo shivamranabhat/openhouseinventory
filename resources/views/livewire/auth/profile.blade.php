@@ -180,29 +180,33 @@
                         <h6 class="">Department Information</h6>
 
                         @if($user->role != 'Company')
-                        
+
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="name">Name</label>
-                                <input type="text" class="form-control mb-3" value="{{$user->employee->department->name}}" disabled>
+                                <input type="text" class="form-control mb-3"
+                                    value="{{$user->employee->department->name}}" disabled>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="head">Head</label>
-                                <input type="text" class="form-control mb-3" value="{{$user->employee->department->head}}" disabled>
+                                <input type="text" class="form-control mb-3"
+                                    value="{{$user->employee->department->head}}" disabled>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="employee">Number of Employees</label>
-                                <input type="text" class="form-control mb-3" value="{{$user->employee->department->employee}}" disabled>
+                                <input type="text" class="form-control mb-3"
+                                    value="{{$user->employee->department->employee}}" disabled>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="phone">Contact Number</label>
-                                <input type="text" class="form-control mb-3" value="{{$user->employee->department->phone}}" disabled>
+                                <input type="text" class="form-control mb-3"
+                                    value="{{$user->employee->department->phone}}" disabled>
                             </div>
                         </div>
                         @endif
@@ -230,4 +234,6 @@
             };
         }
     </script>
+    <x-success />
+    <x-error />
 </div>

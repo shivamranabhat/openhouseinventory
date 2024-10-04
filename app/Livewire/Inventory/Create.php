@@ -25,11 +25,10 @@ class Create extends Component
     public function save()
     {
         $validated = $this->validate();
-        sleep(1);
+        sleep(1.2);
         $slug = Str::slug($this->name);
         Product::create($validated+['company_id' => auth()->user()->company_id,'slug'=>$slug]);
-        session()->flash('success','Product added successfully');
-        $this->reset();
+        return redirect()->route('inventories')->with('message','Product created successfully.');
     }
 
     public function render()

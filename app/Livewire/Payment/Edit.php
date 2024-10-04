@@ -125,8 +125,7 @@ class Edit extends Component
                     );
                 }
                 sleep(1);
-        
-                session()->flash('success', 'Payment data updated successfully');
+                return redirect()->route('payments')->with('message','Payment data updated successfully.');
             }
             else{
                 session()->flash('error', 'This value is greater than remaining amount.');

@@ -148,7 +148,7 @@ class Edit extends Component
             }
         }
         sleep(1);
-        session()->flash('success','Item stock in updated successfully');
+        return redirect()->route('stocks')->with('message','Item stock in updated successfully.');
     }
 
     public function render()

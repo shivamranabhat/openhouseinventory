@@ -120,7 +120,7 @@
                     <img :src="imageUrl" alt="Image Preview" class="image-preview mt-3"
                         style="max-width: 50px;margin-left:1rem">
                 </template>
-                @error('doc_img')
+                @error('new_doc_img')
                 <div class="feedback text-danger">
                     {{$message}}
                 </div>

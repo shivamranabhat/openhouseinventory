@@ -10,11 +10,24 @@ use Livewire\Attributes\Validate;
 class Edit extends Component
 {
     public $slug;
-    #[Validate('required|unique:categories')]
     public $name;
-    #[Validate('required')]
     public $type;
     public $category;
+
+    protected function rules()
+    {
+        return [
+            'name' => 'required|unique:categories,name,' . $this->category->id,
+            'type' => 'required',
+        ];
+    }
+    
+    protected function messages()
+    {
+        return [
+            'name.unique' => 'The vendor with name ":input" already exists. Please choose another name.',
+        ];
+    }
 
     public function mount()
     {
@@ -27,7 +40,7 @@ class Edit extends Component
         $slug = Str::slug($this->name);
         $this->category->update($validated+['slug'=>$slug]);
         sleep(1);
-        session()->flash('success','Category updated successfully');
+        return redirect()->route('categories')->with('message','Category updated successfully.');
     }
 
     public function render()

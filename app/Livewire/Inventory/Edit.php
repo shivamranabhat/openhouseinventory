@@ -39,10 +39,10 @@ class Edit extends Component
     public function update()
     {
         $validated = $this->validate();
+        sleep(1.2);
         $slug = Str::slug($this->name);
         $this->product->update($validated+['slug'=>$slug]);
-        sleep(1);
-        session()->flash('success','Product updated successfully');
+        return redirect()->route('inventories')->with('message','Product updated successfully.');
     }
 
     public function render()

@@ -121,4 +121,6 @@
     </div>
     
     {{$requests->links('vendor.pagination.pagination')}}
+    <x-success />
+    <x-error />
 </div>

@@ -159,9 +159,8 @@
                 </div>
                 <div class="shadow-bottom"></div>
                 <ul class="list-unstyled menu-categories" id="accordionExample">
-                    <li
-                        class="menu {{request()->segment(1) == 'employee' ||request()->segment(1) == 'department'  ? 'active' : '' }}">
-                        <a href="#hr" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle collapsed">
+                    <li class="menu {{request()->segment(1) == 'employee' ||request()->segment(1) == 'department'  ? 'active' : '' }}">
+                        <a href="#hr" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle collapsed" style="cursor: pointer">
                             <div class="">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -181,6 +180,13 @@
                                     stroke-linejoin="round" class="feather feather-chevron-right">
                                     <polyline points="9 18 15 12 9 6"></polyline>
                                 </svg>
+
+                                {{-- <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-lock">
+                                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                                </svg> --}}
                             </div>
                         </a>
                         <ul class="submenu list-unstyled collapse" id="hr" data-bs-parent="#accordionExample" style="">
@@ -226,7 +232,7 @@
                         </ul>
                     </li>
                     <li
-                        class="menu {{request()->segment(1) == 'inventory' ||  request()->segment(1)=='prefix' ||request()->segment(1) == 'category'  ? 'active' : '' }}">
+                        class="menu {{request()->segment(1) == 'inventory' ||  request()->segment(1)=='prefix' || request()->segment(1)=='requisition' ||request()->segment(1) == 'category'  ? 'active' : '' }}">
                         <a href="#inventory" data-bs-toggle="collapse" aria-expanded="false"
                             class="dropdown-toggle collapsed">
                             <div class="">
@@ -251,6 +257,9 @@
                             style="">
                             <li class="{{request()->segment(1) == 'inventory'  ? 'active' : '' }}">
                                 <a href="{{route('inventories')}}"> Lists </a>
+                            </li>
+                            <li class="{{request()->segment(1) == 'requisition'  ? 'active' : '' }}">
+                                <a href="{{route('requisitions')}}"> Requisition </a>
                             </li>
                             <li class="{{request()->segment(1) == 'category'  ? 'active' : '' }}">
                                 <a href="{{route('categories')}}"> Category </a>
@@ -301,8 +310,7 @@
 
                         </ul>
                     </li>
-                    <li
-                        class="menu {{request()->segment(1) == 'charge' || request()->segment(1) == 'account' || request()->segment(1) == 'profile'  ? 'active' : '' }}">
+                    <li class="menu {{request()->segment(1) == 'charge' || request()->segment(1) == 'account' || request()->segment(1) == 'profile'  ? 'active' : '' }}">
                         <a href="#charges" data-bs-toggle="collapse" aria-expanded="false"
                             class="dropdown-toggle collapsed">
                             <div class="">

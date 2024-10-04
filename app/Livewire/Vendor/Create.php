@@ -11,7 +11,7 @@ class Create extends Component
 {
     #[Validate('required|unique:vendors')]
     public $name;
-    #[Validate('required|max:10')]
+    #[Validate('required')]
     public $phone;
     #[Validate('required')]
     public $address;
@@ -20,14 +20,19 @@ class Create extends Component
     #[Validate('required')]
     public $contact_person;
 
+    protected function messages()
+    {
+        return [
+            'name.unique' => 'The vendor with name ":input" already exists. Please choose another name.',
+        ];
+    }
     public function save()
     {
         $validated = $this->validate();
         sleep(1);
         $slug = Str::slug('VEN'.'-'.$this->name);
         Vendor::create($validated+['company_id' => auth()->user()->company_id,'slug'=>$slug]);
-        session()->flash('success','Vendor added successfully');
-        $this->reset();
+        return redirect()->route('vendors')->with('message','Vendor created successfully.');
     }
 
     public function render()

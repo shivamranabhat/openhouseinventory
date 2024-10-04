@@ -15,13 +15,26 @@ class Index extends Component
     public $search = '';
     public $page=10;
 
+    public $confirmingDeletion = null; 
+
+    public function confirmDelete($cheque_id)
+    {
+        $this->confirmingDeletion = $cheque_id;
+    }
+    
+    public function cancelDelete()
+    {
+        $this->confirmingDeletion = null;
+    }
+
     public function updateChequeStatus()
     {
         $currentDateTime = Carbon::now('Asia/Kathmandu');
-        Cheque::where('withdraw_date', '<=', $currentDateTime)
+        Cheque::whereRaw("STR_TO_DATE(withdraw_date, '%b %e %Y') <= ?", [$currentDateTime])
             ->where('status', 'Pending')
             ->update(['status' => 'Withdraw']);
     }
+    
 
     public function updatePage($page)
     {
@@ -31,7 +44,7 @@ class Index extends Component
 
     public function delete($id)
     {
-        Cheque::find($id)->delete();
+        Cheque::find($id)->update(['status'=>'Inactive']);
         session()->flash('success','Cheque deleted successfully');
     }
 
@@ -39,6 +52,7 @@ class Index extends Component
     {
         $this->updateChequeStatus();
         $cheques = Cheque::latest()
+            ->where('status','<>','Inactive')
             ->where(function ($query) {
                 $query->where('status', 'like', '%' . $this->search . '%')
                     ->orWhere('withdraw_date', 'like', '%' . $this->search . '%')

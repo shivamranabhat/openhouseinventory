@@ -19,15 +19,7 @@
 
                                             <div class="row">
 
-                                                <div class="col-sm-6 col-12 mr-auto">
-                                                    <div class="d-flex">
-                                                        <img src="{{asset('storage/'.auth()->user()->image)}}" class="rounded-circle"
-                                                        width="100" alt="logo">
-                                                    </div>
-                                                    {{-- <p class="inv-street-addr mt-3">XYZ Delta Street</p>
-                                                    <p class="inv-email-address">info@company.com</p>
-                                                    <p class="inv-email-address">(120) 456 789</p> --}}
-                                                </div>
+                                                
 
                                                 <div class="col-sm-6 text-sm-end">
                                                     <p class="inv-list-number mt-sm-3 pb-sm-2 mt-4"><span
@@ -43,10 +35,7 @@
                                         </div>
 
                                         <div class="inv--detail-section inv--customer-detail-section">
-
                                             <div class="row">
-
-
                                                 <div class="col-xl-8 col-lg-7 col-md-6 col-sm-4">
                                                     <p class="inv-to">Bill To</p>
                                                     <p class="inv-customer-name">{{$details->vendor->name}}</p>
@@ -54,10 +43,7 @@
                                                     <p class="inv-email-address">{{$details->vendor->phone}}</p>
                                                     <p class="inv-email-address">{{$details->vendor->pan_vat}}</p>
                                                 </div>
-
-
                                             </div>
-
                                         </div>
 
                                         <div class="inv--product-table-section">
@@ -167,7 +153,7 @@
                                         class="btn btn-secondary btn-print action-print _effect--ripple waves-effect waves-light">Print</a>
                                 </div>
                                 <div class="col-xl-12 col-md-3 col-sm-6">
-                                    <a href="javascript:void(0);"
+                                    <a href="{{route('downloadBillPdf',$details->slug)}}"
                                         class="btn btn-success btn-download _effect--ripple waves-effect waves-light">Download</a>
                                 </div>
                                 <div class="col-xl-12 col-md-3 col-sm-6">

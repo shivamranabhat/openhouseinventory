@@ -16,8 +16,7 @@ class Create extends Component
     public $quantity;
     #[Validate('required')]
     public $item_in_id;
-    // #[Validate('required')]
-    // public $employee_id;
+
 
     public function checkQuantity()
     {
@@ -46,9 +45,8 @@ class Create extends Component
         {
             $updatedStock = $currentStock - $requestStock;
             $item->update(['stock'=>$updatedStock]);
-            Requisition::create($validated+['company_id' => auth()->user()->company_id,'slug'=>$slug,'employee_id'=>auth()->user()->employee->id,'created_at'=>$createdAt]);
-            session()->flash('success','Request sent successfully');
-            $this->reset();
+            Requisition::create($validated+['company_id' => auth()->user()->company_id,'slug'=>$slug,'employee_id'=>auth()->user()->employee_id ? auth()->user()->employee->id : '','created_at'=>$createdAt]);
+            return redirect()->route('requisitions')->with('message','Request sent successfully.');
         }
         else{
             session()->flash('success','Stock:alert! Request item with ":input" is not available');

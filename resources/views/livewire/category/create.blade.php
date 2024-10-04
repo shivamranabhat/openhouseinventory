@@ -6,7 +6,7 @@
         </div>
         @error('name')
         <div class="feedback text-danger">
-            Please provide a valid category name.
+           {{$message}}
         </div>
         @enderror
     </div>

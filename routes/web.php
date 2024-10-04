@@ -92,6 +92,8 @@ Route::prefix('/login')->controller(PageController::class)->group(function(){
 Route::prefix('/signup')->controller(PageController::class)->group(function(){
     Route::get('','signup')->name('signup');
 });
-Route::prefix('/transaction-pdf')->controller(PdfController::class)->group(function(){
-    Route::get('/{slug}','downloadTransactionPdf')->name('downloadTransactionPdf');
+Route::prefix('/')->controller(PdfController::class)->group(function(){
+    Route::get('transaction-pdf/{slug}','downloadTransactionPdf')->name('downloadTransactionPdf');
+    Route::get('bill-pdf/{slug}','downloadBillPdf')->name('downloadBillPdf');
 });
+

@@ -36,7 +36,7 @@ class Edit extends Component
         $slug = Str::slug($this->name);
         $this->service->update($validated+['slug'=>$slug]);
         sleep(1);
-        session()->flash('success','Service updated successfully');
+        return redirect()->route('services')->with('message','Service updated successfully.');
     }
 
     public function render()

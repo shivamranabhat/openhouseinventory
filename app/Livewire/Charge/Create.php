@@ -29,8 +29,7 @@ class Create extends Component
         sleep(1);
         $slug = Str::slug($this->name);
         ExtraCharge::create($validated+['company_id' => auth()->user()->company_id,'slug'=>$slug]);
-        session()->flash('success','Charge added successfully');
-        $this->reset();
+        return redirect()->route('charges')->with('message','Charge created successfully.');
     }
 
     public function render()

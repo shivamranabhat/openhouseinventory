@@ -36,7 +36,7 @@
             <input type="text" class="form-control" wire:model="email" placeholder="Enter Email">
             @error('email')
             <div class="feedback text-danger">
-                Please provide a valid email address.
+              {{$message}}
             </div>
             @enderror
         </div>

@@ -13,6 +13,17 @@ class Index extends Component
     #[Url] 
     public $search = '';
     public $page=10;
+    public $confirmingDeletion = null; 
+
+    public function confirmDelete($payment_id)
+    {
+        $this->confirmingDeletion = $payment_id;
+    }
+    
+    public function cancelDelete()
+    {
+        $this->confirmingDeletion = null;
+    }
 
     public function updatePage($page)
     {
@@ -20,9 +31,10 @@ class Index extends Component
         $this->resetPage();
     }
 
-    public function remove($slug)
+    public function delete($id)
     {
-       
+        PaymentOut::find($id)->update(['status'=>'Inactive']);
+        session()->flash('success','Payment deleted successfully');
     }
 
     public function render()
@@ -34,7 +46,7 @@ class Index extends Component
                   ->orWhereHas('vendor', function($query) {
                       $query->where('name', 'like', '%' . $this->search . '%');
                   });
-        })->paginate($this->page);
+        })->where('status','Active')->paginate($this->page);
         return view('livewire.payment.index',['payments'=>$payments]);
     }
 }

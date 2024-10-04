@@ -14,6 +14,18 @@ class Index extends Component
     public $search = '';
     public $page=10;
 
+    public $confirmingDeletion = null; 
+
+    public function confirmDelete($service_id)
+    {
+        $this->confirmingDeletion = $service_id;
+    }
+    
+    public function cancelDelete()
+    {
+        $this->confirmingDeletion = null;
+    }
+
     public function updatePage($page)
     {
         $this->page = $page;
@@ -22,7 +34,7 @@ class Index extends Component
 
     public function delete($id)
     {
-        Service::find($id)->delete();
+        Service::find($id)->update(['status'=>'Inactive']);
         session()->flash('success','Service deleted successfully');
     }
     
@@ -30,7 +42,7 @@ class Index extends Component
     {
         $services = Service::where(function ($query) {
             $query->where('name', 'like', '%' . $this->search . '%');
-        })->paginate($this->page);
+        })->where('status','Active')->paginate($this->page);
         return view('livewire.service.index',['services'=>$services]);
     }
 }

@@ -31,8 +31,7 @@ class Create extends Component
         sleep(1);
         $slug = Str::slug($this->prefix);
         Prefix::create($validated+['company_id' => auth()->user()->company_id,'slug'=>$slug]);
-        session()->flash('success','Prefix added successfully');
-        $this->reset();
+        return redirect()->route('prefixes')->with('message','Prefix created successfully.');
     }
 
     public function render()

@@ -123,9 +123,7 @@ class Create extends Component
         {
             Cheque::create(['vendor_id'=>$this->vendor_id,'payment_out_id'=>$paymentOut->id,'pay_date'=>$this->payment_date,'withdraw_date'=>$this->withdraw_date,'company_id' => auth()->user()->company_id,'slug'=>$this->slug]);
         }
-        // Display success message and reset form fields
-        session()->flash('success', 'Payment data stored successfully');
-        $this->reset();
+        return redirect()->route('payments')->with('message','Payment data stored successfully.');
     }
     public function showAmount($value)
     {

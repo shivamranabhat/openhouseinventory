@@ -14,6 +14,18 @@ class Index extends Component
     public $search = '';
     public $page=10;
 
+    public $confirmingDeletion = null; 
+
+    public function confirmDelete($prefix_id)
+    {
+        $this->confirmingDeletion = $prefix_id;
+    }
+    
+    public function cancelDelete()
+    {
+        $this->confirmingDeletion = null;
+    }
+
     public function updatePage($page)
     {
         $this->page = $page;
@@ -22,7 +34,7 @@ class Index extends Component
 
     public function delete($id)
     {
-        Prefix::find($id)->delete();
+        Prefix::find($id)->update(['status'=>'Inactive']);
         session()->flash('success','Prefix deleted successfully');
     }
     
@@ -34,6 +46,7 @@ class Index extends Component
                 $query->where('name', 'like', '%' . $this->search . '%');
             });
         })
+        ->where('status','Active')
         ->latest()
         ->paginate($this->page);
         return view('livewire.prefix.index',['prefixes'=>$prefixes]);

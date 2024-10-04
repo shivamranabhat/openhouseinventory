@@ -43,7 +43,7 @@ class Edit extends Component
         $slug = Str::slug($this->name);
         $this->charge->update($validated+['slug'=>$slug]);
         sleep(1);
-        session()->flash('success','Charge updated successfully');
+        return redirect()->route('charges')->with('message','Charge updated successfully.');
     }
 
     public function render()

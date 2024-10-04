@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Vendor;
 use App\Models\ItemIn;
 use App\Models\PaymentOut;
+use App\Models\Bill;
+use App\Models\BillProduct;
 use Barryvdh\DomPDF\Facade\Pdf;
 
 class PdfController extends Controller
@@ -36,6 +38,23 @@ class PdfController extends Controller
         ];
         $pdf = PDF::loadView('pages.pdf.transaction', $data);
         $fileName = preg_replace('/[^A-Za-z0-9\-]/', ' ', $vendor->name) . '.pdf';
+        return $pdf->download($fileName);
+    }
+    public function downloadBillPdf($slug)
+    {
+        $details = Bill::whereSlug($slug)->first();
+        $products = BillProduct::where('bill_id',$details->id)->latest()->get();
+        $subtotal = $products->sum(function ($product) {
+            return $product->rate * $product->quantity;
+        });
+        $data = [
+            'details'=>$details,
+            'products'=>$products,
+            'subtotal'=>$subtotal,
+            'slug'=>$slug,
+        ];
+        $pdf = PDF::loadView('pages.pdf.bill', $data);
+        $fileName = preg_replace('/[^A-Za-z0-9\-]/', ' ', 'Bill-'.$slug) . '.pdf';
         return $pdf->download($fileName);
     }
 }

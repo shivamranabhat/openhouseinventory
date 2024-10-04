@@ -115,8 +115,7 @@ class Create extends Component
                 'stock' => $this->stock,
             ]);
         }
-        session()->flash('success','Item stocked in successfully');
-        $this->reset();
+        return redirect()->route('stocks')->with('message','Item stock in successfully.');
     }
 
     public function render()
