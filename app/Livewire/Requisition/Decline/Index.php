@@ -26,7 +26,7 @@ class Index extends Component
                   ->orWhereHas('employee', function($query) {
                       $query->where('name', 'like', '%' . $this->search . '%');
                   });
-        })->where('status','Declined')->latest()->get();
+        })->where('status','Declined')->latest()->paginate($this->page);
         return view('livewire.requisition.decline.index',compact('requests'));
     }
 

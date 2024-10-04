@@ -77,7 +77,7 @@ class Edit extends Component
                 // Update requisition
                 $requisition->update($validated + [
                     'slug' => $slug,
-                    'employee_id' => auth()->user()->employee? auth()->user()->employee->id : '',
+                    'employee_id' => auth()->user()->employee->id,
                     'company_id' => auth()->user()->company_id,
                     'created_at' => $createdAt
                 ]);
@@ -89,7 +89,7 @@ class Edit extends Component
                 Requisition::create($validated + [
                     'company_id' => auth()->user()->company_id,
                     'slug' => $slug,
-                    'employee_id' => auth()->user()->employee? auth()->user()->employee->id : '',
+                    'employee_id' => auth()->user()->employee->id,
                     'created_at' => $createdAt
                 ]);
                 return redirect()->route('requisitions')->with('message','Request sent successfully.');

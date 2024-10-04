@@ -6,6 +6,7 @@ use Livewire\Component;
 use App\Models\Category;
 use Livewire\WithPagination;
 use Livewire\Attributes\Url;
+use Illuminate\Support\Facades\Gate;
 
 class Index extends Component
 {
@@ -33,9 +34,14 @@ class Index extends Component
 
     public function delete($id)
     {
-        Category::find($id)->update(['status'=>'Inactive']);
-        $this->confirmingCategoryDeletion = null;
-        session()->flash('success','Category deleted successfully');
+        if (Gate::allows('action-delete')) {
+            Category::find($id)->update(['status'=>'Inactive']);
+            $this->confirmingCategoryDeletion = null;
+            session()->flash('success','Category deleted successfully');
+        } else {
+            // Handle unauthorized action
+            return redirect()->back()->with('error','You do not have permission to delete.');
+        }
     }
 
     public function render()

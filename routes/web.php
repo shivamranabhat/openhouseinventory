@@ -74,12 +74,12 @@ Route::prefix('/payment-out')->controller(PageController::class)->middleware(['a
     Route::get('/create','paymentCreate')->name('payment.create');
     Route::get('/edit/{slug}','paymentEdit')->name('payment.edit');
 });
-Route::prefix('/approved')->controller(PageController::class)->middleware(['auth'])->group(function(){
-    Route::get('','approve')->name('approves');
-});
-Route::prefix('/declined')->controller(PageController::class)->middleware(['auth'])->group(function(){
-    Route::get('','decline')->name('declines');
-});
+// Route::prefix('/approved')->controller(PageController::class)->middleware(['auth'])->group(function(){
+//     Route::get('','approve')->name('approves');
+// });
+// Route::prefix('/declined')->controller(PageController::class)->middleware(['auth'])->group(function(){
+//     Route::get('','decline')->name('declines');
+// });
 Route::prefix('/cheques')->controller(PageController::class)->middleware(['auth'])->group(function(){
     Route::get('','cheque')->name('cheques');
 });

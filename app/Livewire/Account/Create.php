@@ -50,11 +50,11 @@ class Create extends Component
             'email' => $this->email,
             'password' => Hash::make($this->password),
             'company_id' => auth()->user()->company_id,
-            'can_create' => $this->can_create ? 'Yes' : null,
-            'can_edit' => $this->can_edit ? 'Yes' : null,
-            'can_delete' => $this->can_delete ? 'Yes' : null,
-            'can_approve' => $this->can_approve ? 'Yes' : null,
-            'can_decline' => $this->can_decline ? 'Yes' : null,
+            'can_create' => $this->can_create ? 'Yes' : 'No',
+            'can_edit' => $this->can_edit ? 'Yes' : 'No',
+            'can_delete' => $this->can_delete ? 'Yes' : 'No',
+            'can_approve' => $this->can_approve ? 'Yes' : 'No',
+            'can_decline' => $this->can_decline ? 'Yes' : 'No',
             'slug'=>$this->employee->slug,
         ]);
         return redirect()->route('accounts')->with('message','Account created successfully.');

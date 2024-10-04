@@ -45,7 +45,7 @@ class Create extends Component
         {
             $updatedStock = $currentStock - $requestStock;
             $item->update(['stock'=>$updatedStock]);
-            Requisition::create($validated+['company_id' => auth()->user()->company_id,'slug'=>$slug,'employee_id'=>auth()->user()->employee_id ? auth()->user()->employee->id : '','created_at'=>$createdAt]);
+            Requisition::create($validated+['company_id' => auth()->user()->company_id,'slug'=>$slug,'employee_id'=>auth()->user()->employee->id,'created_at'=>$createdAt]);
             return redirect()->route('requisitions')->with('message','Request sent successfully.');
         }
         else{

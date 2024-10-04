@@ -186,8 +186,7 @@ class PageController extends Controller
         } else {
             // Handle unauthorized action
             return redirect()->back()->with('error','You do not have permission to create.');
-        }
-        
+        } 
     }
     public function stockEdit($slug)
     {
@@ -196,8 +195,7 @@ class PageController extends Controller
         } else {
             // Handle unauthorized action
             return redirect()->back()->with('error','You do not have permission to edit.');
-        }
-        
+        } 
     }
     public function prefix()
     {
@@ -211,7 +209,6 @@ class PageController extends Controller
             // Handle unauthorized action
             return redirect()->back()->with('error','You do not have permission to create.');
         }
-        
     }
     public function prefixEdit($slug)
     {
@@ -237,8 +234,7 @@ class PageController extends Controller
         } else {
             // Handle unauthorized action
             return redirect()->back()->with('error','You do not have permission to create.');
-        }
-        
+        } 
     }
     public function billEdit($slug)
     {
@@ -310,31 +306,37 @@ class PageController extends Controller
     }
     public function requisitionCreate()
     {
-        return view('pages.requisition.create');
+        if(auth()->user()->employee_id !==null)
+        {
+            return view('pages.requisition.create');
+        }
+        else{
+            return redirect()->back()->with('error','Only employees are allowed.');
+        }
     }
     public function requisitionEdit($slug)
     {
         return view('pages.requisition.edit',compact('slug'));
     }
-    public function approve()
-    {
-        if (Gate::allows('action-approve')) {
-            return view('pages.requisition.approve.index');
-        } else {
-            // Handle unauthorized action
-            return redirect()->back()->with('error','You do not have permission to approve.');
-        }
+    // public function approve()
+    // {
+    //     if (Gate::allows('action-approve')) {
+    //         return view('pages.requisition.approve.index');
+    //     } else {
+    //         // Handle unauthorized action
+    //         return redirect()->back()->with('error','You do not have permission to approve.');
+    //     }
         
-    }
-    public function decline()
-    {
-        if (Gate::allows('action-decline')) {
-            return view('pages.requisition.decline.index');
-        } else {
-            // Handle unauthorized action
-            return redirect()->back()->with('error','You do not have permission to decline.');
-        }
-    }
+    // }
+    // public function decline()
+    // {
+    //     if (Gate::allows('action-decline')) {
+    //         return view('pages.requisition.decline.index');
+    //     } else {
+    //         // Handle unauthorized action
+    //         return redirect()->back()->with('error','You do not have permission to decline.');
+    //     }
+    // }
     public function login()
     {
         return view('pages.auth.login');

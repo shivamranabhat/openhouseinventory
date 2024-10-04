@@ -6,6 +6,7 @@ use Livewire\Component;
 use App\Models\Service;
 use Livewire\WithPagination;
 use Livewire\Attributes\Url;
+use Illuminate\Support\Facades\Gate;
 
 class Index extends Component
 {
@@ -34,8 +35,14 @@ class Index extends Component
 
     public function delete($id)
     {
-        Service::find($id)->update(['status'=>'Inactive']);
-        session()->flash('success','Service deleted successfully');
+        if (Gate::allows('action-delete')) {
+            Service::find($id)->update(['status'=>'Inactive']);
+            session()->flash('success','Service deleted successfully');
+            $this->confirmingDeletion = null;
+        } else {
+            // Handle unauthorized action
+            return redirect()->back()->with('error','You do not have permission to delete.');
+        }
     }
     
     public function render()

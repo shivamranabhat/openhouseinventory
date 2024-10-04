@@ -6,6 +6,7 @@ use Livewire\Component;
 use App\Models\Vendor;
 use Livewire\WithPagination;
 use Livewire\Attributes\Url;
+use Illuminate\Support\Facades\Gate;
 
 class Index extends Component
 {
@@ -33,8 +34,14 @@ class Index extends Component
 
     public function delete($id)
     {
-        Vendor::find($id)->update(['status'=>'Inactive']);
-        session()->flash('success','Vendor deleted successfully');
+        if (Gate::allows('action-delete')) {
+            Vendor::find($id)->update(['status'=>'Inactive']);
+            session()->flash('success','Vendor deleted successfully');
+            $this->confirmingDeletion = null;
+        } else {
+            // Handle unauthorized action
+            return redirect()->back()->with('error','You do not have permission to delete.');
+        }
     }
 
     public function render()

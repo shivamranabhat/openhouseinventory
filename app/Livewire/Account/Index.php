@@ -6,6 +6,7 @@ use Livewire\Component;
 use App\Models\User;
 use Livewire\WithPagination;
 use Livewire\Attributes\Url;
+use Illuminate\Support\Facades\Gate;
 
 class Index extends Component
 {
@@ -34,8 +35,14 @@ class Index extends Component
 
     public function delete($id)
     {
-        User::find($id)->update(['status'=>'Inactive']);
-        session()->flash('success','Account deleted successfully');
+        if (Gate::allows('action-delete')) {
+            User::find($id)->update(['status'=>'Inactive']);
+            $this->confirmingDeletion = null;
+            session()->flash('success','Account deleted successfully');
+        } else {
+            // Handle unauthorized action
+            return redirect()->back()->with('error','You do not have permission to delete.');
+        }
     }
 
     public function render()
@@ -43,7 +50,7 @@ class Index extends Component
         $accounts = User::where(function ($query) {
             $query->where('name', 'like', '%' . $this->search . '%')
             ->where('email', 'like', '%' . $this->search . '%');
-        })->where('status','Active')->where('id','<>',auth()->user()->id)->where('role','<>','Company')->where('company_id',auth()->user()->company_id)->paginate($this->page);
+        })->latest()->where('status','Active')->where('id','<>',auth()->user()->id)->where('role','<>','Company')->paginate($this->page);
         return view('livewire.account.index',['accounts'=>$accounts]);
     }
 }

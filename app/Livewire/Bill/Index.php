@@ -6,6 +6,7 @@ use Livewire\Component;
 use App\Models\Bill;
 use Livewire\WithPagination;
 use Livewire\Attributes\Url;
+use Illuminate\Support\Facades\Gate;
 
 class Index extends Component
 {
@@ -34,8 +35,15 @@ class Index extends Component
 
     public function delete($id)
     {
-        Bill::find($id)->update(['status'=>'Inactive']);
-        session()->flash('success','Bill deleted successfully');
+        if (Gate::allows('action-delete')) {
+            Bill::find($id)->update(['status'=>'Inactive']);
+            $this->confirmingDeletion = null;
+            session()->flash('success','Bill deleted successfully');
+        } else {
+            // Handle unauthorized action
+            return redirect()->back()->with('error','You do not have permission to delete.');
+        }
+       
     }
 
     public function render()

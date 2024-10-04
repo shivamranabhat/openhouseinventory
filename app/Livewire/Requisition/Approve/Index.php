@@ -26,7 +26,7 @@ class Index extends Component
                   ->orWhereHas('employee', function($query) {
                       $query->where('name', 'like', '%' . $this->search . '%');
                   });
-        })->where('status','Approved')->latest()->get();
+        })->where('status','Approved')->latest()->paginate($this->page);
         return view('livewire.requisition.approve.index',compact('requests'));
     }
 }
