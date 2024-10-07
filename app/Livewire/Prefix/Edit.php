@@ -50,6 +50,7 @@ class Edit extends Component
 
     public function render()
     {
-        return view('livewire.prefix.edit');
+        $categories = Category::select('id','name')->latest()->get();
+        return view('livewire.prefix.edit',compact('categories'));
     }
 }

@@ -112,12 +112,20 @@ class Edit extends Component
                     $this->deleteImage();
                 }
                 if ($this->type === 'Cheque') {
+                    if ($this->newImage) 
+                    {
+                        $fileName = $this->newImage->getClientOriginalName();
+                        $filePath = $this->newImage->storeAs('payments', $fileName, 'public');
+                        $this->newImage = 'payments/' . $fileName;
+                    }
                     Cheque::updateOrCreate(
                         [
                             'payment_out_id' => $this->payment->id, 
                         ],
                         [
+                            'cheque_no' => $this->cheque_no, 
                             'vendor_id' => $this->vendor_id, 
+                            'image' => $this->newImage ? $this->newImage : $this->image, 
                             'pay_date' => $this->payment_date,
                             'withdraw_date' => $this->withdraw_date,
                             'slug' => $slug,

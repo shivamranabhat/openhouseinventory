@@ -89,7 +89,7 @@ class Create extends Component
     {
         $validated = $this->validate();
         sleep(1);
-        $slug = Str::slug('STOCK'.'-'.$this->product_id.'-'.$this->stock);
+        $slug = Str::slug('STOCK'.'-'.$this->product_id.'-'.now());
         $item = ItemIn::create($validated+['company_id' => auth()->user()->company_id,'slug'=>$slug]);
         if($this->barcode)
         {

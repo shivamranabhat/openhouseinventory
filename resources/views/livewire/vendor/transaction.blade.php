@@ -24,13 +24,52 @@
 
                                 <div class="inv--detail-section inv--customer-detail-section">
 
-                                    <div class="row">
+                                    <div class="row gap-3 gap-md-0">
 
-                                        <div class="col-xl-8 col-lg-7 col-md-6 col-sm-4">
+                                        <div class="col-xl-8 col-lg-7 col-md-6">
                                             <p class="inv-customer-name">{{$vendor->name}}</p>
                                             <p class="inv-street-addr">{{$vendor->address}}</p>
                                             <p class="inv-email-address">{{$vendor->phone}}</p>
                                             <p class="inv-email-address">{{$vendor->pan_vat}}</p>
+                                        </div>
+                                        <div class="col-xl-4 col-lg-5 col-md-6">
+                                            @if($total)
+                                            <div class="inv--total-amount px-0 px-md-5">
+            
+                                                <div class="row">
+                                                    <div class="col-sm-5 col-12 order-sm-0 order-1">
+                                                    </div>
+                                                    <div class="col-sm-7 col-12 order-sm-1 order-0">
+                                                        <div class="text-sm-end">
+                                                            <div class="row">
+                                                                <div class="col-sm-8 col-7">
+                                                                    <p class="">Total :</p>
+                                                                </div>
+                                                                <div class="col-sm-4 col-5">
+                                                                    <p class="">Rs.{{$total ? number_format($total->total_sum,0) :
+                                                                        '0'}}</p>
+                                                                </div>
+                                                                <div class="col-sm-8 col-7">
+                                                                    <p class="">Paid :</p>
+                                                                </div>
+                                                                <div class="col-sm-4 col-5">
+                                                                    <p class="">Rs.{{$transaction ?
+                                                                        number_format($transaction->paid,0) : '0'}}</p>
+                                                                </div>
+                                                                <div class="col-sm-8 col-7">
+                                                                    <p class="">Due :</p>
+                                                                </div>
+                                                                <div class="col-sm-4 col-5">
+                                                                    <p class="">Rs.{{$remain ? number_format($remain->remain,0) :
+                                                                        '0'}}</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+            
+                                            </div>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -67,43 +106,6 @@
                                         </table>
                                     </div>
                                 </div>
-                                @if($total)
-                                <div class="inv--total-amounts">
-
-                                    <div class="row mt-4">
-                                        <div class="col-sm-5 col-12 order-sm-0 order-1">
-                                        </div>
-                                        <div class="col-sm-7 col-12 order-sm-1 order-0">
-                                            <div class="text-sm-end">
-                                                <div class="row">
-                                                    <div class="col-sm-8 col-7">
-                                                        <p class="">Total :</p>
-                                                    </div>
-                                                    <div class="col-sm-4 col-5">
-                                                        <p class="">Rs.{{$total ? number_format($total->total_sum,0) :
-                                                            '0'}}</p>
-                                                    </div>
-                                                    <div class="col-sm-8 col-7">
-                                                        <p class="">Paid :</p>
-                                                    </div>
-                                                    <div class="col-sm-4 col-5">
-                                                        <p class="">Rs.{{$transaction ?
-                                                            number_format($transaction->paid,0) : '0'}}</p>
-                                                    </div>
-                                                    <div class="col-sm-8 col-7">
-                                                        <p class="">Due :</p>
-                                                    </div>
-                                                    <div class="col-sm-4 col-5">
-                                                        <p class="">Rs.{{$remain ? number_format($remain->remain,0) :
-                                                            '0'}}</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-                                @endif
 
                                 <div class="inv--note">
 
@@ -140,7 +142,7 @@
                                 class="btn btn-secondary btn-print action-print _effect--ripple waves-effect waves-light"
                                 onclick="printBill()">Print</a>
                         </div>
-                        <div class="col-xl-12 col-md-3 col-sm-6">
+                        <div class="col-xl-12 col-md-3 col-sm-6" target="_blank">
                             <a href="{{route('downloadTransactionPdf',$slug)}}"
                                 class="btn btn-success btn-download _effect--ripple waves-effect waves-light">Download</a>
                         </div>

@@ -1,6 +1,7 @@
 <div class="account-settings-container layout-top-spacing">
 
     <div class="account-content">
+        @if(auth()->user()->role !=='Company')
         <div class="row mb-3">
             <div class="col-md-12">
                 <ul class="nav nav-pills" id="animateLine" role="tablist">
@@ -24,11 +25,10 @@
                                 <circle cx="12" cy="7" r="4"></circle>
                             </svg> Department Details</button>
                     </li>
-
                 </ul>
             </div>
         </div>
-
+        @endif
         <div class="tab-content" id="animateLineContent-4">
             <div class="tab-pane fade active show" id="animated-underline-home" role="tabpanel"
                 aria-labelledby="animated-underline-home-tab">

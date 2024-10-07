@@ -7,6 +7,7 @@ use App\Models\Vendor;
 use App\Models\Product;
 use App\Models\Barcode;
 use App\Models\ItemIn;
+use App\Models\Stock;
 use Livewire\Attributes\Validate;
 use Illuminate\Support\Str;
 
@@ -129,12 +130,32 @@ class Edit extends Component
     public function update()
     {
         $validated = $this->validate();
-        $slug = Str::slug('STOCK'.'-'.$this->product_id.'-'.$this->stock);
+        $slug = Str::slug('STOCK'.'-'.$this->product_id.'-'.now());
         $item = ItemIn::updateOrCreate(
             ['slug' => $this->slug],  // Search by slug to update the existing item
-            $validated + ['slug' => $slug]
+            $validated + ['company_id' => auth()->user()->company_id,'slug' => $slug]
         );
-        
+        $stockRecord = Stock::where('product_id', $this->product_id)->first();
+        if ($stockRecord) {
+            // If stock record exists, update the stock
+            if($this->item_in->stock > $validated['stock'])
+            {
+                $stockRecord->update([
+                    'stock' => $stockRecord->stock - $this->stock
+                ]);
+            }
+            else{
+                $stockRecord->update([
+                    'stock' => $stockRecord->stock + $this->stock
+                ]);
+            }
+        } else {
+            // If stock record doesn't exist, create a new one
+            Stock::create([
+                'product_id' => $this->product_id,
+                'stock' => $this->stock,
+            ]);
+        }
         if (!empty($this->barcodeList)) {
             // Delete old barcodes associated with the item
             Barcode::where('item_in_id', $item->id)->delete();
@@ -142,6 +163,7 @@ class Edit extends Component
             // Save the new barcodes
             foreach ($this->barcodeList as $barcodeValue) {
                 Barcode::create([
+                    'company_id' => auth()->user()->company_id,
                     'item_in_id' => $item->id,
                     'barcode'    => $barcodeValue
                 ]);

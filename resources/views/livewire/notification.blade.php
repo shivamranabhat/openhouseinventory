@@ -12,7 +12,7 @@
 
     <div class="dropdown-menu position-absolute" aria-labelledby="notificationDropdown">
         <div class="drodpown-title message">
-            <h6 class="d-flex justify-content-between"><span class="align-self-center">Messages</span>
+            <h6 class="d-flex justify-content-between"><span class="align-self-center">New Request</span>
                 <span class="badge badge-primary">9 Unread</span></h6>
         </div>
         <div class="notification-scroll">

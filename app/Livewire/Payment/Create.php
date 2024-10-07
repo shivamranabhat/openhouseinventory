@@ -11,7 +11,6 @@ use Livewire\Attributes\Validate;
 use Illuminate\Support\Str;
 use Livewire\WithFileUploads;
 
-
 class Create extends Component
 {
     use WithFileUploads;
@@ -89,7 +88,7 @@ class Create extends Component
                     ->update(['status' => 'Paid']); 
                    
                     // Create PaymentOut record with validated data
-                    $paymentOut = PaymentOut::create($validated + ['total'=>$this->total->total_sum+$previousRemain->remain,'remain'=>$remain+$previousRemain->remain,'company_id' => auth()->user()->company_id,'slug' => $this->slug]);
+                    $paymentOut = PaymentOut::create($validated + ['total'=>(float)$this->total->total_sum+(float)$previousRemain->remain,'remain'=>(float)$remain+(float)$previousRemain->remain,'company_id' => auth()->user()->company_id,'slug' => $this->slug]);
                     $previousRemain->update(['remain'=>0]);
                 }
                 else{
@@ -108,7 +107,7 @@ class Create extends Component
                     ->where('status', 'Pending') 
                     ->update(['status' => 'Paid']); 
                     // Create PaymentOut record with validated data
-                    $paymentOut = PaymentOut::create($validated + ['total'=>$previousRemain->remain,'remain'=>0,'company_id' => auth()->user()->company_id,'slug' => $this->slug]);
+                    $paymentOut = PaymentOut::create($validated + ['total'=>(float)$previousRemain->remain,'remain'=>0,'company_id' => auth()->user()->company_id,'slug' => $this->slug]);
                     $previousRemain->update(['remain'=>0]);
                 }
                 else{
@@ -121,7 +120,10 @@ class Create extends Component
         }
         if($this->type === 'Cheque')
         {
-            Cheque::create(['vendor_id'=>$this->vendor_id,'payment_out_id'=>$paymentOut->id,'pay_date'=>$this->payment_date,'withdraw_date'=>$this->withdraw_date,'company_id' => auth()->user()->company_id,'slug'=>$this->slug]);
+            $fileName = $this->image->getClientOriginalName();
+            $filePath = $this->image->storeAs('payments', $fileName, 'public');
+            $validated['image'] = $filePath;
+            Cheque::create(['vendor_id'=>$this->vendor_id,'image'=>$validated['image'],'cheque_no'=>$this->cheque_no,'payment_out_id'=>$paymentOut->id,'pay_date'=>$this->payment_date,'withdraw_date'=>$this->withdraw_date,'company_id' => auth()->user()->company_id,'slug'=>$this->slug]);
         }
         return redirect()->route('payments')->with('message','Payment data stored successfully.');
     }

@@ -1,5 +1,5 @@
 <x-layouts.app-ii>
-    <div class="middle-content p-0">
+    <div class="middle-content p-0 col-12 col-lg-9">
         <div class="d-flex justify-content-between align-items-center">
             <x-breadcrumb />
             <a href="{{route('inventories')}}" class="mt-3">

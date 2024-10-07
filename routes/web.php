@@ -43,6 +43,9 @@ Route::prefix('/stock-in')->controller(PageController::class)->middleware(['auth
     Route::get('/create','stockCreate')->name('stock.create');
     Route::get('/edit/{slug}','stockEdit')->name('stock.edit');
 });
+Route::prefix('/stock-out')->controller(PageController::class)->middleware(['auth'])->group(function(){
+    Route::get('/create','stockOutCreate')->name('stockOut.create');
+});
 Route::prefix('/prefix')->controller(PageController::class)->middleware(['auth'])->group(function(){
     Route::get('','prefix')->name('prefixes');
     Route::get('/create','prefixCreate')->name('prefix.create');
@@ -80,8 +83,10 @@ Route::prefix('/payment-out')->controller(PageController::class)->middleware(['a
 // Route::prefix('/declined')->controller(PageController::class)->middleware(['auth'])->group(function(){
 //     Route::get('','decline')->name('declines');
 // });
-Route::prefix('/cheques')->controller(PageController::class)->middleware(['auth'])->group(function(){
+Route::prefix('/cheque')->controller(PageController::class)->middleware(['auth'])->group(function(){
     Route::get('','cheque')->name('cheques');
+    Route::get('/create','chequeCreate')->name('cheque.create');
+    Route::get('/edit/{slug}','chequeEdit')->name('cheque.edit');
 });
 Route::prefix('/profile')->controller(PageController::class)->middleware(['auth'])->group(function(){
     Route::get('','profile')->name('profile');

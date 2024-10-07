@@ -15,6 +15,8 @@ class Cheque extends Model
     }
     protected $fillable=[
         'vendor_id',
+        'cheque_no',
+        'image',
         'payment_out_id',
         'company_id',
         'pay_date',

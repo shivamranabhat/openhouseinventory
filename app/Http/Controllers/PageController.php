@@ -84,6 +84,24 @@ class PageController extends Controller
     {
         return view('pages.cheque.index');
     }
+    public function chequeCreate()
+    {
+        if (Gate::allows('action-create')) {
+            return view('pages.cheque.create');
+        } else {
+            // Handle unauthorized action
+            return redirect()->back()->with('error','You do not have permission to create.');
+        }
+    }
+    public function chequeEdit($slug)
+    {
+        if (Gate::allows('action-edit')) {
+            return view('pages.cheque.edit',compact('slug'));
+        } else {
+            // Handle unauthorized action
+            return redirect()->back()->with('error','You do not have permission to edit.');
+        }
+    }
     public function charge()
     {
         return view('pages.charge.index');
@@ -197,6 +215,16 @@ class PageController extends Controller
             return redirect()->back()->with('error','You do not have permission to edit.');
         } 
     }
+    public function stockOutCreate()
+    {
+        if (Gate::allows('action-create')) {
+            return view('pages.stock_out.create');
+        } else {
+            // Handle unauthorized action
+            return redirect()->back()->with('error','You do not have permission to create.');
+        } 
+    }
+    
     public function prefix()
     {
         return view('pages.prefix.index');

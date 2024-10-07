@@ -55,10 +55,10 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-md-4">
+                                    <div class="col-md-6">
                                         <div class="form-group mb-4">
                                             <label for="date">Date</label>
-                                            <input type="text" class="form-control form-control-sm flatpickr-input"
+                                            <input type="text" class="form-control flatpickr-input"
                                                 id="date" wire:model='payment_date' placeholder="Date">
                                         </div>
                                         @error('payment_date')
@@ -90,10 +90,10 @@
                                         </div>
                                     </div>
                                     
-                                    <div class="col-md-4">
+                                    <div class="col-md-6">
                                         <div class="form-group mb-4">
                                             <label for="amount">Amount</label>
-                                            <input type="text" class="form-control form-control-sm" wire:model='paid'
+                                            <input type="text" class="form-control" wire:model='paid'
                                                 placeholder="Paid Amount">
                                             @error('paid')
                                             <div class="feedback text-danger">
@@ -109,16 +109,16 @@
                                     <div class="col-md-6">
                                         <div class="form-group mb-4">
                                             <label for="cheque_no">Cheque N.o.</label>
-                                            <input type="text" class="form-control form-control-sm"
+                                            <input type="text" class="form-control"
                                                 wire:model='cheque_no' placeholder="Cheque no">
                                             
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-6">
                                         <div class="form-group mb-4">
                                             <label for="date">Withdraw Date</label>
-                                            <input type="text" class="form-control form-control-sm flatpickr-input"
-                                                id="withdraw" wire:model='withdraw_date' placeholder="Date">
+                                            <input type="text" class="form-control flatpickr-input"
+                                            id="withdraw" wire:model='withdraw_date' placeholder="Withdraw Date">
                                         </div>
                                         @error('withdraw_date')
                                         <div class="feedback text-danger">

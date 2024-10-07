@@ -36,10 +36,7 @@ class Index extends Component
         }
         else{
             $requests = Requisition::where(function ($query) {
-                $query->where('quantity', 'like', '%' . $this->search . '%')
-                      ->orWhereHas('employee', function($query) {
-                          $query->where('name', 'like', '%' . $this->search . '%');
-                      });
+                $query->where('quantity', 'like', '%' . $this->search . '%');
             })->where('employee_id',auth()->user()->employee_id)->latest()->paginate($this->page);
         }
 

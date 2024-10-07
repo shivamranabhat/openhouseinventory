@@ -35,8 +35,8 @@
             @enderror
         </div>
     </div>
-    <div class="row mb-4">
-        <div class="col-lg-5 form-group">
+    <div class="row">
+        <div class="col-lg-6 form-group mb-4">
             <label for="stock">Stock</label>
             <input type="text" class="form-control" wire:model="stock" wire:change="updatePrice" placeholder="Stock">
             @error('stock')
@@ -45,7 +45,7 @@
             </div>
             @enderror
         </div>
-        <div class="col-lg-5 form-group">
+        <div class="col-lg-6 form-group mb-4">
             <label for="unit_price">Unit Price</label>
             <input type="text" class="form-control" wire:model="unit_price" wire:change="updatePrice"
                 placeholder="Unit Price">
@@ -55,13 +55,13 @@
             </div>
             @enderror
         </div>
-        <div class="col-lg-2 form-group">
+    </div>
+    <div class="row">
+        <div class="col-lg-6 form-group mb-4">
             <label for="total">Total Amount</label>
             <input type="text" class="form-control" wire:model="total" placeholder="Total amount" readonly>
         </div>
-    </div>
-    <div class="row mb-4">
-        <div class="col-lg-5 form-group">
+        <div class="col-lg-6 form-group mb-4">
             <label for="barcode">No.of barcode</label>
             <input type="text" class="form-control" wire:model="barcode" placeholder="1"
                 wire:change="updateBarcodeValue">
@@ -71,7 +71,7 @@
             </div>
             @enderror
         </div>
-        <div class="col-lg-5 form-group">
+        <div class="col-lg-6 form-group mb-4">
             <label for="purchase_date">Purchased Date</label>
             <input type="date" class="form-control" id="date" wire:model="purchase_date" placeholder="Purchase Date"
                 wire:ignore>
@@ -81,7 +81,7 @@
             </div>
             @enderror
         </div>
-        <div class="col-lg-2 form-group">
+        <div class="col-lg-6 form-group mb-4">
             <label for="rack_no">Rack Number</label>
             <input type="text" class="form-control" wire:model="rack_no" placeholder="Rack Number">
             @error('rack_no')

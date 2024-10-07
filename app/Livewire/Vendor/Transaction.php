@@ -21,7 +21,7 @@ class Transaction extends Component
 
     public function render()
     {
-        $purchases = ItemIn::where('vendor_id',$this->vendor->id)->paginate(10);
+        $purchases = ItemIn::where('vendor_id',$this->vendor->id)->latest()->paginate(10);
         $total = ItemIn::where('vendor_id', $this->vendor->id)
         ->selectRaw('SUM(total) as total_sum')
         ->groupBy('vendor_id')

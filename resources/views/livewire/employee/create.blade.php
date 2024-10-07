@@ -1,6 +1,6 @@
 <form class="widget-content widget-content-area ecommerce-create-section" wire:submit.prevent='save'>
-    <div class="row mb-4">
-        <div class="col-12 col-md-6 form-group">
+    <div class="row">
+        <div class="col-12 col-md-6 form-group mb-4">
             <label for="exampleFormControlInput1">Name</label>
             <input type="text" class="form-control" wire:model="name" placeholder="Name">
             @error('name')
@@ -9,7 +9,7 @@
             </div>
             @enderror
         </div>
-        <div class="col-12 col-md-6 form-group">
+        <div class="col-12 col-md-6 form-group mb-4">
             <label for="exampleFormControlInput1">Age</label>
             <input type="text" class="form-control" wire:model="age" placeholder="Age">
             @error('age')
@@ -20,8 +20,8 @@
         </div>
     </div>
 
-    <div class="row mb-4">
-        <div class="col-12 col-md-6 form-group">
+    <div class="row">
+        <div class="col-12 col-md-6 form-group mb-4">
             <label for="exampleFormControlInput1">Address</label>
             <input type="text" class="form-control" wire:model="address" placeholder="Address">
             @error('address')
@@ -30,7 +30,7 @@
             </div>
             @enderror
         </div>
-        <div class="col-12 col-md-6 form-group">
+        <div class="col-12 col-md-6 form-group mb-4">
             <label for="department_id">Department</label>
             <select class="form-select" wire:model="department_id">
                 <option value="">Select a department</option>
@@ -48,8 +48,8 @@
             @enderror
         </div>
     </div>
-    <div class="row mb-4">
-        <div class="col-12 col-md-6 form-group">
+    <div class="row">
+        <div class="col-12 col-md-6 form-group mb-4">
             <label for="join_date">Join Date</label>
             <input type="date" class="form-control" id="date" wire:model="join_date" placeholder="Join date" wire:ignore>
             @error('join_date')
@@ -58,7 +58,7 @@
             </div>
             @enderror
         </div>
-        <div class="col-12 col-md-6 form-group">
+        <div class="col-12 col-md-6 form-group mb-4">
             <label for="exampleFormControlInput1">Designation</label>
             <input type="text" class="form-control" wire:model="designation" placeholder="Designation">
             @error('designation')
@@ -69,8 +69,8 @@
         </div>
     </div>
 
-    <div class="row mb-4 align-items-center">
-        <div class="col-12 col-md-6 form-group">
+    <div class="row align-items-center">
+        <div class="col-12 col-md-6 form-group mb-4">
             <label for="exampleFormControlInput1">Salary</label>
             <input type="text" class="form-control" wire:model="salary" placeholder="Salary">
             @error('salary')
@@ -79,7 +79,7 @@
             </div>
             @enderror
         </div>
-        <div class="col-12 col-md-6 form-group">
+        <div class="col-12 col-md-6 form-group mb-4">
             <label for="doc_img">Identity Docs</label>
             <div x-data="fileUpload()">
                 <label for="fileInput">

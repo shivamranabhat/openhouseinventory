@@ -3,7 +3,7 @@
         <label for="category_id">Category</label>
         <select class="form-select" wire:model="category_id">
             <option value="{{$category_prefix->category_id}}">{{$category_prefix->category->name}}</option>
-            @forelse($categorys as $category)
+            @forelse($categories as $category)
             <option value="{{$category->id}}">{{$category->name}}</option>
             @empty 
             <option value="">No category found</option>

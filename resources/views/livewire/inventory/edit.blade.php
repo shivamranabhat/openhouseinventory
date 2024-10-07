@@ -1,7 +1,8 @@
+
 <form class="widget-content widget-content-area ecommerce-create-section" wire:submit.prevent='update'>
-    <div class="row mb-4">
-        <div class="col-lg-6 form-group">
-            <label for="exampleFormControlInput1">Name</label>
+    <div class="row">
+        <div class="col-lg-6 form-group mb-4">
+            <label for="name">Name</label>
             <input type="text" class="form-control" wire:model="name" placeholder="Product Name">
             @error('name')
             <div class="feedback text-danger">
@@ -9,10 +10,10 @@
             </div>
             @enderror
         </div>
-        <div class="col-lg-6 form-group">
+        <div class="col-lg-6 form-group mb-4">
             <label for="category_id">Category</label>
             <select class="form-select" wire:model="category_id">
-                <option value="">Select a category</option>
+                <option value="{{$product->category_id}}">{{$product->category->name}}</option>
                 @forelse($categories as $category)
                 <option value="{{$category->id}}">{{$category->name}}</option>
                 @empty 
@@ -27,9 +28,9 @@
             @enderror
         </div>
     </div>
-    <div class="row mb-4">
-        <div class="col-lg-6 form-group">
-            <label for="exampleFormControlInput1">Sku</label>
+    <div class="row">
+        <div class="col-lg-6 form-group mb-4">
+            <label for="sku">Sku</label>
             <input type="text" class="form-control" wire:model="sku" placeholder="Sku">
             @error('sku')
             <div class="feedback text-danger">
@@ -37,15 +38,15 @@
             </div>
             @enderror
         </div>
-        <div class="col-lg-6 form-group">
-            <label for="exampleFormControlInput1">Quantity</label>
+        <div class="col-lg-6 form-group mb-4">
+            <label for="quantity">Quantity</label>
             <input type="text" class="form-control" wire:model="quantity" placeholder="Quantity">
         </div>
     </div>
    
     <div class="row mb-4">
         <div class="col-sm-12">
-            <label for="exampleFormControlInput1">Description</label>
+            <label for="description">Description</label>
             <textarea class="form-control" wire:model="description" rows="2"></textarea>
         </div>
     </div>

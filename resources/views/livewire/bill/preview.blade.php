@@ -21,14 +21,17 @@
 
                                                 
 
-                                                <div class="col-sm-6 text-sm-end">
-                                                    <p class="inv-list-number mt-sm-3 pb-sm-2 mt-4"><span
+                                                <div class="col-sm-6 text-sm-start">
+                                                    <p class="inv-list-number mt-sm-3 mt-4"><span
                                                             class="inv-title">Bill N.o. : </span> <span
                                                             class="inv-number">#{{$slug}}</span></p>
-                                                    <p class="inv-created-date mt-sm-5 mt-3"><span
+                                                    <p class="inv-created-date mt-sm-2 mt-1"><span
                                                             class="inv-title">Bill Date : </span> <span
                                                             class="inv-date">{{\Carbon\Carbon::parse($details->bill_date)->format('M
                                                             d Y')}}</span></p>
+                                                </div>
+                                                <div class="col-sm-6">
+
                                                 </div>
                                             </div>
 
@@ -153,7 +156,7 @@
                                         class="btn btn-secondary btn-print action-print _effect--ripple waves-effect waves-light">Print</a>
                                 </div>
                                 <div class="col-xl-12 col-md-3 col-sm-6">
-                                    <a href="{{route('downloadBillPdf',$details->slug)}}"
+                                    <a href="{{route('downloadBillPdf',$details->slug)}}" target="_blank"
                                         class="btn btn-success btn-download _effect--ripple waves-effect waves-light">Download</a>
                                 </div>
                                 <div class="col-xl-12 col-md-3 col-sm-6">

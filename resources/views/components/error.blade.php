@@ -1,7 +1,7 @@
 @if(session()->has('error'))
 <div class="snackbar-container  snackbar-pos bottom-right"
     style="width: auto; background: rgb(231, 81, 90); opacity: 1;" x-data="{ show: true }" x-show="show"
-    x-init="setTimeout(() => show = false, 3000)">
+    x-init="setTimeout(() => show = false, 20000)">
 
     <p style="margin: 0px; padding: 0px; color: rgb(255, 255, 255); font-size: 16px; font-weight: 300; line-height: 1em;"
         class="d-flex gap-3 align-items-center">
