@@ -10,6 +10,7 @@ class Stock extends Model
     use HasFactory;
     protected $fillable=[
         'product_id',
+        'company_id',
          'stock', 
      ];
      public function product()

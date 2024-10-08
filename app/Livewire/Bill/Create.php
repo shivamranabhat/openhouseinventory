@@ -130,7 +130,6 @@ class Create extends Component
     {
         $this->vendor_id = $value;
         if ($this->vendor_id) {
-            // $this->items = ItemIn::where('vendor_id', $this->vendor_id)->latest()->get();
             $this->items = ItemIn::where('vendor_id', $this->vendor_id)
             ->whereIn('id', function ($query) {
                 $query->selectRaw('MAX(id)')

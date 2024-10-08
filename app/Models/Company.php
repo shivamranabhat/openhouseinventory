@@ -16,6 +16,10 @@ class Company extends Model
     protected $fillable=[
         'name','slug'
     ];
+    public function stocks()
+    {
+        return $this->hasMany(Stock::class);
+    }
     public function barcodes()
     {
         return $this->hasMany(Barcode::class);

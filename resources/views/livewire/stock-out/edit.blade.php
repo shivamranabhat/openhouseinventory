@@ -1,24 +1,14 @@
-<form class="widget-content widget-content-area ecommerce-create-section" wire:submit.prevent='save'>
+<form class="widget-content widget-content-area ecommerce-create-section" wire:submit.prevent='update'>
     <div class="form-group mb-4">
         <label for="item_in_id">Product</label>
         <select class="form-select" wire:model="item_in_id" wire:change='product($event.target.value)'>
-            <option value="">Select a product</option>
-            @forelse($stocks as $stock)
-            <option value="{{$stock->id}}">{{$stock->product->name}}</option>
-            @empty
-            <option value="">No product found</option>
-            @endforelse
+            <option value="{{$item->item_in_id}}">{{$item->itemIn->product->name}}</option>
         </select>
-        @error('item_in_id')
-        <div class="feedback text-danger">
-            Please select a product.
-        </div>
-        @enderror
     </div>
     <div class="form-group mb-4">
         <label for="department_id">Department</label>
         <select class="form-select" wire:model="department_id">
-            <option value="">Select a department</option>
+            <option value="{{$item->department_id}}">{{$item->department->name}}</option>
             @forelse($departments as $department)
             <option value="{{$department->id}}">{{$department->name}}</option>
             @empty

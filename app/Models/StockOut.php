@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Scopes\CompanyScope;
 
-class Department extends Model
+class StockOut extends Model
 {
     use HasFactory;
     protected static function booted()
@@ -14,17 +14,21 @@ class Department extends Model
         static::addGlobalScope(new CompanyScope);
     }
     protected $fillable=[
-        'name','head','phone','email','employee','company_id','status','slug'
+        'department_id',
+        'item_in_id',
+        'company_id',
+        'quantity',
+        'status',
+        'slug',
     ];
-    public function stockOuts()
+    public function department()
     {
-        return $this->hasMany(StockOut::class);
+        return $this->belongsTo(Department::class);
     }
-    public function employees()
+    public function itemIn()
     {
-        return $this->hasMany(Employee::class);
+        return $this->belongsTo(ItemIn::class);
     }
-
     public function company()
     {
         return $this->belongsTo(Company::class);

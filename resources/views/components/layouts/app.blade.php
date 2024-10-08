@@ -165,6 +165,7 @@
                             </div>
                         </a>
                     </li>
+
                     <li class="menu {{request()->segment(1) == 'department'  ? 'active' : '' }}">
                         <a href="{{route('departments')}}" aria-expanded="false" class="dropdown-toggle">
                             <div class="">
@@ -195,7 +196,7 @@
                         </a>
                     </li>
                     <li
-                        class="menu {{request()->segment(1) == 'inventory' ||  request()->segment(1)=='prefix' || request()->segment(1)=='requisition' ||request()->segment(1) == 'category'  ? 'active' : '' }}">
+                        class="menu {{request()->segment(1) == 'inventory' ||  request()->segment(1)=='prefix' ||request()->segment(1) == 'category'  ? 'active' : '' }}">
                         <a href="#inventory" data-bs-toggle="collapse" aria-expanded="false"
                             class="dropdown-toggle collapsed">
                             <div class="">
@@ -221,9 +222,7 @@
                             <li class="{{request()->segment(1) == 'inventory'  ? 'active' : '' }}">
                                 <a href="{{route('inventories')}}"> Lists </a>
                             </li>
-                            <li class="{{request()->segment(1) == 'requisition'  ? 'active' : '' }}">
-                                <a href="{{route('requisitions')}}"> Requisition </a>
-                            </li>
+
                             <li class="{{request()->segment(1) == 'category'  ? 'active' : '' }}">
                                 <a href="{{route('categories')}}"> Category </a>
                             </li>
@@ -234,7 +233,7 @@
                         </ul>
                     </li>
                     <li
-                        class="menu {{request()->segment(1) == 'stock-in' || request()->segment(1) == 'stock-out' || request()->segment(1)=='bill' ||request()->segment(1) == 'payment-out'  ? 'active' : '' }}">
+                        class="menu {{ request()->segment(1)=='bill' ||request()->segment(1) == 'payment-out'  ? 'active' : '' }}">
                         <a href="#requisition" data-bs-toggle="collapse" aria-expanded="false"
                             class="dropdown-toggle collapsed">
                             <div class="">
@@ -258,12 +257,7 @@
                         </a>
                         <ul class="submenu list-unstyled collapse" id="requisition" data-bs-parent="#accordionExample"
                             style="">
-                            <li class="{{request()->segment(1) == 'stock-in'  ? 'active' : '' }}">
-                                <a href="{{route('stocks')}}"> Stock In </a>
-                            </li>
-                            <li class="{{request()->segment(1) == 'stock-out'  ? 'active' : '' }}">
-                                <a href="{{route('stockOut.create')}}"> Stock Out </a>
-                            </li>
+
                             <li class="{{request()->segment(1) == 'bill'  ? 'active' : '' }}">
                                 <a href="{{route('bills')}}"> Purchase Bill</a>
                             </li>
@@ -272,6 +266,54 @@
                             </li>
 
                         </ul>
+                    </li>
+                    <li
+                        class="menu {{request()->segment(1) == 'stock-in' || request()->segment(1) == 'stock-out'  ? 'active' : '' }}">
+                        <a href="#stock" data-bs-toggle="collapse" aria-expanded="false"
+                            class="dropdown-toggle collapsed">
+                            <div class="">
+                                <svg width="800px" height="800px" fill="none" stroke="currentColor" class="feather"
+                                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" id="package"
+                                    class="icon glyph">
+                                    <path
+                                        d="M22,8.5V20a2,2,0,0,1-2,2H4a2,2,0,0,1-2-2V8.5H8V15a1,1,0,0,0,.42.81,1,1,0,0,0,.9.14l2.68-.9,2.68.9A1.19,1.19,0,0,0,15,16a.94.94,0,0,0,.58-.19A1,1,0,0,0,16,15V8.5Zm-.14-1h0a.83.83,0,0,0-.16-.21L17,2.58A2,2,0,0,0,15.59,2H8.41A2,2,0,0,0,7,2.58L2.29,7.29a.83.83,0,0,0-.16.21H21.86Z">
+                                    </path>
+                                </svg>
+                                <span>Stock</span>
+
+                            </div>
+                            <div>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-chevron-right">
+                                    <polyline points="9 18 15 12 9 6"></polyline>
+                                </svg>
+                            </div>
+                        </a>
+                        <ul class="submenu list-unstyled collapse" id="stock" data-bs-parent="#accordionExample"
+                            style="">
+                            <li class="{{request()->segment(1) == 'stock-in'  ? 'active' : '' }}">
+                                <a href="{{route('stocks')}}"> Stock In </a>
+                            </li>
+                            <li class="{{request()->segment(1) == 'stock-out'  ? 'active' : '' }}">
+                                <a href="{{route('stockOuts')}}"> Stock Out </a>
+                            </li>
+
+                        </ul>
+                    </li>
+                    <li class="menu {{request()->segment(1) == 'requisition'  ? 'active' : '' }}">
+                        <a href="{{route('requisitions')}}" aria-expanded="false" class="dropdown-toggle">
+                            <div class="">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-plus-circle">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <line x1="12" y1="8" x2="12" y2="16"></line>
+                                    <line x1="8" y1="12" x2="16" y2="12"></line>
+                                </svg>
+                                <span>Requisition</span>
+                            </div>
+                        </a>
                     </li>
                     <li class="menu {{request()->segment(1) == 'cheque'  ? 'active' : '' }}">
                         <a href="{{route('cheques')}}" aria-expanded="false" class="dropdown-toggle">
@@ -327,8 +369,7 @@
                                         d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z">
                                     </path>
                                 </svg>
-                                <span>Setting</span>
-
+                                <span>Settings</span>
                             </div>
                             <div>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -349,7 +390,10 @@
 
                         </ul>
                     </li>
-
+                    <li class="menu mt-4"></li>
+                    <li class="menu mt-4"></li>
+                    <li class="menu mt-4"></li>
+                    <livewire:logout />
                 </ul>
             </nav>
         </div>

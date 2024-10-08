@@ -50,7 +50,7 @@ class Index extends Component
         $accounts = User::where(function ($query) {
             $query->where('name', 'like', '%' . $this->search . '%')
             ->where('email', 'like', '%' . $this->search . '%');
-        })->latest()->where('status','Active')->where('id','<>',auth()->user()->id)->where('role','<>','Company')->paginate($this->page);
+        })->latest()->where('company_id',auth()->user()->company_id)->where('status','Active')->where('id','<>',auth()->user()->id)->where('role','<>','Company')->paginate($this->page);
         return view('livewire.account.index',['accounts'=>$accounts]);
     }
 }

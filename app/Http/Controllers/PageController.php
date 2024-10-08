@@ -215,6 +215,10 @@ class PageController extends Controller
             return redirect()->back()->with('error','You do not have permission to edit.');
         } 
     }
+    public function stockOut()
+    {
+        return view('pages.stock_out.index');
+    }
     public function stockOutCreate()
     {
         if (Gate::allows('action-create')) {
@@ -224,7 +228,15 @@ class PageController extends Controller
             return redirect()->back()->with('error','You do not have permission to create.');
         } 
     }
-    
+    public function stockOutEdit($slug)
+    {
+        if (Gate::allows('action-edit')) {
+            return view('pages.stock_out.edit',compact('slug'));
+        } else {
+            // Handle unauthorized action
+            return redirect()->back()->with('error','You do not have permission to edit.');
+        } 
+    }
     public function prefix()
     {
         return view('pages.prefix.index');

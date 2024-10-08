@@ -43,15 +43,18 @@ class Edit extends Component
     public function mount()
     {
         $this->account = User::whereSlug($this->slug)->first();
-        $this->name = $this->account->name;
-        $this->email = $this->account->email;
-        $this->employee_id = $this->account->employee_id;
-        $this->employee = Employee::find($this->employee_id);
-        $this->can_create = $this->account->can_create==='Yes';
-        $this->can_edit = $this->account->can_edit==='Yes';
-        $this->can_delete = $this->account->can_delete==='Yes';
-        $this->can_approve = $this->account->can_approve==='Yes';
-        $this->can_decline = $this->account->can_decline==='Yes';
+        if($this->account)
+        {
+            $this->name = $this->account->name;
+            $this->email = $this->account->email;
+            $this->employee_id = $this->account->employee_id;
+            $this->employee = Employee::find($this->account->employee_id);
+            $this->can_create = $this->account->can_create==='Yes';
+            $this->can_edit = $this->account->can_edit==='Yes';
+            $this->can_delete = $this->account->can_delete==='Yes';
+            $this->can_approve = $this->account->can_approve==='Yes';
+            $this->can_decline = $this->account->can_decline==='Yes';
+        }
     }
     public function update()
     {

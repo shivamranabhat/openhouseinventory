@@ -44,7 +44,10 @@ Route::prefix('/stock-in')->controller(PageController::class)->middleware(['auth
     Route::get('/edit/{slug}','stockEdit')->name('stock.edit');
 });
 Route::prefix('/stock-out')->controller(PageController::class)->middleware(['auth'])->group(function(){
+    Route::get('','stockOut')->name('stockOuts');
     Route::get('/create','stockOutCreate')->name('stockOut.create');
+    Route::get('/edit/{slug}','stockOutEdit')->name('stockOut.edit');
+
 });
 Route::prefix('/prefix')->controller(PageController::class)->middleware(['auth'])->group(function(){
     Route::get('','prefix')->name('prefixes');

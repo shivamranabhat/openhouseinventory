@@ -112,6 +112,7 @@ class Create extends Component
             // If stock record doesn't exist, create a new one
             Stock::create([
                 'product_id' => $this->product_id,
+                'company_id' => auth()->user()->company_id,
                 'stock' => $this->stock,
             ]);
         }
