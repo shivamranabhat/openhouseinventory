@@ -10,7 +10,7 @@ use Illuminate\Support\Str;
 
 class Create extends Component
 {
-    #[Validate('required|unique:products')]
+    #[Validate('required')]
     public $name;
     #[Validate('required')]
     public $sku;
@@ -26,14 +26,14 @@ class Create extends Component
     {
         $validated = $this->validate();
         sleep(1.2);
-        $slug = Str::slug($this->name);
+        $slug = Str::slug('PR'.'-'.$this->name.'-'.now());
         Product::create($validated+['company_id' => auth()->user()->company_id,'slug'=>$slug]);
         return redirect()->route('inventories')->with('message','Product created successfully.');
     }
 
     public function render()
     {
-        $categories = Category::select('name','id')->where('type','Product')->get();
+        $categories = Category::select('name','id')->where('status','Active')->where('type','Product')->get();
         return view('livewire.inventory.create',compact('categories'));
     }
 }

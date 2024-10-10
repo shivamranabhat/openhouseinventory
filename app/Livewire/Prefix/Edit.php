@@ -42,7 +42,7 @@ class Edit extends Component
     public function update()
     {
         $validated = $this->validate();
-        $slug = Str::slug($this->prefix);
+        $slug = Str::slug('PRE'.'-'.$this->prefix.'-'.now());
         $this->category_prefix->update($validated+['slug'=>$slug]);
         sleep(1);
         return redirect()->route('prefixes')->with('message','Prefix updated successfully.');
@@ -50,7 +50,7 @@ class Edit extends Component
 
     public function render()
     {
-        $categories = Category::select('id','name')->latest()->get();
+        $categories = Category::select('id','name')->where('status','Active')->latest()->get();
         return view('livewire.prefix.edit',compact('categories'));
     }
 }

@@ -125,7 +125,7 @@
                     </a>
                 </li>
 
-                <livewire:notification />
+                <livewire:requisition.notification />
                 <livewire:auth.auth-card />
 
             </ul>
@@ -247,6 +247,40 @@
                         </ul>
                     </li>
                     <li
+                        class="menu {{request()->segment(1) == 'stock-in' || request()->segment(1) == 'stock-out'  ? 'active' : '' }}">
+                        <a href="#stock" data-bs-toggle="collapse" aria-expanded="false"
+                            class="dropdown-toggle collapsed">
+                            <div class="">
+                                <svg width="800px" height="800px" fill="none" stroke="currentColor" class="feather"
+                                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" id="package"
+                                    class="icon glyph">
+                                    <path
+                                        d="M22,8.5V20a2,2,0,0,1-2,2H4a2,2,0,0,1-2-2V8.5H8V15a1,1,0,0,0,.42.81,1,1,0,0,0,.9.14l2.68-.9,2.68.9A1.19,1.19,0,0,0,15,16a.94.94,0,0,0,.58-.19A1,1,0,0,0,16,15V8.5Zm-.14-1h0a.83.83,0,0,0-.16-.21L17,2.58A2,2,0,0,0,15.59,2H8.41A2,2,0,0,0,7,2.58L2.29,7.29a.83.83,0,0,0-.16.21H21.86Z">
+                                    </path>
+                                </svg>
+                                <span>Stock</span>
+
+                            </div>
+                            <div>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-chevron-right">
+                                    <polyline points="9 18 15 12 9 6"></polyline>
+                                </svg>
+                            </div>
+                        </a>
+                        <ul class="submenu list-unstyled collapse" id="stock" data-bs-parent="#accordionExample"
+                            style="">
+                            <li class="{{request()->segment(1) == 'stock-in'  ? 'active' : '' }}">
+                                <a href="{{route('stocks')}}"> Stock In </a>
+                            </li>
+                            <li class="{{request()->segment(1) == 'stock-out'  ? 'active' : '' }}">
+                                <a href="{{route('stockOuts')}}"> Stock Out </a>
+                            </li>
+
+                        </ul>
+                    </li>
+                    <li
                         class="menu {{ request()->segment(1)=='bill' ||request()->segment(1) == 'payment-out'  ? 'active' : '' }}">
                         <a href="#requisition" data-bs-toggle="collapse" aria-expanded="false"
                             class="dropdown-toggle collapsed">
@@ -277,40 +311,6 @@
                             </li>
                             <li class="{{request()->segment(1) == 'payment-out'  ? 'active' : '' }}">
                                 <a href="{{route('payments')}}"> Payment Out </a>
-                            </li>
-
-                        </ul>
-                    </li>
-                    <li
-                        class="menu {{request()->segment(1) == 'stock-in' || request()->segment(1) == 'stock-out'  ? 'active' : '' }}">
-                        <a href="#stock" data-bs-toggle="collapse" aria-expanded="false"
-                            class="dropdown-toggle collapsed">
-                            <div class="">
-                                <svg width="800px" height="800px" fill="none" stroke="currentColor" class="feather"
-                                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" id="package"
-                                    class="icon glyph">
-                                    <path
-                                        d="M22,8.5V20a2,2,0,0,1-2,2H4a2,2,0,0,1-2-2V8.5H8V15a1,1,0,0,0,.42.81,1,1,0,0,0,.9.14l2.68-.9,2.68.9A1.19,1.19,0,0,0,15,16a.94.94,0,0,0,.58-.19A1,1,0,0,0,16,15V8.5Zm-.14-1h0a.83.83,0,0,0-.16-.21L17,2.58A2,2,0,0,0,15.59,2H8.41A2,2,0,0,0,7,2.58L2.29,7.29a.83.83,0,0,0-.16.21H21.86Z">
-                                    </path>
-                                </svg>
-                                <span>Stock</span>
-
-                            </div>
-                            <div>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round" class="feather feather-chevron-right">
-                                    <polyline points="9 18 15 12 9 6"></polyline>
-                                </svg>
-                            </div>
-                        </a>
-                        <ul class="submenu list-unstyled collapse" id="stock" data-bs-parent="#accordionExample"
-                            style="">
-                            <li class="{{request()->segment(1) == 'stock-in'  ? 'active' : '' }}">
-                                <a href="{{route('stocks')}}"> Stock In </a>
-                            </li>
-                            <li class="{{request()->segment(1) == 'stock-out'  ? 'active' : '' }}">
-                                <a href="{{route('stockOuts')}}"> Stock Out </a>
                             </li>
 
                         </ul>
@@ -351,6 +351,16 @@
 
                                 </svg>
                                 <span>Cheque</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="menu {{request()->segment(1) == 'credit'  ? 'active' : '' }}">
+                        <a href="{{route('credits')}}" aria-expanded="false" class="dropdown-toggle">
+                            <div class="">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" class="feather" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                </svg>
+                                <span>Credits</span>
                             </div>
                         </a>
                     </li>
@@ -404,14 +414,9 @@
 
                         </ul>
                     </li>
-                    <li class="menu mt-4"></li>
-                    <li class="menu mt-4"></li>
-                    <li class="menu mt-4"></li>
                     <livewire:logout />
                 </ul>
-
             </nav>
-
         </div>
         <!--  END SIDEBAR  -->
 

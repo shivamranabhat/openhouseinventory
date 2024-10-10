@@ -33,7 +33,7 @@ class Edit extends Component
     public function update()
     {
         $validated = $this->validate();
-        $slug = Str::slug($this->name);
+        $slug = Str::slug('SER'.'-'.$this->name.'-'.now());
         $this->service->update($validated+['slug'=>$slug]);
         sleep(1);
         return redirect()->route('services')->with('message','Service updated successfully.');
@@ -41,7 +41,7 @@ class Edit extends Component
 
     public function render()
     {
-        $categories = Category::select('name','id')->where('type','Service')->get();
+        $categories = Category::select('name','id')->where('status','Active')->where('type','Service')->get();
         return view('livewire.service.edit',compact('categories'));
     }
 }

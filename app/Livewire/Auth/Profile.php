@@ -5,6 +5,7 @@ namespace App\Livewire\Auth;
 use Livewire\Component;
 use App\Models\Employee;
 use App\Models\User;
+use App\Models\Company;
 use Livewire\Attributes\Validate;
 use Illuminate\Support\Facades\Hash;
 use Livewire\WithFileUploads;
@@ -37,7 +38,7 @@ class Profile extends Component
         $this->user = auth()->user();
         $this->name = $this->user->name;
         $this->email = $this->user->email;
-        if($this->user->role != 'Company')
+        if($this->user->role != 'Company' && $this->user->role != 'Super Admin')
         {
             $this->address = $this->user->employee->address;
             $this->age = $this->user->employee->age;
@@ -60,8 +61,10 @@ class Profile extends Component
         }
         if ($this->image) {
             $fileName = $this->image->getClientOriginalName();
-            $filePath = $this->image->storeAs('profiles', $fileName, 'public');
-            $this->image = 'profiles/' . $fileName;
+            $companyName = preg_replace('/[^A-Za-z0-9\-]/', '_', auth()->user()->company->name);
+            $folderPath = 'profiles/' . $companyName;
+            $filePath = $this->image->storeAs($folderPath, $fileName, 'public');
+            $this->image = 'profiles/'. $companyName.'/' . $fileName;
             $this->user->update([
                 'name' => $this->name,
                 'email' => $this->email,

@@ -49,6 +49,7 @@
                     <th>Name</th>
                     <th>Product</th>
                     <th>Quantity</th>
+                    <th>Status</th>
                     <th>Requested At</th>
                     <th>Action</th>
                 </tr>
@@ -74,6 +75,7 @@
                     </td>
                     <td>{{$request->itemIn->product->name ?? ''}}</td>
                     <td>{{$request->quantity}}</td>
+                    <td>{{$request->status}}</td>
                     <td>{{\Carbon\Carbon::parse($request->created_at)->format('M d Y')}},
                         {{\Carbon\Carbon::parse($request->created_at)->format('g:i A')}}</td>
                     <td class="d-flex gap-3">
@@ -120,7 +122,7 @@
                 </tr>
                 @empty
                 <tr>
-                    <td colspan="6" class="text-center">No records found</td>
+                    <td colspan="7" class="text-center">No records found</td>
                 </tr>
 
                 @endforelse

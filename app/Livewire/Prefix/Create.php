@@ -29,14 +29,14 @@ class Create extends Component
     {
         $validated = $this->validate();
         sleep(1);
-        $slug = Str::slug($this->prefix);
+        $slug = Str::slug('PRE'.'-'.$this->prefix.'-'.now());
         Prefix::create($validated+['company_id' => auth()->user()->company_id,'slug'=>$slug]);
         return redirect()->route('prefixes')->with('message','Prefix created successfully.');
     }
 
     public function render()
     {
-        $categories = Category::select('id','name')->latest()->get();
+        $categories = Category::select('id','name')->where('status','Active')->latest()->get();
         return view('livewire.prefix.create',compact('categories'));
     }
 }

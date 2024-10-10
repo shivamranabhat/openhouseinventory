@@ -20,7 +20,7 @@ class Edit extends Component
     protected function rules()
     {
         return [
-            'name' => 'required|unique:departments,name,' . $this->department->id,
+            'name' => 'required',
             'head' => 'required',
             'phone' => 'required|max:10',
             'email' => 'nullable|email',
@@ -46,7 +46,7 @@ class Edit extends Component
     public function update()
     {
         $validated = $this->validate();
-        $slug = Str::slug('DEP'.'-'.$this->name);
+        $slug = Str::slug('DEP'.'-'.$this->name.'-'.now());
         $this->department->update($validated+['slug'=>$slug]);
         sleep(1);
         return redirect()->route('departments')->with('message','Department updated successfully.');

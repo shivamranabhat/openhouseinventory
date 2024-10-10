@@ -17,17 +17,12 @@ class Edit extends Component
     protected function rules()
     {
         return [
-            'name' => 'required|unique:categories,name,' . $this->category->id,
+            'name' => 'required',
             'type' => 'required',
         ];
     }
     
-    protected function messages()
-    {
-        return [
-            'name.unique' => 'The vendor with name ":input" already exists. Please choose another name.',
-        ];
-    }
+
 
     public function mount()
     {
@@ -37,7 +32,7 @@ class Edit extends Component
     public function update()
     {
         $validated = $this->validate();
-        $slug = Str::slug($this->name);
+        $slug = Str::slug('CAT'.'-'.$this->name.'-'.now());
         $this->category->update($validated+['slug'=>$slug]);
         sleep(1);
         return redirect()->route('categories')->with('message','Category updated successfully.');

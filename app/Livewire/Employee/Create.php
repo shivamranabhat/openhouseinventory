@@ -25,7 +25,7 @@ class Create extends Component
     protected function rules()
     {
         return [
-            'name' => 'required|unique:employees,name,NULL,id,department_id,' . $this->department_id . ',company_id,' . auth()->user()->company_id,
+            'name' => 'required',
             'age' => 'required|numeric',
             'address' => 'required',
             'salary' => 'required',
@@ -48,11 +48,13 @@ class Create extends Component
     {
         $validated = $this->validate();
         sleep(1);
-        $slug = Str::slug('EMP'.'-'.$this->name);
+        $slug = Str::slug('EMP'.'-'.$this->name.'-'.now());
         if ($this->doc_img) {
             $fileName = $this->doc_img->getClientOriginalName();
-            $filePath = $this->doc_img->storeAs('employees', $fileName, 'public');
-            $this->doc_img = 'employees/' . $fileName;
+            $companyName = preg_replace('/[^A-Za-z0-9\-]/', '_', auth()->user()->company->name);
+            $folderPath = 'employees/' . $companyName;
+            $filePath = $this->doc_img->storeAs($folderPath, $fileName, 'public');
+            $this->doc_img = 'employees/'. $companyName.'/' . $fileName;
             // Add image name to validated data
             $validated['doc_img'] = $filePath;
         }
@@ -63,7 +65,7 @@ class Create extends Component
 
     public function render()
     {
-        $departments = Department::select('id','name')->get();
+        $departments = Department::select('id','name')->where('status','Active')->get();
         return view('livewire.employee.create',compact('departments'));
     }
 }

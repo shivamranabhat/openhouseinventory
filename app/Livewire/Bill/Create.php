@@ -146,6 +146,7 @@ class Create extends Component
     public function save()
     {
         $validated = $this->validate();
+        sleep(1.2);
         $bill = Bill::create(['vendor_id'=>$this->vendor_id,'receipt_no'=>$this->receipt_no,'bill_date'=>$this->bill_date,'company_id' => auth()->user()->company_id,'slug'=>$this->slug]);
         foreach ($this->rows as $row) {
             // Create a new BillProduct instance and save data
@@ -163,8 +164,8 @@ class Create extends Component
 
     public function render()
     {
-        $vendors = Vendor::select('name', 'id')->latest()->get();
-        $charges = ExtraCharge::select('name', 'value', 'id')->get();
+        $vendors = Vendor::select('name', 'id')->where('status','Active')->latest()->get();
+        $charges = ExtraCharge::select('name', 'value', 'id')->where('status','Active')->get();
         return view('livewire.bill.create', compact('vendors', 'charges'));
     }
 }

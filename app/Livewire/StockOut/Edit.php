@@ -104,7 +104,7 @@ class Edit extends Component
         })
         ->where('id','<>',$this->item->item_in_id)
         ->get();
-        $departments = Department::latest()->select('id','name')->get();
+        $departments = Department::latest()->select('id','name')->where('status','Active')->get();
         return view('livewire.stock-out.edit',compact('stocks','departments'));
     }
 }

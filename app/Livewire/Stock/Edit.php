@@ -132,7 +132,7 @@ class Edit extends Component
         $validated = $this->validate();
         $slug = Str::slug('STOCK'.'-'.$this->product_id.'-'.now());
         $item = ItemIn::updateOrCreate(
-            ['slug' => $this->slug],  // Search by slug to update the existing item
+            ['slug' => $this->slug], 
             $validated + ['company_id' => auth()->user()->company_id,'slug' => $slug]
         );
         $stockRecord = Stock::where('product_id', $this->product_id)->first();
@@ -175,8 +175,8 @@ class Edit extends Component
 
     public function render()
     {
-        $vendors = Vendor::select('id','name')->get();
-        $products = Product::select('id','name')->get();
+        $vendors = Vendor::select('id','name')->where('status','Active')->get();
+        $products = Product::select('id','name')->where('status','Active')->get();
         return view('livewire.stock.edit',compact('vendors','products'));
     }
 }

@@ -40,6 +40,7 @@ class PdfController extends Controller
         $fileName = preg_replace('/[^A-Za-z0-9\-]/', ' ', $vendor->name) . '.pdf';
         return $pdf->download($fileName);
     }
+    
     public function downloadBillPdf($slug)
     {
         $details = Bill::whereSlug($slug)->first();

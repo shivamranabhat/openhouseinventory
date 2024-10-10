@@ -55,8 +55,10 @@ class Edit extends Component
         if ($this->newImage) 
         {
             $fileName = $this->newImage->getClientOriginalName();
-            $filePath = $this->newImage->storeAs('payments', $fileName, 'public');
-            $this->newImage = 'payments/' . $fileName;
+            $companyName = preg_replace('/[^A-Za-z0-9\-]/', '_', auth()->user()->company->name);
+            $folderPath = 'payments/' . $companyName;
+            $filePath = $this->newImage->storeAs($folderPath, $fileName, 'public');
+            $this->newImage = 'payments/'.$companyName.'/' . $fileName;
             $this->cheque->update(['image' => $this->newImage]);
         }
     }
@@ -81,12 +83,12 @@ class Edit extends Component
         $this->updateImage();
         sleep(1);
         $this->cheque->update(['vendor_id'=>$this->vendor_id,'image'=>$this->image ? $this->image : $this->newImage,'cheque_no'=>$this->cheque_no,'pay_date'=>$this->pay_date,'withdraw_date'=>$this->withdraw_date,'company_id' => auth()->user()->company_id,'slug'=>$slug]);
-        return redirect()->route('cheques')->with('message','Cheque record added successfully');
+        return redirect()->route('cheques')->with('message','Cheque record updated successfully');
     }
 
     public function render()
     {
-        $vendors = Vendor::latest()->select('id','name')->get();
+        $vendors = Vendor::latest()->select('id','name')->where('status','Active')->get();
         return view('livewire.cheque.edit',compact('vendors'));
     }
 }

@@ -28,7 +28,7 @@ class Employee extends Model
     {
         return $this->hasMany(Requisition::class);
     }
-    public function users()
+    public function user()
     {
         return $this->hasOne(User::class);
     }

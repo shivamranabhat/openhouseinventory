@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\PdfController;
+use App\Http\Controllers\HomeController;
 use App\Http\Livewire\BarcodeComponent;
 use App\Http\Middleware\CompanyMiddleware;
 
@@ -59,6 +60,11 @@ Route::prefix('/charge')->controller(PageController::class)->middleware(['auth']
     Route::get('/create','chargeCreate')->name('charge.create');
     Route::get('/edit/{slug}','chargeEdit')->name('charge.edit');
 });
+Route::prefix('/credit')->controller(PageController::class)->middleware(['auth'])->group(function(){
+    Route::get('','credit')->name('credits');
+    Route::get('/create','creditCreate')->name('credit.create');
+    Route::get('/edit/{slug}','creditEdit')->name('credit.edit');
+});
 Route::prefix('/bill')->controller(PageController::class)->middleware(['auth'])->group(function(){
     Route::get('','bill')->name('bills');
     Route::get('/create','billCreate')->name('bill.create');
@@ -105,3 +111,6 @@ Route::prefix('/')->controller(PdfController::class)->group(function(){
     Route::get('bill-pdf/{slug}','downloadBillPdf')->name('downloadBillPdf');
 });
 
+Route::controller(HomeController::class)->group(function(){
+    Route::get('/','index')->name('index');
+});

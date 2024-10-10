@@ -67,7 +67,9 @@ class Index extends Component
                     ->orWhereHas('vendor', function($query) {
                         $query->where('name', 'like', '%' . $this->search . '%');
                     });
-            })->paginate($this->page);
+            })
+            ->where('status','Active')
+            ->paginate($this->page);
         return view('livewire.cheque.index',['cheques'=>$cheques]);
     }
 }

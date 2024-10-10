@@ -24,6 +24,7 @@ class Create extends Component
     public $vendor_id;
     public $image;
     public $slug;
+
     protected function rules()
     {
         $rules = [
@@ -64,7 +65,9 @@ class Create extends Component
         $this->slug = Str::slug('PAY'.'-'.$vendor->name.'-'.now());
         if ($this->image) {
             $fileName = $this->image->getClientOriginalName();
-            $filePath = $this->image->storeAs('payments', $fileName, 'public');
+            $companyName = preg_replace('/[^A-Za-z0-9\-]/', '_', auth()->user()->company->name);
+            $folderPath = 'payment/' . $companyName;
+            $filePath = $this->image->storeAs($folderPath, $fileName, 'public');
             $validated['image'] = $filePath;
         }
         sleep(1);
@@ -121,7 +124,9 @@ class Create extends Component
         if($this->type === 'Cheque')
         {
             $fileName = $this->image->getClientOriginalName();
-            $filePath = $this->image->storeAs('payments', $fileName, 'public');
+            $companyName = preg_replace('/[^A-Za-z0-9\-]/', '_', auth()->user()->company->name);
+            $folderPath = 'payment/' . $companyName;
+            $filePath = $this->image->storeAs($folderPath, $fileName, 'public');
             $validated['image'] = $filePath;
             Cheque::create(['vendor_id'=>$this->vendor_id,'image'=>$validated['image'],'cheque_no'=>$this->cheque_no,'payment_out_id'=>$paymentOut->id,'pay_date'=>$this->payment_date,'withdraw_date'=>$this->withdraw_date,'company_id' => auth()->user()->company_id,'slug'=>$this->slug]);
         }
@@ -130,7 +135,6 @@ class Create extends Component
     public function showAmount($value)
     {
         if ($value) {
-            $this->vendor_id = $value;
             $this->total = ItemIn::where('vendor_id', $value)
                 ->where('status', 'Pending')
                 ->selectRaw('SUM(total) as total_sum')
@@ -150,7 +154,7 @@ class Create extends Component
     }
     public function render()
     {
-        $vendors = Vendor::select('id','name')->latest()->get();
+        $vendors = Vendor::select('id','name')->where('status','Active')->latest()->get();
         return view('livewire.payment.create',compact('vendors'));
     }
 }

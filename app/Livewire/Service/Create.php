@@ -24,14 +24,14 @@ class Create extends Component
     {
         $validated = $this->validate();
         sleep(1);
-        $slug = Str::slug($this->name);
+        $slug = Str::slug('SER'.'-'.$this->name.'-'.now());
         Service::create($validated+['company_id' => auth()->user()->company_id,'slug'=>$slug]);
         return redirect()->route('services')->with('message','Service created successfully.');
     }
 
     public function render()
     {
-        $categories = Category::select('name','id')->where('type','Service')->get();
+        $categories = Category::select('name','id')->where('status','Active')->where('type','Service')->get();
         return view('livewire.service.create',compact('categories'));
     }
 }

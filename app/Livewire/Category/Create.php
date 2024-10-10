@@ -9,22 +9,17 @@ use Illuminate\Support\Str;
 
 class Create extends Component
 {
-    #[Validate('required|unique:categories')]
+    #[Validate('required')]
     public $name;
     #[Validate('required')]
     public $type;
    
-    protected function messages()
-    {
-        return [
-            'name.unique' => 'The vendor with name ":input" already exists. Please choose another name.',
-        ];
-    }
+ 
     public function save()
     {
         $validated = $this->validate();
         sleep(1);
-        $slug = Str::slug($this->name);
+        $slug = Str::slug('CAT'.'-'.$this->name.'-'.now());
         Category::create($validated+['company_id' => auth()->user()->company_id,'slug'=>$slug]);
         return redirect()->route('categories')->with('message','Category created successfully.');
     }

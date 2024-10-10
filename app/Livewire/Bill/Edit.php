@@ -183,13 +183,14 @@ class Edit extends Component
                     ->where('vendor_id', $this->vendor_id)
                     ->groupBy('vendor_id', 'product_id');
             })
+            ->where('status','Active')
             ->get();
     }
 
     public function save()
     {
         $validated = $this->validate();
-
+        sleep(1.2);
         // Update the Bill
         $this->bill->update([
             'vendor_id' => $this->vendor_id,
@@ -217,8 +218,8 @@ class Edit extends Component
 
     public function render()
     {
-        $vendors = Vendor::select('name', 'id')->latest()->get();
-        $charges = ExtraCharge::select('name', 'value', 'id')->get();
+        $vendors = Vendor::select('name', 'id')->where('status','Active')->latest()->get();
+        $charges = ExtraCharge::select('name', 'value', 'id')->where('status','Active')->get();
         return view('livewire.bill.edit', compact('vendors', 'charges'));
     }
 }

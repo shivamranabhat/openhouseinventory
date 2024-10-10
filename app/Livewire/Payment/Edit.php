@@ -115,7 +115,9 @@ class Edit extends Component
                     if ($this->newImage) 
                     {
                         $fileName = $this->newImage->getClientOriginalName();
-                        $filePath = $this->newImage->storeAs('payments', $fileName, 'public');
+                        $companyName = preg_replace('/[^A-Za-z0-9\-]/', '_', auth()->user()->company->name);
+                        $folderPath = 'payment/' . $companyName;
+                        $filePath = $this->newImage->storeAs($folderPath, $fileName, 'public');
                         $this->newImage = 'payments/' . $fileName;
                     }
                     Cheque::updateOrCreate(
@@ -136,11 +138,11 @@ class Edit extends Component
                 return redirect()->route('payments')->with('message','Payment data updated successfully.');
             }
             else{
-                session()->flash('error', 'This value is greater than remaining amount.');
+                session()->flash('error', 'Unable to change greater amount than previous');
             }
         }
         else{
-            session()->flash('error', 'This value is less than remaining amount.');
+            session()->flash('error', 'Unable to change less amount than previous');
         }
        
     }
@@ -150,8 +152,10 @@ class Edit extends Component
         if ($this->newImage) 
         {
             $fileName = $this->newImage->getClientOriginalName();
-            $filePath = $this->newImage->storeAs('payments', $fileName, 'public');
-            $this->newImage = 'payments/' . $fileName;
+            $companyName = preg_replace('/[^A-Za-z0-9\-]/', '_', auth()->user()->company->name);
+            $folderPath = 'payment/' . $companyName;
+            $filePath = $this->newImage->storeAs($folderPath, $fileName, 'public');
+            $this->newImage = 'payment/'.$companyName.'/' . $fileName;
             $this->payment->update(['image' => $this->newImage]);
         }
     }
@@ -174,7 +178,7 @@ class Edit extends Component
     }
     public function render()
     {
-        $vendors = Vendor::select('id','name')->latest()->get();
+        $vendors = Vendor::select('id','name')->where('status','Active')->latest()->get();
         return view('livewire.payment.edit',compact('vendors'));
     }
 }

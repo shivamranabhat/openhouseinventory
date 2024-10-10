@@ -56,7 +56,7 @@
                 <tr role="row">
                    
                     <td>{{$loop->iteration}}</td>
-                    <td class="sorting_1"><span class="inv-number">{{$payment->receipt_no}}</span></td>
+                    <td class="sorting_1"><span class="inv-number">#{{$payment->receipt_no}}</span></td>
                     <td>
                         <p class="align-self-center mb-0 user-name"> {{$payment->vendor->name}} </p>
                     </td>

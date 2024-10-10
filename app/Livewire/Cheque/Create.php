@@ -44,7 +44,9 @@ class Create extends Component
         $slug = Str::slug('PAY'.'-'.$vendor->name.'-'.now());
         if ($this->image) {
             $fileName = $this->image->getClientOriginalName();
-            $filePath = $this->image->storeAs('payments', $fileName, 'public');
+            $companyName = preg_replace('/[^A-Za-z0-9\-]/', '_', auth()->user()->company->name);
+            $folderPath = 'payments/' . $companyName;
+            $filePath = $this->image->storeAs($folderPath, $fileName, 'public');
             $validated['image'] = $filePath;
         }
         sleep(1);
@@ -53,7 +55,7 @@ class Create extends Component
     }
     public function render()
     {
-        $vendors = Vendor::latest()->select('id','name')->get();
+        $vendors = Vendor::latest()->select('id','name')->where('status','Active')->get();
         return view('livewire.cheque.create',compact('vendors'));
     }
 }

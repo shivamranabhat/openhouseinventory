@@ -12,7 +12,7 @@
                         <div class="invoice-logo">
                             <div class="profile-image">
 
-                                <img src="{{asset('storage/'.auth()->user()->image)}}" class="rounded-circle"
+                                <img src="{{asset('storage/'.auth()->user()->company->image)}}" class="rounded-circle"
                                     width="100" alt="logo">
                             </div>
                         </div>

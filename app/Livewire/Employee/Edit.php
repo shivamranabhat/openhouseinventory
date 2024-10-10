@@ -46,7 +46,7 @@ class Edit extends Component
     protected function rules()
     {
         return [
-            'name' => 'required|unique:employees,name,' . $this->employee->id,
+            'name' => 'required',
             'age' => 'required|numeric',
             'address' => 'required',
             'salary' => 'required',
@@ -66,7 +66,7 @@ class Edit extends Component
     public function update()
     {
         $validated = $this->validate();
-        $slug = Str::slug('EMP'.'-'.$this->name);
+        $slug = Str::slug('EMP'.'-'.$this->name.'-'.now());
         if($this->new_doc_img)
         {
             $this->updateImage();
@@ -91,8 +91,10 @@ class Edit extends Component
         if ($this->new_doc_img) 
         {
             $fileName = $this->new_doc_img->getClientOriginalName();
-            $filePath = $this->new_doc_img->storeAs('employees', $fileName, 'public');
-            $this->new_doc_img = 'employees/' . $fileName;
+            $companyName = preg_replace('/[^A-Za-z0-9\-]/', '_', auth()->user()->company->name);
+            $folderPath = 'employees/' . $companyName;
+            $filePath = $this->new_doc_img->storeAs($folderPath, $fileName, 'public');
+            $this->new_doc_img = 'employees/'.$companyName.'/' . $fileName;
             $this->employee->update(['doc_img' => $this->new_doc_img]);
         }
     }
@@ -112,7 +114,7 @@ class Edit extends Component
 
     public function render()
     {
-        $departments = Department::select('id','name')->get();
+        $departments = Department::select('id','name')->where('status','Active')->get();
         return view('livewire.employee.edit',compact('departments'));
     }
 }

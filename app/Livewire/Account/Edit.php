@@ -42,7 +42,7 @@ class Edit extends Component
 
     public function mount()
     {
-        $this->account = User::whereSlug($this->slug)->first();
+        $this->account = User::whereSlug($this->slug)->where('company_id',auth()->user()->company_id)->first();
         if($this->account)
         {
             $this->name = $this->account->name;

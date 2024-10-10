@@ -92,7 +92,7 @@ class Create extends Component
                 ->groupBy('product_id');
         })
         ->get();
-        $departments = Department::latest()->select('id','name')->get();
+        $departments = Department::latest()->select('id','name')->where('status','Active')->get();
         return view('livewire.stock-out.create',compact('stocks','departments'));
     }
 }

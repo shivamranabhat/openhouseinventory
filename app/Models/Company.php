@@ -14,8 +14,12 @@ class Company extends Model
         static::addGlobalScope(new CompanyScope);
     }
     protected $fillable=[
-        'name','slug'
+        'name','logo','slug'
     ];
+    public function credits()
+    {
+        return $this->hasMany(Credit::class);
+    }
     public function stocks()
     {
         return $this->hasMany(Stock::class);

@@ -9,7 +9,7 @@ use Illuminate\Support\Str;
 
 class Create extends Component
 {
-    #[Validate('required|unique:departments')]
+    #[Validate('required')]
     public $name;
     #[Validate('required')]
     public $head;
@@ -30,7 +30,7 @@ class Create extends Component
     {
         $validated = $this->validate();
         sleep(1);
-        $slug = Str::slug('DEP'.'-'.$this->name);
+        $slug = Str::slug('DEP'.'-'.$this->name.'-'.now());
         Department::create($validated+['company_id' => auth()->user()->company_id,'slug'=>$slug]);
         return redirect()->route('departments')->with('message','Department created successfully.');
     }

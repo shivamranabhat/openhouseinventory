@@ -109,7 +109,7 @@
     
                                                     <div class="col-sm-6 col-12 mr-auto">
                                                         <div class="d-flex">
-                                                            <img src="{{asset('storage/'.$image)}}" class="rounded-circle"
+                                                            <img src="{{asset('storage/'.auth()->user()->company->image)}}" class="rounded-circle"
                                                             width="100" alt="logo">
                                                         </div>
                                                     </div>
@@ -181,11 +181,9 @@
                                                         <div class="text-sm-end">
                                                             <div class="row">
                                                                 <div class="col-sm-8 col-7">
-                                                                    <p class="">Total :</p>
+                                                                    <p class="">Total :Rs.{{ number_format($subtotal,0) }}</p>
                                                                 </div>
-                                                                <div class="col-sm-4 col-5">
-                                                                    <p class="">Rs.{{ number_format($subtotal,0) }}</p>
-                                                                </div>
+                                                                
                                                                 @php
                                                                 $totalExtraCharge = 0;
                                                                 @endphp
@@ -193,16 +191,11 @@
                                                                 @if($product->extra_charge_id && $loop->first)
                                                                 <div class="col-sm-8 col-7">
                                                                     <p class="">{{$product->extraCharge->name}}
-                                                                        {{$product->extraCharge->value}}% :</p>
+                                                                        {{$product->extraCharge->value}}% : Rs.{{number_format((float)$subtotal+(float)$subtotal*((float)$product->extraCharge->value/100),0)}}</p>
                                                                 </div>
-                                                                <div class="col-sm-4 col-5">
-                                                                    <p class="">Rs.{{number_format((float)$subtotal+(float)$subtotal*((float)$product->extraCharge->value/100),0)}}</p>
-                                                                </div>
+                                                               
                                                                 <div class="col-sm-8 col-7 grand-total-title mt-3">
-                                                                    <h4 class="">Grand Total : </h4>
-                                                                </div>
-                                                                <div class="col-sm-4 col-5 grand-total-amount mt-3">
-                                                                    <h4 class="">Rs.{{number_format((float)$subtotal+(float)$subtotal*((float)$product->extraCharge->value/100),0)}}</h4>
+                                                                    <h4 class="">Grand Total : Rs.{{number_format((float)$subtotal+(float)$subtotal*((float)$product->extraCharge->value/100),0)}}</h4>
                                                                 </div>
                                                                 @endif
                                                                 @endforeach

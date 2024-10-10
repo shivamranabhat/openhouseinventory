@@ -8,6 +8,7 @@ use App\Models\ItemIn;
 use App\Models\Stock;
 use Livewire\WithPagination;
 use Livewire\Attributes\Url;
+use Livewire\Attributes\On; 
 use Illuminate\Support\Facades\Gate;
 
 class Index extends Component
@@ -54,6 +55,7 @@ class Index extends Component
                 $newStock = $product->stock - $requestStock;
                 $product->update(['stock'=>$newStock]);
                 $request->update(['status'=>'Approved']);
+                $this->dispatch('request-approved');
                 session()->flash('success','Request approved successfully');
             }
             else{
@@ -71,6 +73,7 @@ class Index extends Component
         {
             $request = Requisition::whereSlug($slug)->first();
             $request->update(['status'=>'Declined']);
+            $this->dispatch('request-declined');
             session()->flash('success','Request declined successfully');
         } else {
             // Handle unauthorized action

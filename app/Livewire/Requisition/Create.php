@@ -8,6 +8,7 @@ use App\Models\Stock;
 use App\Models\Requisition;
 use Livewire\Attributes\Validate;
 use Illuminate\Support\Str;
+use Livewire\Attributes\On; 
 use Carbon\Carbon;
 
 class Create extends Component
@@ -46,6 +47,7 @@ class Create extends Component
             $updatedStock = $currentStock - $requestStock;
             $item->update(['stock'=>$updatedStock]);
             Requisition::create($validated+['company_id' => auth()->user()->company_id,'slug'=>$slug,'employee_id'=>auth()->user()->employee->id,'created_at'=>$createdAt]);
+            $this->dispatch('request-created');
             return redirect()->route('requisitions')->with('message','Request sent successfully.');
         }
         else{

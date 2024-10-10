@@ -9,7 +9,7 @@ use Illuminate\Support\Str;
 
 class Create extends Component
 {
-    #[Validate('required|unique:vendors')]
+    #[Validate('required')]
     public $name;
     #[Validate('required')]
     public $phone;
@@ -30,7 +30,7 @@ class Create extends Component
     {
         $validated = $this->validate();
         sleep(1);
-        $slug = Str::slug('VEN'.'-'.$this->name);
+        $slug = Str::slug('VEN'.'-'.$this->name.'-'.now());
         Vendor::create($validated+['company_id' => auth()->user()->company_id,'slug'=>$slug]);
         return redirect()->route('vendors')->with('message','Vendor created successfully.');
     }

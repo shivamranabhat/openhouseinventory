@@ -237,6 +237,28 @@ class PageController extends Controller
             return redirect()->back()->with('error','You do not have permission to edit.');
         } 
     }
+    public function credit()
+    {
+        return view('pages.credit.index');
+    }
+    public function creditCreate()
+    {
+        if (Gate::allows('action-create')) {
+            return view('pages.credit.create');
+        } else {
+            // Handle unauthorized action
+            return redirect()->back()->with('error','You do not have permission to create.');
+        } 
+    }
+    public function creditEdit($slug)
+    {
+        if (Gate::allows('action-edit')) {
+            return view('pages.credit.edit',compact('slug'));
+        } else {
+            // Handle unauthorized action
+            return redirect()->back()->with('error','You do not have permission to edit.');
+        } 
+    }
     public function prefix()
     {
         return view('pages.prefix.index');

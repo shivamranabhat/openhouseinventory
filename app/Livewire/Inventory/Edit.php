@@ -40,14 +40,14 @@ class Edit extends Component
     {
         $validated = $this->validate();
         sleep(1.2);
-        $slug = Str::slug($this->name);
+        $slug = Str::slug('PR'.'-'.$this->name.'-'.now());
         $this->product->update($validated+['slug'=>$slug]);
         return redirect()->route('inventories')->with('message','Product updated successfully.');
     }
 
     public function render()
     {
-        $categories = Category::select('name','id')->where('type','Product')->get();
+        $categories = Category::select('name','id')->where('status','Active')->where('type','Product')->get();
         return view('livewire.inventory.edit',compact('categories'));
     }
 }

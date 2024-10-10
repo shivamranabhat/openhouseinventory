@@ -44,7 +44,7 @@
         
         <div class="col-12">
             <div class="mb-4">
-                <button class="btn btn-secondary w-100"><x-spinner/>SIGN IN</button>
+                <button class="btn btn-primary w-100"><x-spinner/>SIGN IN</button>
             </div>
         </div>
        

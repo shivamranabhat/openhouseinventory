@@ -20,7 +20,7 @@ class Edit extends Component
     protected function rules()
     {
         return [
-            'name' => 'required|unique:vendors,name,' . $this->vendor->id,
+            'name' => 'required',
             'phone' => 'required|numeric',
             'address' => 'required',
             'pan_vat' => 'required',
@@ -48,7 +48,7 @@ class Edit extends Component
     public function update()
     {
         $validated = $this->validate();
-        $slug = Str::slug('VEN'.'-'.$this->name);
+        $slug = Str::slug('VEN'.'-'.$this->name.'-'.now());
         $this->vendor->update($validated+['slug'=>$slug]);
         sleep(1);
         return redirect()->route('vendors')->with('message','Vendor updated successfully.');

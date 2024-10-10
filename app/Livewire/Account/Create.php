@@ -13,10 +13,10 @@ class Create extends Component
 {
 
     public $employee;
-    #[Validate('required|unique:users')]
+    #[Validate('required')]
     public $employee_id;
     
-    #[Validate('required|unique:users,email')]
+    #[Validate('required|email')]
     public $email;
 
     #[Validate('required|min:6')]

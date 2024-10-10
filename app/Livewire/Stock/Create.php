@@ -45,6 +45,7 @@ class Create extends Component
 
     public function updatePrice()
     {
+        // Update total based on stock and unit price
         $this->unit_price = $this->unit_price;
         $this->stock = $this->stock;
         $this->total = $this->unit_price * $this->stock;
@@ -121,8 +122,8 @@ class Create extends Component
 
     public function render()
     {
-        $vendors = Vendor::select('id','name')->get();
-        $products = Product::select('id','name')->get();
+        $vendors = Vendor::select('id','name')->where('status','Active')->get();
+        $products = Product::select('id','name')->where('status','Active')->get();
         return view('livewire.stock.create',compact('vendors','products'));
     }
 }

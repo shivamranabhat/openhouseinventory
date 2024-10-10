@@ -1,7 +1,7 @@
 <div class="account-settings-container layout-top-spacing">
 
     <div class="account-content">
-        @if(auth()->user()->role !=='Company')
+        @if($user->role !=='Company' && $user->role !=='Super Admin')
         <div class="row mb-3">
             <div class="col-md-12">
                 <ul class="nav nav-pills" id="animateLine" role="tablist">
@@ -118,7 +118,7 @@
                                                             </div>
                                                         </div>
 
-                                                        @if($user->role != 'Company')
+                                                        @if($user->role != 'Company' && $user->role != 'Super Admin')
                                                         <div class="col-md-6">
                                                             <div class="form-group">
                                                                 <label for="address">Address</label>
@@ -179,7 +179,7 @@
                     <div class="info row">
                         <h6 class="">Department Information</h6>
 
-                        @if($user->role != 'Company')
+                        @if($user->role != 'Company' && $user->role !=='Super Admin')
 
                         <div class="col-md-6">
                             <div class="form-group">

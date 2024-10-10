@@ -39,14 +39,7 @@
                                                 <option value="">No vendor found</option>
                                                 @endforelse
                                             </select>
-                                            {{-- @if($vendor_id)
-                                            @if($total)
-                                            <label>Total Remaining: Rs. {{ number_format($total->total_sum,0)
-                                                }}</label>
-                                            @else
-                                            <label>Paid / Amount not found</label>
-                                            @endif
-                                            @endif --}}
+                                           
                                             @error('vendor_id')
                                             <div class="feedback text-danger">
                                                 Please select a vendor.
@@ -58,8 +51,8 @@
                                     <div class="col-md-6">
                                         <div class="form-group mb-4">
                                             <label for="date">Date</label>
-                                            <input type="text" class="form-control flatpickr-input"
-                                                id="date" wire:model='payment_date' placeholder="Date">
+                                            <input type="text" class="form-control flatpickr-input" id="date"
+                                                wire:model='payment_date' placeholder="Date">
                                         </div>
                                         @error('payment_date')
                                         <div class="feedback text-danger">
@@ -84,12 +77,12 @@
                                             @enderror
                                             @error('cheque_no')
                                             <div class="feedback text-danger">
-                                               {{$message}}
+                                                {{$message}}
                                             </div>
                                             @enderror
                                         </div>
                                     </div>
-                                    
+
                                     <div class="col-md-6">
                                         <div class="form-group mb-4">
                                             <label for="amount">Amount</label>
@@ -103,22 +96,30 @@
                                             <div class="feedback text-danger">
                                                 {{session('error')}}
                                             </div>
+                                            {{-- @if($vendor_id)
+                                            @if($total)
+                                            <label>Total Remaining: Rs. {{ number_format($total->total_sum,0)
+                                                }}</label>
+                                            @else
+                                            <label>Paid / Amount not found</label>
+                                            @endif
+                                            @endif --}}
                                         </div>
                                     </div>
                                     @if($type=='Cheque')
                                     <div class="col-md-6">
                                         <div class="form-group mb-4">
                                             <label for="cheque_no">Cheque N.o.</label>
-                                            <input type="text" class="form-control"
-                                                wire:model='cheque_no' placeholder="Cheque no">
-                                            
+                                            <input type="text" class="form-control" wire:model='cheque_no'
+                                                placeholder="Cheque no">
+
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group mb-4">
                                             <label for="date">Withdraw Date</label>
-                                            <input type="text" class="form-control flatpickr-input"
-                                            id="withdraw" wire:model='withdraw_date' placeholder="Withdraw Date">
+                                            <input type="text" class="form-control flatpickr-input" id="withdraw"
+                                                wire:model='withdraw_date' placeholder="Withdraw Date">
                                         </div>
                                         @error('withdraw_date')
                                         <div class="feedback text-danger">
@@ -169,6 +170,7 @@
                                             type="submit">
                                             <x-spinner />Submit
                                         </button>
+                                       
                                     </div>
                                     @endif
                                 </div>
