@@ -22,14 +22,17 @@ class Create extends Component
     public function checkQuantity()
     {
         $item = ItemIn::find($this->item_in_id);
-        $product = Stock::where('product_id',$item->product_id)->first();
-        $currentStock = $product->stock;
-        $requestStock = $this->quantity;
-        if($currentStock >= $requestStock)
+        if($item)
         {
-        }
-        else{
-            session()->flash('stock','Stock:alert! Request quantity is not available');
+            $product = Stock::where('product_id',$item->product_id)->first();
+            $currentStock = $product->stock;
+            $requestStock = $this->quantity;
+            if($currentStock >= $requestStock)
+            {
+            }
+            else{
+                session()->flash('stock','Stock:alert! Request quantity is not available');
+            }
         }
     }
     public function save()
@@ -47,7 +50,6 @@ class Create extends Component
             $updatedStock = $currentStock - $requestStock;
             $item->update(['stock'=>$updatedStock]);
             Requisition::create($validated+['company_id' => auth()->user()->company_id,'slug'=>$slug,'employee_id'=>auth()->user()->employee->id,'created_at'=>$createdAt]);
-            $this->dispatch('request-created');
             return redirect()->route('requisitions')->with('message','Request sent successfully.');
         }
         else{

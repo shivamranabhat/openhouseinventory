@@ -1,0 +1,31 @@
+label .ck.ck-label.ck-voice-label
+{
+    display: none !important;
+}
+.dark .ck-editor__editable {
+    background-color: #1b2e4b !important;
+}
+.dark .ck-editor__editable{
+    border-radius: 0 0 0.5rem 0.5rem !important;
+    border: none !important;
+}
+.ck.ck-sticky-panel__content, .ck.ck-editor__top.ck-reset_all, .ck-rounded-corners .ck.ck-toolbar
+{
+    border-radius: 0.5rem 0.5rem 0 0 !important;
+}
+
+.dark .ck.ck-sticky-panel__content, .dark .ck.ck-editor__top.ck-reset_all, .dark .ck-rounded-corners .ck.ck-toolbar
+{
+    border-radius: 0.5rem 0.5rem 0 0 !important;
+    border-top:none !important;
+    border-right:none !important;
+    border-bottom: 0.5px solid #1f324f !important;
+    border-left: none !important;
+}
+
+.dark .ck-editor__top, .dark .ck.ck-toolbar {
+    background-color: #1b2e4b !important;
+}
+.dark .ck.ck-button{
+    background: #fff !important;
+}

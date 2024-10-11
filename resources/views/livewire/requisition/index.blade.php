@@ -61,12 +61,19 @@
                     <td>{{$loop->iteration}}</td>
                     <td class="d-flex gap-3">
                         <div class="avatar avatar-sm">
-                            <span class="avatar-title rounded-circle">{{
+                            <span class="avatar-title rounded-circle">
+                                @if($request->employee->user->image)
+                                <img src="{{asset('storage/'.$request->employee->user->image)}}" width="100" height="100" class="rounded-circle"
+                                    alt="profile">
+                                @else
+                                {{
                                 collect(explode(' ', $request->employee->name))
                                 ->map(fn($name) => strtoupper(substr($name, 0, 1)))
                                 ->take(2)
                                 ->implode('')
-                                }}</span>
+                                }}
+                                @endif
+                            </span>
                         </div>
                         <div class="d-flex flex-column">
                             <span>{{$request->employee->name}}</span>
@@ -78,47 +85,56 @@
                     <td>{{$request->status}}</td>
                     <td>{{\Carbon\Carbon::parse($request->created_at)->format('M d Y')}},
                         {{\Carbon\Carbon::parse($request->created_at)->format('g:i A')}}</td>
-                    <td class="d-flex gap-3">
-                        @can('action-approve')
-                        <a title="approve" wire:click="approve('{{ $request->slug }}')" role="button">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round" class="feather feather-check">
-                                <polyline points="20 6 9 17 4 12"></polyline>
-                            </svg>
-                        </a>
-                        @else
-                        <a class="badge badge-light-primary text-start me-2 action-edit"
-                            href="{{route('requisition.edit',$request->slug)}}"><svg xmlns="http://www.w3.org/2000/svg"
-                                width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                class="feather feather-edit-3">
-                                <path d="M12 20h9"></path>
-                                <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
-                            </svg></a>
-                        @endcan
-                        @can('action-approve')
-                        <a title="decline" wire:click="decline('{{ $request->slug }}')" role="button">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round" class="feather feather-x">
-                                <line x1="18" y1="6" x2="6" y2="18"></line>
-                                <line x1="6" y1="6" x2="18" y2="18"></line>
-                            </svg>
-                        </a>
-                        @else
-                        <a class="badge badge-light-danger text-start action-delete" role="button"
-                            wire:click='delete({{$request->id}})'><svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash">
-                                <polyline points="3 6 5 6 21 6"></polyline>
-                                <path
-                                    d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
-                                </path>
-                            </svg></a>
-                        @endcan
-
-                    </td>
+                        <td>
+                           <div class="d-flex">
+                            @can('action-approve')
+                            <a title="approve" wire:click="approve('{{ $request->slug }}')" role="button">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-check">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                            </a>
+                            @else
+                            <a class="badge badge-light-primary text-start me-2 action-edit"
+                                href="{{route('requisition.edit',$request->slug)}}"><svg xmlns="http://www.w3.org/2000/svg"
+                                    width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                    class="feather feather-edit-3">
+                                    <path d="M12 20h9"></path>
+                                    <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+                                </svg></a>
+                            @endcan
+                            @can('action-approve')
+                            <a title="decline" wire:click="decline('{{ $request->slug }}')" role="button" style="margin-left: 1.5rem">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-x">
+                                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                                </svg>
+                            </a>
+                            @else
+                                @if($confirmingDeletion === $request->id)
+                                <!-- Show Yes and No buttons -->
+                                <div class="d-flex gap-2">
+                                    <button wire:click='delete({{$request->id}})' class="btn badge badge-danger">Yes</button>
+                                    <button wire:click="cancelDelete()" class="btn badge badge-secondary">No</button>
+                                </div>
+                                @else
+                                <a class="badge badge-light-danger text-start action-delete" role="button"
+                                    wire:click='confirmDelete({{$request->id}})'><svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                        height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash">
+                                        <polyline points="3 6 5 6 21 6"></polyline>
+                                        <path
+                                            d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
+                                        </path>
+                                    </svg></a>
+                                @endif
+                            @endcan
+                           </div>
+                        </td>
                 </tr>
                 @empty
                 <tr>
@@ -134,4 +150,6 @@
     {{$requests->links('vendor.pagination.pagination')}}
     <x-success />
     <x-error />
+    
+    
 </div>

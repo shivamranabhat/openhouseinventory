@@ -1,22 +1,24 @@
-<li class="nav-item dropdown notification-dropdown">
-    <a href="javascript:void(0);" class="nav-link dropdown-toggle" id="notificationDropdown" data-bs-toggle="dropdown"
-        aria-haspopup="true" aria-expanded="false">
+<li class="nav-item dropdown notification-dropdown" x-data="{ open: false }">
+    @if(auth()->user()->can_approve=='Yes' && auth()->user()->can_decline =='Yes')
+    <a href="javascript:void(0);" class="nav-link dropdown-toggle" @click="open = !open">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
             class="feather feather-bell">
             <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
             <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
         </svg>
-        {{-- <span class="badge badge-success"></span> --}}
+        @if($requests && $requests->count() > 0)
+        <span class="badge badge-success"></span>
+        @endif
     </a>
-
-    <div class="dropdown-menu position-absolute" aria-labelledby="notificationDropdown">
+    <div class="dropdown-menu position-absolute" x-bind:class="{ 'show': open }"  x-show="open" @click.outside="open = false" 
+     style="display: none">
         <div class="drodpown-title message">
             <h6 class="d-flex justify-content-between"><span class="align-self-center">New Request</span>
-                <span class="badge badge-primary">{{$requests? $requests->count() : '0'}} Pending</span>
+                <span class="badge badge-primary" wire:poll.keep-alive>{{$requests? $requests->count() : '0'}} Pending</span>
             </h6>
         </div>
-        <div class="notification-scroll">
+        <div class="notification-scroll h-100">
             @forelse($requests as $request)
             <div class="dropdown-item">
                 <div class="media server-log">
@@ -28,7 +30,7 @@
                             </p>
                         </div>
 
-                        <div class="icon-status">
+                        <div class="icon-status" wire:click='decline({{$request->id}})'>
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                 stroke-linejoin="round" class="feather feather-x">
@@ -143,4 +145,81 @@
             </div> --}}
         </div>
     </div>
+    @else
+    <a href="javascript:void(0);" class="nav-link dropdown-toggle" @click="open = !open">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="feather feather-bell">
+            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+            <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+        </svg>
+        @if($approved && $approved->count() > 0 || $declined && $declined->count() > 0)
+        <span class="badge badge-success"></span>
+        @endif
+    </a>
+    <div class="dropdown-menu position-absolute" x-bind:class="{ 'show': open }"  x-show="open" @click.outside="open = false" 
+     style="display: none">
+        <div class="drodpown-title message">
+           <h6>Approval</h6>
+        </div>
+        <div class="notification-scroll h-100" wire:poll.keep-alive>
+            @forelse($approved as $approved)
+            <div class="dropdown-item">
+                <div class="media server-log">
+                    <div class="media-body">
+                        <div class="data-info">
+                            <h6 class="">Your request for {{$approved->itemIn->product->name}} has been approved.</h6>
+                            <p class="">{{ $approved->created_at->timezone('Asia/Kathmandu')->diffForHumans() }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @empty
+            <div class="dropdown-item">
+                <div class="media server-log">
+                    
+                    <div class="media-body">
+                        <div class="data-info">
+                            <h6 class="">No new notification</h6>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            @endforelse
+
+            <div class="drodpown-title notification mt-2">
+                <h6>Declined
+                </h6>
+            </div>
+
+            @forelse($declined as $decline)
+            <div class="dropdown-item">
+                <div class="media server-log">
+                    <div class="media-body">
+                        <div class="data-info">
+                            <h6 class="">Your request for {{$decline->itemIn->product->name}} has been declined.</h6>
+                            <p class="">{{ $decline->created_at->timezone('Asia/Kathmandu')->diffForHumans() }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @empty
+            <div class="dropdown-item">
+                <div class="media server-log">
+                    
+                    <div class="media-body">
+                        <div class="data-info">
+                            <h6 class="">No new notification</h6>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            @endforelse
+        </div>
+    </div>
+    @endif
 </li>

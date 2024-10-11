@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Storage;
 
 class PageController extends Controller
 {
@@ -380,25 +381,6 @@ class PageController extends Controller
     {
         return view('pages.requisition.edit',compact('slug'));
     }
-    // public function approve()
-    // {
-    //     if (Gate::allows('action-approve')) {
-    //         return view('pages.requisition.approve.index');
-    //     } else {
-    //         // Handle unauthorized action
-    //         return redirect()->back()->with('error','You do not have permission to approve.');
-    //     }
-        
-    // }
-    // public function decline()
-    // {
-    //     if (Gate::allows('action-decline')) {
-    //         return view('pages.requisition.decline.index');
-    //     } else {
-    //         // Handle unauthorized action
-    //         return redirect()->back()->with('error','You do not have permission to decline.');
-    //     }
-    // }
     public function login()
     {
         return view('pages.auth.login');
@@ -410,5 +392,78 @@ class PageController extends Controller
     public function signup()
     {
         return view('pages.auth.signup');
+    }
+    public function blog()
+    {
+        if (Gate::allows('super-admin')) 
+        {
+           return view('pages.blog.index');
+        } else {
+            // Handle unauthorized action
+            return redirect()->back()->with('error','You do not have permission to access.');
+        }
+    }
+    public function blogCreate()
+    {
+        if (Gate::allows('super-admin')) {
+            return view('pages.blog.create');
+        } else {
+            // Handle unauthorized action
+            return redirect()->back()->with('error','You do not have permission to access.');
+        }
+    }
+    public function blogEdit($slug)
+    {
+        if (Gate::allows('super-admin')) {
+            return view('pages.blog.edit',compact('slug'));
+        } else {
+            // Handle unauthorized action
+            return redirect()->back()->with('error','You do not have permission to access.');
+        }
+    }
+    public function uploadCkImage(Request $request)
+    {
+        if ($request->hasFile('upload')) {
+            $uploadedFile = $request->file('upload');
+            // Generate a unique file name
+            $fileName = $uploadedFile->getClientOriginalName();
+            // Move the file to the desired directory
+            $uploadedFile->move(public_path('storage/blogs/media'), $fileName);
+            // Construct the URL to the uploaded file
+            $url = asset('storage/blogs/media/' . $fileName);
+            // Return JSON response
+            return response()->json(['file' => $fileName, 'uploaded' => 1, 'url' => $url]);
+        } else {
+            // Handle case when no file is uploaded
+            return response()->json(['uploaded' => 0, 'error' => 'No file uploaded']);
+        }
+    }
+    public function testimonial()
+    {
+        if (Gate::allows('super-admin')) 
+        {
+           return view('pages.testimonial.index');
+        } else {
+            // Handle unauthorized action
+            return redirect()->back()->with('error','You do not have permission to access.');
+        }
+    }
+    public function testimonialCreate()
+    {
+        if (Gate::allows('super-admin')) {
+            return view('pages.testimonial.create');
+        } else {
+            // Handle unauthorized action
+            return redirect()->back()->with('error','You do not have permission to access.');
+        }
+    }
+    public function testimonialEdit($slug)
+    {
+        if (Gate::allows('super-admin')) {
+            return view('pages.testimonial.edit',compact('slug'));
+        } else {
+            // Handle unauthorized action
+            return redirect()->back()->with('error','You do not have permission to access.');
+        }
     }
 }

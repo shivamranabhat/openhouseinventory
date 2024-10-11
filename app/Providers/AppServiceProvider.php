@@ -24,10 +24,10 @@ class AppServiceProvider extends ServiceProvider
         // Register policies here using the `Gate` facade
 
         Gate::define('action-approve', function (User $user) {
-            return $user->can_approve === 'Yes'; // or `$user->can_create == true;` if boolean
+            return $user->can_approve === 'Yes'; // or `$user->can_approve == true;` if boolean
         });
         Gate::define('action-decline', function (User $user) {
-            return $user->can_decline === 'Yes'; // or `$user->can_create == true;` if boolean
+            return $user->can_decline === 'Yes'; // or `$user->can_decline == true;` if boolean
         });
         Gate::define('action-create', function (User $user) {
             return $user->can_create === 'Yes'; // or `$user->can_create == true;` if boolean
@@ -38,6 +38,9 @@ class AppServiceProvider extends ServiceProvider
         });
         Gate::define('action-delete', function (User $user) {
             return $user->can_delete === 'Yes'; // or `$user->can_delete == true;` if boolean
+        });
+        Gate::define('super-admin', function (User $user) {
+            return $user->role === 'Super Admin'; // or `$user->role == Super Admin;` if boolean
         });
     }
 }

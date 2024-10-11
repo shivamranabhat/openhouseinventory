@@ -18,12 +18,32 @@ class Index extends Component
     public $search = '';
     public $page=10;
     
+
+    public $confirmingDeletion = null; 
+
+    public function confirmDelete($prefix_id)
+    {
+        $this->confirmingDeletion = $prefix_id;
+    }
+    
+    public function cancelDelete()
+    {
+        $this->confirmingDeletion = null;
+    }
+
     public function updatePage($page)
     {
         $this->page = $page;
         $this->resetPage();
     }
    
+    public function delete($id)
+    {
+        Requisition::find($id)->delete();
+        session()->flash('success','Request deleted successfully');
+        $this->confirmingDeletion = null;
+    }
+
     public function render()
     {
         if(auth()->user()->can_approve == 'Yes' || auth()->user()->can_decline == 'Yes')
@@ -40,7 +60,6 @@ class Index extends Component
                 $query->where('quantity', 'like', '%' . $this->search . '%');
             })->where('employee_id',auth()->user()->employee_id)->latest()->paginate($this->page);
         }
-
         return view('livewire.requisition.index',compact('requests'));
     }
     public function approve($slug)

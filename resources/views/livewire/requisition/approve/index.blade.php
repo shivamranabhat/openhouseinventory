@@ -56,12 +56,19 @@
                     <td>{{$loop->iteration}}</td>
                     <td class="d-flex gap-3">
                         <div class="avatar avatar-sm">
-                            <span class="avatar-title rounded-circle">{{
+                            <span class="avatar-title rounded-circle">
+                                @if($request->employee->user->image)
+                                <img src="{{asset('storage/'.$request->employee->user->image)}}" width="100" height="100" class="rounded-circle"
+                                    alt="profile">
+                                @else
+                                {{
                                 collect(explode(' ', $request->employee->name))
                                 ->map(fn($name) => strtoupper(substr($name, 0, 1)))
                                 ->take(2)
                                 ->implode('')
-                                }}</span>
+                                }}
+                                @endif
+                            </span>
                         </div>
                         <div class="d-flex flex-column">
                             <span>{{$request->employee->name}}</span>

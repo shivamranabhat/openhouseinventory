@@ -45,6 +45,7 @@
 
     <!--  BEGIN CUSTOM STYLE FILE  -->
     <link rel="stylesheet" href="{{asset('src/assets/css/light/apps/ecommerce-create.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/custom.css')}}">
     <link rel="stylesheet" href="{{asset('src/assets/css/dark/apps/ecommerce-create.css')}}">
     <link href="{{asset('src/assets/css/dark/components/tabs.css')}}" rel="stylesheet" type="text/css">
     <link href="{{asset('src/assets/css/light/components/tabs.css')}}" rel="stylesheet" type="text/css">
@@ -53,6 +54,9 @@
     <!--  END CUSTOM STYLE FILE  -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <!-- CK editor -->
+    <script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/super-build/ckeditor.js"></script>
+    
     @livewireStyles
 </head>
 
@@ -457,7 +461,7 @@
     <script src="{{asset('src/plugins/src/waves/waves.min.js')}}"></script>
     <script src="{{asset('layouts/vertical-dark-menu/app.js')}}"></script>
     <!-- END GLOBAL MANDATORY SCRIPTS -->
-
+    @stack('scripts')
     <script>
         flatpickr("#date", {
             enableTime: false,

@@ -41,14 +41,7 @@
           <div class="cs_main_header_center">
             <nav class="cs_nav cs_medium cs_primary_font">
               <ul class="cs_nav_list cs_onepage_nav">
-                <li class="menu-item-has-children"><a href="#home">Home</a>
-                  <ul>
-                    <li><a href="index.html">Home v1</a></li>
-                    <li><a href="home-v2.html">Home v2</a></li>
-                    <li><a href="home-v3.html">Home v3</a></li>
-                    <li><a href="home-v4.html">Home v4</a></li>
-                  </ul>
-                </li>
+                <li><a href="#home">Home</a></li>
                 <li><a href="#features">Features</a></li>
                 <li><a href="#pricing">Pricing</a></li>
                 <li><a href="#testimonial">Testimonial</a></li>
@@ -60,8 +53,7 @@
           </div>
           <div class="cs_main_header_right">
             <div class="cs_header_btns">
-              <a href="#" class="cs_header_text_btn cs_modal_btn" data-modal="login">Login</a>
-              <a href="#" class="cs_btn cs_bg_accent cs_modal_btn" data-modal="register">Sign Up</a>
+              <a href="{{route('login')}}" class="cs_btn cs_bg_accent cs_modal_btn">Login</a>
             </div>
           </div>
         </div>

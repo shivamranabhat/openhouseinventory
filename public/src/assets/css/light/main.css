@@ -528,7 +528,6 @@ input[type=search]::-ms-reveal {
   font-size: 15px;
   color: #0e1726;
   letter-spacing: 1px;
-  display: inline-block;
   margin-bottom: 0.5rem;
 }
 

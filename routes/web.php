@@ -81,6 +81,12 @@ Route::prefix('/account')->controller(PageController::class)->middleware(['auth'
     Route::get('/create','accountCreate')->name('account.create');
     Route::get('/edit/{slug}','accountEdit')->name('account.edit');
 });
+Route::prefix('/blog')->controller(PageController::class)->middleware(['auth'])->group(function(){
+    Route::get('','blog')->name('blogs');
+    Route::get('/create','blogCreate')->name('blog.create');
+    Route::get('/edit/{slug}','blogEdit')->name('blog.edit');
+    Route::post('/upload-blog-img','uploadCkImage')->name('ckeditor.upload');
+});
 Route::prefix('/payment-out')->controller(PageController::class)->middleware(['auth'])->group(function(){
     Route::get('','payment')->name('payments');
     Route::get('/create','paymentCreate')->name('payment.create');

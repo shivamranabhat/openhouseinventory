@@ -119,6 +119,14 @@ table th {
   border-top: 1px solid #a3a2a3;
   padding: 11px 10px;
 }
+.ck .ck-label .ck-voice-label{
+  display: none !important;
+  opacity: 0 !important;
+}
+.ck .ck-editor__top .ck-reset_all
+{
+  background-color: transparent !important;
+}
 
 dl {
   margin-bottom: 25px;

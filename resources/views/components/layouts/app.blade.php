@@ -35,10 +35,13 @@
 
     <link rel="stylesheet" type="text/css"
         href="{{asset('src/plugins/css/light/table/datatable/dt-global_style.css')}}">
+        <link rel="stylesheet" href="{{asset('assets/custom.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('src/plugins/css/dark/table/datatable/dt-global_style.css')}}">
     <link href="{{asset('src/assets/css/dark/apps/invoice-list.css')}}" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <!-- CK editor -->
+    <script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/super-build/ckeditor.js"></script>
     {{$css}}
 
     <!-- END PAGE LEVEL PLUGINS/CUSTOM STYLES -->
@@ -435,6 +438,7 @@
     <script src="{{asset('src/plugins/src/mousetrap/mousetrap.min.js')}}"></script>
     <script src="{{asset('src/plugins/src/waves/waves.min.js')}}"></script>
     <script src="{{asset('layouts/vertical-dark-menu/app.js')}}"></script>
+    @stack('scripts')
     <!-- END GLOBAL MANDATORY SCRIPTS -->
     <script>
         flatpickr("#date", {
