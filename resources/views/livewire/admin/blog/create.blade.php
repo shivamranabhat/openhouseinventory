@@ -50,7 +50,7 @@
     </div>
     <div class="form-group mb-4">
         <label for="description">Description</label>
-        <textarea class="form-control" wire:model="description" id="description"></textarea>
+        <textarea class="form-control" wire:model="description" id="description" style="display: block"></textarea>
         @error('description')
         <div class="feedback text-danger">
             Please provide a description.
@@ -72,14 +72,10 @@
                         this.imageUrl = URL.createObjectURL(file);
                     }
                 },
-                resetPreview() {
-                    this.imageUrl = '';
-                }
             };
         }
     </script>
-     @push('scripts')
-     <script>
+    <script>
         
          CKEDITOR.ClassicEditor.create(document.getElementById("description"), {
              ckfinder:{
@@ -173,6 +169,5 @@
                  'CaseChange'
              ]
          });
-     </script>
-     @endpush
+    </script>
 </form>

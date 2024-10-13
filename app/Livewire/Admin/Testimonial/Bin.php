@@ -8,23 +8,12 @@ use Livewire\WithPagination;
 use Livewire\Attributes\Url;
 use Illuminate\Support\Facades\Gate;
 
-class Index extends Component
+class Bin extends Component
 {
     use WithPagination;
     #[Url] 
     public $search = '';
     public $page=10;
-    public $confirmingDeletion = null; 
-
-    public function confirmDelete($id)
-    {
-        $this->confirmingDeletion = $id;
-    }
-
-    public function cancelDelete()
-    {
-        $this->confirmingDeletion = null;
-    }
 
     public function updatePage($page)
     {
@@ -32,12 +21,11 @@ class Index extends Component
         $this->resetPage();
     }
 
-    public function delete($id)
+    public function restore($id)
     {
         if (Gate::allows('super-admin')) {
-            Testimonial::find($id)->update(['status'=>'Inactive']);
-            $this->confirmingDeletion = null;
-            session()->flash('success','Testimonial deleted successfully');
+            Testimonial::find($id)->update(['status'=>'Active']);
+            session()->flash('success','Testimonial restored successfully');
         } else {
             // Handle unauthorized action
             return redirect()->back()->with('error','You do not have permission to delete.');
@@ -49,7 +37,7 @@ class Index extends Component
         $testimonials = Testimonial::where(function ($query) {
             $query->where('name', 'like', '%' . $this->search . '%')
             ->orWhere('role', 'like', '%' . $this->search . '%');
-        })->where('status','Active')->latest()->paginate($this->page);
-        return view('livewire.admin.testimonial.index',['testimonials'=>$testimonials]);
+        })->where('status','Inactive')->latest()->paginate($this->page);
+        return view('livewire.admin.testimonial.bin',['testimonials'=>$testimonials]);
     }
 }

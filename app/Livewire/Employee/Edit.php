@@ -56,12 +56,6 @@ class Edit extends Component
         ];
     }
     
-    protected function messages()
-    {
-        return [
-            'name.unique' => 'The employee name ":input" already exists. Please choose another name.',
-        ];
-    }
 
     public function update()
     {
@@ -80,7 +74,7 @@ class Edit extends Component
             'department_id' => $this->department_id,
             'designation' => $this->designation,
             'doc_img' => $this->doc_img ? $this->doc_img : $this->new_doc_img,
-            'slug' => Str::slug('DEP' . '-' . $this->name),
+            'slug' => $slug,
         ]);
         sleep(1);
         return redirect()->route('employees')->with('message','Employee updated successfully.');

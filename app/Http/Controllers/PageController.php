@@ -466,4 +466,32 @@ class PageController extends Controller
             return redirect()->back()->with('error','You do not have permission to access.');
         }
     }
+    public function faq()
+    {
+        if (Gate::allows('super-admin')) 
+        {
+           return view('pages.faq.index');
+        } else {
+            // Handle unauthorized action
+            return redirect()->back()->with('error','You do not have permission to access.');
+        }
+    }
+    public function faqCreate()
+    {
+        if (Gate::allows('super-admin')) {
+            return view('pages.faq.create');
+        } else {
+            // Handle unauthorized action
+            return redirect()->back()->with('error','You do not have permission to access.');
+        }
+    }
+    public function faqEdit($slug)
+    {
+        if (Gate::allows('super-admin')) {
+            return view('pages.faq.edit',compact('slug'));
+        } else {
+            // Handle unauthorized action
+            return redirect()->back()->with('error','You do not have permission to access.');
+        }
+    }
 }

@@ -130,8 +130,16 @@
         </div>
     </div>
     <div class="col-12">
+        @if($employee->doc_img == null && $new_doc_img == null)
+        <div class="col-12">
+            <button class="btn btn-primary _effect--ripple waves-effect waves-light"
+                disabled>Submit
+            </button>
+        </div>
+        @else
         <button class="btn btn-primary _effect--ripple waves-effect waves-light" type="submit"><x-spinner />Submit
         </button>
+        @endif
     </div>
     <script>
         function fileUpload() {

@@ -10,18 +10,11 @@ use Livewire\Attributes\Validate;
 class Edit extends Component
 {
     public $slug;
+    #[Validate('required')]
     public $name;
+    #[Validate('required')]
     public $type;
     public $category;
-
-    protected function rules()
-    {
-        return [
-            'name' => 'required',
-            'type' => 'required',
-        ];
-    }
-    
 
 
     public function mount()

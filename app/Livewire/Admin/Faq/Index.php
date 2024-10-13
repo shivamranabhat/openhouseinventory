@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Livewire\Admin\Testimonial;
+namespace App\Livewire\Admin\Faq;
 
 use Livewire\Component;
-use App\Models\Testimonial;
+use App\Models\Faq;
 use Livewire\WithPagination;
 use Livewire\Attributes\Url;
 use Illuminate\Support\Facades\Gate;
@@ -35,21 +35,21 @@ class Index extends Component
     public function delete($id)
     {
         if (Gate::allows('super-admin')) {
-            Testimonial::find($id)->update(['status'=>'Inactive']);
+            Faq::find($id)->update(['status'=>'Inactive']);
             $this->confirmingDeletion = null;
-            session()->flash('success','Testimonial deleted successfully');
+            session()->flash('success','Faq deleted successfully');
         } else {
             // Handle unauthorized action
             return redirect()->back()->with('error','You do not have permission to delete.');
         }
     }
 
+
     public function render()
     {
-        $testimonials = Testimonial::where(function ($query) {
-            $query->where('name', 'like', '%' . $this->search . '%')
-            ->orWhere('role', 'like', '%' . $this->search . '%');
+        $faqs = Faq::where(function ($query) {
+            $query->where('title', 'like', '%' . $this->search . '%');
         })->where('status','Active')->latest()->paginate($this->page);
-        return view('livewire.admin.testimonial.index',['testimonials'=>$testimonials]);
+        return view('livewire.admin.faq.index',['faqs'=>$faqs]);
     }
 }

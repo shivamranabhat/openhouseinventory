@@ -12,7 +12,9 @@ class Testimonial extends Model
         'name',
         'image',
         'role',
+        'rating',
         'description',
+        'status',
         'slug',
     ];
 }
