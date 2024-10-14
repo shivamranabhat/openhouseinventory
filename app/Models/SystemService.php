@@ -9,6 +9,7 @@ class SystemService extends Model
 {
     use HasFactory;
     protected $fillable=[
+        'icon',
         'title',
         'description',
         'type',

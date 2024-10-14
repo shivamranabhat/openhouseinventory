@@ -12,11 +12,8 @@ class Edit extends Component
 {
     use WithFileUploads;
     public $name;
-    #[Validate('required')]
     public $role;
-    #[Validate('required|numeric|max:5')]
     public $rating;
-    #[Validate('required')]
     public $description;
     #[Validate('nullable|image|mimes:jpg,webp,jpeg,png')]
     public $new_image;

@@ -20,10 +20,10 @@
         
                         <div class="tab-content" id="myTabContent">
                             <div class="tab-pane fade active show" id="index-tab-pane" role="tabpanel" aria-labelledby="index-tab" tabindex="0">
-                                <livewire:admin.blog.index />
+                                <livewire:admin.content.index />
                             </div>
                             <div class="tab-pane fade" id="bin-tab-pane" role="tabpanel" aria-labelledby="bin-tab" tabindex="0">
-                                <livewire:admin.blog.bin />
+                                <livewire:admin.content.bin />
                             </div>
                             
                         </div>

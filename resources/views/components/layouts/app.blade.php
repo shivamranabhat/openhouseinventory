@@ -153,7 +153,7 @@
                 </div>
                 <div class="shadow-bottom"></div>
                 <ul class="list-unstyled menu-categories" id="accordionExample">
-                    <li class="menu {{request()->segment(1) == 'vendor'  ? 'active' : '' }}">
+                    <li class="menu {{request()->segment(2) == 'vendor'  ? 'active' : '' }}">
                         <a href="{{route('vendors')}}" aria-expanded="false" class="dropdown-toggle">
                             <div class="">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -169,7 +169,7 @@
                         </a>
                     </li>
 
-                    <li class="menu {{request()->segment(1) == 'department'  ? 'active' : '' }}">
+                    <li class="menu {{request()->segment(2) == 'department'  ? 'active' : '' }}">
                         <a href="{{route('departments')}}" aria-expanded="false" class="dropdown-toggle">
                             <div class="">
                                 <svg fill="none" stroke="currentColor" width="800px" class="feather" height="800px"
@@ -185,7 +185,7 @@
                             </div>
                         </a>
                     </li>
-                    <li class="menu {{request()->segment(1) == 'employee'  ? 'active' : '' }}">
+                    <li class="menu {{request()->segment(2) == 'employee'  ? 'active' : '' }}">
                         <a href="{{route('employees')}}" aria-expanded="false" class="dropdown-toggle">
                             <div class="">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -199,7 +199,7 @@
                         </a>
                     </li>
                     <li
-                        class="menu {{request()->segment(1) == 'inventory' ||  request()->segment(1)=='prefix' ||request()->segment(1) == 'category'  ? 'active' : '' }}">
+                        class="menu {{request()->segment(2) == 'inventory' ||  request()->segment(2)=='prefix' ||request()->segment(2) == 'category'  ? 'active' : '' }}">
                         <a href="#inventory" data-bs-toggle="collapse" aria-expanded="false"
                             class="dropdown-toggle collapsed">
                             <div class="">
@@ -222,21 +222,21 @@
                         </a>
                         <ul class="submenu list-unstyled collapse" id="inventory" data-bs-parent="#accordionExample"
                             style="">
-                            <li class="{{request()->segment(1) == 'inventory'  ? 'active' : '' }}">
+                            <li class="{{request()->segment(2) == 'inventory'  ? 'active' : '' }}">
                                 <a href="{{route('inventories')}}"> Lists </a>
                             </li>
 
-                            <li class="{{request()->segment(1) == 'category'  ? 'active' : '' }}">
+                            <li class="{{request()->segment(2) == 'category'  ? 'active' : '' }}">
                                 <a href="{{route('categories')}}"> Category </a>
                             </li>
-                            <li class="{{request()->segment(1) == 'prefix'  ? 'active' : '' }}">
+                            <li class="{{request()->segment(2) == 'prefix'  ? 'active' : '' }}">
                                 <a href="{{route('prefixes')}}"> Prefix </a>
                             </li>
 
                         </ul>
                     </li>
                     <li
-                        class="menu {{request()->segment(1) == 'stock-in' || request()->segment(1) == 'stock-out'  ? 'active' : '' }}">
+                        class="menu {{request()->segment(2) == 'stock-in' || request()->segment(2) == 'stock-out'  ? 'active' : '' }}">
                         <a href="#stock" data-bs-toggle="collapse" aria-expanded="false"
                             class="dropdown-toggle collapsed">
                             <div class="">
@@ -260,17 +260,17 @@
                         </a>
                         <ul class="submenu list-unstyled collapse" id="stock" data-bs-parent="#accordionExample"
                             style="">
-                            <li class="{{request()->segment(1) == 'stock-in'  ? 'active' : '' }}">
+                            <li class="{{request()->segment(2) == 'stock-in'  ? 'active' : '' }}">
                                 <a href="{{route('stocks')}}"> Stock In </a>
                             </li>
-                            <li class="{{request()->segment(1) == 'stock-out'  ? 'active' : '' }}">
+                            <li class="{{request()->segment(2) == 'stock-out'  ? 'active' : '' }}">
                                 <a href="{{route('stockOuts')}}"> Stock Out </a>
                             </li>
 
                         </ul>
                     </li>
                     <li
-                        class="menu {{ request()->segment(1)=='bill' ||request()->segment(1) == 'payment-out'  ? 'active' : '' }}">
+                        class="menu {{ request()->segment(2)=='bill' ||request()->segment(2) == 'payment-out'  ? 'active' : '' }}">
                         <a href="#requisition" data-bs-toggle="collapse" aria-expanded="false"
                             class="dropdown-toggle collapsed">
                             <div class="">
@@ -295,16 +295,16 @@
                         <ul class="submenu list-unstyled collapse" id="requisition" data-bs-parent="#accordionExample"
                             style="">
 
-                            <li class="{{request()->segment(1) == 'bill'  ? 'active' : '' }}">
+                            <li class="{{request()->segment(2) == 'bill'  ? 'active' : '' }}">
                                 <a href="{{route('bills')}}"> Purchase Bill</a>
                             </li>
-                            <li class="{{request()->segment(1) == 'payment-out'  ? 'active' : '' }}">
+                            <li class="{{request()->segment(2) == 'payment-out'  ? 'active' : '' }}">
                                 <a href="{{route('payments')}}"> Payment Out </a>
                             </li>
 
                         </ul>
                     </li>
-                    <li class="menu {{request()->segment(1) == 'requisition'  ? 'active' : '' }}">
+                    <li class="menu {{request()->segment(2) == 'requisition'  ? 'active' : '' }}">
                         <a href="{{route('requisitions')}}" aria-expanded="false" class="dropdown-toggle">
                             <div class="">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -318,7 +318,7 @@
                             </div>
                         </a>
                     </li>
-                    <li class="menu {{request()->segment(1) == 'cheque'  ? 'active' : '' }}">
+                    <li class="menu {{request()->segment(2) == 'cheque'  ? 'active' : '' }}">
                         <a href="{{route('cheques')}}" aria-expanded="false" class="dropdown-toggle">
                             <div class="">
                                 <svg fill="none" class="feather" stroke="currentColor" width="800px" height="800px"
@@ -343,7 +343,7 @@
                             </div>
                         </a>
                     </li>
-                    <li class="menu {{request()->segment(1) == 'credit'  ? 'active' : '' }}">
+                    <li class="menu {{request()->segment(2) == 'credit'  ? 'active' : '' }}">
                         <a href="{{route('credits')}}" aria-expanded="false" class="dropdown-toggle">
                             <div class="">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" class="feather" viewBox="0 0 24 24"
@@ -355,7 +355,7 @@
                             </div>
                         </a>
                     </li>
-                    <li class="menu {{request()->segment(1) == 'account'  ? 'active' : '' }}">
+                    <li class="menu {{request()->segment(2) == 'account'  ? 'active' : '' }}">
                         <a href="{{route('accounts')}}" aria-expanded="false" class="dropdown-toggle">
                             <div class="">
 
@@ -372,7 +372,7 @@
                         </a>
                     </li>
                     <li
-                        class="menu {{request()->segment(1) == 'charge' || request()->segment(1) == 'profile'  ? 'active' : '' }}">
+                        class="menu {{request()->segment(2) == 'charge' || request()->segment(2) == 'profile'  ? 'active' : '' }}">
                         <a href="#charges" data-bs-toggle="collapse" aria-expanded="false"
                             class="dropdown-toggle collapsed">
                             <div class="">
@@ -396,10 +396,10 @@
                         </a>
                         <ul class="submenu list-unstyled collapse" id="charges" data-bs-parent="#accordionExample"
                             style="">
-                            <li class="{{request()->segment(1) == 'charge'  ? 'active' : '' }}">
+                            <li class="{{request()->segment(2) == 'charge'  ? 'active' : '' }}">
                                 <a href="{{route('charges')}}"> Charges </a>
                             </li>
-                            <li class="{{request()->segment(1) == 'profile'  ? 'active' : '' }}">
+                            <li class="{{request()->segment(2) == 'profile'  ? 'active' : '' }}">
                                 <a href="{{route('profile')}}"> Profile </a>
                             </li>
 
@@ -407,8 +407,8 @@
                     </li>
                     @if (auth()->user()->role == 'Super Admin')
 
-                    <li class="menu {{request()->segment(1) == 'content'  ? 'active' : '' }}">
-                        <a href="{{route('blogs')}}" aria-expanded="false" class="dropdown-toggle">
+                    <li class="menu {{request()->segment(2) == 'content'  ? 'active' : '' }}">
+                        <a href="{{route('contents')}}" aria-expanded="false" class="dropdown-toggle">
                             <div class="">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -423,7 +423,7 @@
                             </div>
                         </a>
                     </li>
-                    <li class="menu {{request()->segment(1) == 'content'  ? 'active' : '' }}">
+                    <li class="menu {{request()->segment(2) == 'services'  ? 'active' : '' }}">
                         <a href="{{route('blogs')}}" aria-expanded="false" class="dropdown-toggle">
                             <div class="">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -452,7 +452,7 @@
                             </div>
                         </a>
                     </li>
-                    <li class="menu {{request()->segment(1) == 'service'  ? 'active' : '' }}">
+                    <li class="menu {{request()->segment(2) == 'blog'  ? 'active' : '' }}">
                         <a href="{{route('blogs')}}" aria-expanded="false" class="dropdown-toggle">
                             <div class="">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -465,7 +465,7 @@
                             </div>
                         </a>
                     </li>
-                    <li class="menu {{request()->segment(1) == 'faq'  ? 'active' : '' }}">
+                    <li class="menu {{request()->segment(2) == 'faq'  ? 'active' : '' }}">
                         <a href="{{route('faqs')}}" aria-expanded="false" class="dropdown-toggle">
                             <div class="">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -479,10 +479,10 @@
                             </div>
                         </a>
                     </li>
-                    <li class="menu {{request()->segment(1) == 'testimonial'  ? 'active' : '' }}">
+                    <li class="menu {{request()->segment(2) == 'testimonial'  ? 'active' : '' }}">
                         <a href="{{route('testimonials')}}" aria-expanded="false" class="dropdown-toggle">
                             <div class="">
-                                <svg fill="{{request()->segment(1) == 'testimonial'  ? '#030305': 'currentColor'}}"
+                                <svg fill="{{request()->segment(2) == 'testimonial'  ? '#fff': 'currentColor'}}"
                                     width="800px" height="800px" viewBox="0 0 14 14" role="img" focusable="false"
                                     aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
                                     <path

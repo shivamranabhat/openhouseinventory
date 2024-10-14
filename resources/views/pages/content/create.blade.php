@@ -13,7 +13,7 @@
             </a>
         </div>
         <div class="mb-4 layout-spacing layout-top-spacing">
-           <livewire:am=
+            <livewire:admin.content.create />
         </div>
     </div>
 </x-layouts.app-ii>

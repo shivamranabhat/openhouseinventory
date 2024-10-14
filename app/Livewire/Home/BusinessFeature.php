@@ -4,10 +4,10 @@ namespace App\Livewire\Home;
 
 use Livewire\Component;
 
-class UserFeature extends Component
+class BusinessFeature extends Component
 {
     public function render()
     {
-        return view('livewire.home.user-feature');
+        return view('livewire.home.business-feature');
     }
 }

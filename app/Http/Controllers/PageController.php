@@ -393,51 +393,7 @@ class PageController extends Controller
     {
         return view('pages.auth.signup');
     }
-    public function blog()
-    {
-        if (Gate::allows('super-admin')) 
-        {
-           return view('pages.blog.index');
-        } else {
-            // Handle unauthorized action
-            return redirect()->back()->with('error','You do not have permission to access.');
-        }
-    }
-    public function blogCreate()
-    {
-        if (Gate::allows('super-admin')) {
-            return view('pages.blog.create');
-        } else {
-            // Handle unauthorized action
-            return redirect()->back()->with('error','You do not have permission to access.');
-        }
-    }
-    public function blogEdit($slug)
-    {
-        if (Gate::allows('super-admin')) {
-            return view('pages.blog.edit',compact('slug'));
-        } else {
-            // Handle unauthorized action
-            return redirect()->back()->with('error','You do not have permission to access.');
-        }
-    }
-    public function uploadCkImage(Request $request)
-    {
-        if ($request->hasFile('upload')) {
-            $uploadedFile = $request->file('upload');
-            // Generate a unique file name
-            $fileName = $uploadedFile->getClientOriginalName();
-            // Move the file to the desired directory
-            $uploadedFile->move(public_path('storage/blogs/media'), $fileName);
-            // Construct the URL to the uploaded file
-            $url = asset('storage/blogs/media/' . $fileName);
-            // Return JSON response
-            return response()->json(['file' => $fileName, 'uploaded' => 1, 'url' => $url]);
-        } else {
-            // Handle case when no file is uploaded
-            return response()->json(['uploaded' => 0, 'error' => 'No file uploaded']);
-        }
-    }
+   
     public function testimonial()
     {
         if (Gate::allows('super-admin')) 
@@ -461,6 +417,34 @@ class PageController extends Controller
     {
         if (Gate::allows('super-admin')) {
             return view('pages.testimonial.edit',compact('slug'));
+        } else {
+            // Handle unauthorized action
+            return redirect()->back()->with('error','You do not have permission to access.');
+        }
+    }
+    public function content()
+    {
+        if (Gate::allows('super-admin')) 
+        {
+           return view('pages.content.index');
+        } else {
+            // Handle unauthorized action
+            return redirect()->back()->with('error','You do not have permission to access.');
+        }
+    }
+    public function contentCreate()
+    {
+        if (Gate::allows('super-admin')) {
+            return view('pages.content.create');
+        } else {
+            // Handle unauthorized action
+            return redirect()->back()->with('error','You do not have permission to access.');
+        }
+    }
+    public function contentEdit($slug)
+    {
+        if (Gate::allows('super-admin')) {
+            return view('pages.content.edit',compact('slug'));
         } else {
             // Handle unauthorized action
             return redirect()->back()->with('error','You do not have permission to access.');

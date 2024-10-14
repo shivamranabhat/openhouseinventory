@@ -1,5 +1,6 @@
  <!-- Start Featured section -->
  <section>
+  <div class="cs_height_150 cs_height_lg_80"></div>
     <div class="container">
       <div class="row align-items-center cs_gap_y_40">
         <div class="col-xl-6 wow fadeInLeft" data-wow-duration="0.8s" data-wow-delay="0.2s">
@@ -50,6 +51,5 @@
         </div>
       </div>
     </div>
-    <div class="cs_height_150 cs_height_lg_75"></div>
   </section>
   <!-- Software features -->

@@ -145,12 +145,10 @@
 
         <!--  BEGIN SIDEBAR  -->
         <div class="sidebar-wrapper sidebar-theme">
-
             <nav id="sidebar">
 
                 <div class="navbar-nav theme-brand flex-row  text-center">
                     <div class="nav-logo">
-
                         <div class="nav-item theme-text">
                             <a href="#" class="nav-link"> {{auth()->user()->name}} </a>
                         </div>
@@ -168,7 +166,7 @@
                 </div>
                 <div class="shadow-bottom"></div>
                 <ul class="list-unstyled menu-categories" id="accordionExample">
-                    <li class="menu {{request()->segment(1) == 'vendor'  ? 'active' : '' }}">
+                    <li class="menu {{request()->segment(2) == 'vendor'  ? 'active' : '' }}">
                         <a href="{{route('vendors')}}" aria-expanded="false" class="dropdown-toggle">
                             <div class="">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -184,7 +182,7 @@
                         </a>
                     </li>
 
-                    <li class="menu {{request()->segment(1) == 'department'  ? 'active' : '' }}">
+                    <li class="menu {{request()->segment(2) == 'department'  ? 'active' : '' }}">
                         <a href="{{route('departments')}}" aria-expanded="false" class="dropdown-toggle">
                             <div class="">
                                 <svg fill="none" stroke="currentColor" width="800px" class="feather" height="800px"
@@ -200,7 +198,7 @@
                             </div>
                         </a>
                     </li>
-                    <li class="menu {{request()->segment(1) == 'employee'  ? 'active' : '' }}">
+                    <li class="menu {{request()->segment(2) == 'employee'  ? 'active' : '' }}">
                         <a href="{{route('employees')}}" aria-expanded="false" class="dropdown-toggle">
                             <div class="">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -214,7 +212,7 @@
                         </a>
                     </li>
                     <li
-                        class="menu {{request()->segment(1) == 'inventory' ||  request()->segment(1)=='prefix' ||request()->segment(1) == 'category'  ? 'active' : '' }}">
+                        class="menu {{request()->segment(2) == 'inventory' ||  request()->segment(2)=='prefix' ||request()->segment(2) == 'category'  ? 'active' : '' }}">
                         <a href="#inventory" data-bs-toggle="collapse" aria-expanded="false"
                             class="dropdown-toggle collapsed">
                             <div class="">
@@ -237,21 +235,21 @@
                         </a>
                         <ul class="submenu list-unstyled collapse" id="inventory" data-bs-parent="#accordionExample"
                             style="">
-                            <li class="{{request()->segment(1) == 'inventory'  ? 'active' : '' }}">
+                            <li class="{{request()->segment(2) == 'inventory'  ? 'active' : '' }}">
                                 <a href="{{route('inventories')}}"> Lists </a>
                             </li>
 
-                            <li class="{{request()->segment(1) == 'category'  ? 'active' : '' }}">
+                            <li class="{{request()->segment(2) == 'category'  ? 'active' : '' }}">
                                 <a href="{{route('categories')}}"> Category </a>
                             </li>
-                            <li class="{{request()->segment(1) == 'prefix'  ? 'active' : '' }}">
+                            <li class="{{request()->segment(2) == 'prefix'  ? 'active' : '' }}">
                                 <a href="{{route('prefixes')}}"> Prefix </a>
                             </li>
 
                         </ul>
                     </li>
                     <li
-                        class="menu {{request()->segment(1) == 'stock-in' || request()->segment(1) == 'stock-out'  ? 'active' : '' }}">
+                        class="menu {{request()->segment(2) == 'stock-in' || request()->segment(2) == 'stock-out'  ? 'active' : '' }}">
                         <a href="#stock" data-bs-toggle="collapse" aria-expanded="false"
                             class="dropdown-toggle collapsed">
                             <div class="">
@@ -275,17 +273,17 @@
                         </a>
                         <ul class="submenu list-unstyled collapse" id="stock" data-bs-parent="#accordionExample"
                             style="">
-                            <li class="{{request()->segment(1) == 'stock-in'  ? 'active' : '' }}">
+                            <li class="{{request()->segment(2) == 'stock-in'  ? 'active' : '' }}">
                                 <a href="{{route('stocks')}}"> Stock In </a>
                             </li>
-                            <li class="{{request()->segment(1) == 'stock-out'  ? 'active' : '' }}">
+                            <li class="{{request()->segment(2) == 'stock-out'  ? 'active' : '' }}">
                                 <a href="{{route('stockOuts')}}"> Stock Out </a>
                             </li>
 
                         </ul>
                     </li>
                     <li
-                        class="menu {{ request()->segment(1)=='bill' ||request()->segment(1) == 'payment-out'  ? 'active' : '' }}">
+                        class="menu {{ request()->segment(2)=='bill' ||request()->segment(2) == 'payment-out'  ? 'active' : '' }}">
                         <a href="#requisition" data-bs-toggle="collapse" aria-expanded="false"
                             class="dropdown-toggle collapsed">
                             <div class="">
@@ -310,16 +308,16 @@
                         <ul class="submenu list-unstyled collapse" id="requisition" data-bs-parent="#accordionExample"
                             style="">
 
-                            <li class="{{request()->segment(1) == 'bill'  ? 'active' : '' }}">
+                            <li class="{{request()->segment(2) == 'bill'  ? 'active' : '' }}">
                                 <a href="{{route('bills')}}"> Purchase Bill</a>
                             </li>
-                            <li class="{{request()->segment(1) == 'payment-out'  ? 'active' : '' }}">
+                            <li class="{{request()->segment(2) == 'payment-out'  ? 'active' : '' }}">
                                 <a href="{{route('payments')}}"> Payment Out </a>
                             </li>
 
                         </ul>
                     </li>
-                    <li class="menu {{request()->segment(1) == 'requisition'  ? 'active' : '' }}">
+                    <li class="menu {{request()->segment(2) == 'requisition'  ? 'active' : '' }}">
                         <a href="{{route('requisitions')}}" aria-expanded="false" class="dropdown-toggle">
                             <div class="">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -333,7 +331,7 @@
                             </div>
                         </a>
                     </li>
-                    <li class="menu {{request()->segment(1) == 'cheque'  ? 'active' : '' }}">
+                    <li class="menu {{request()->segment(2) == 'cheque'  ? 'active' : '' }}">
                         <a href="{{route('cheques')}}" aria-expanded="false" class="dropdown-toggle">
                             <div class="">
                                 <svg fill="none" class="feather" stroke="currentColor" width="800px" height="800px"
@@ -358,17 +356,19 @@
                             </div>
                         </a>
                     </li>
-                    <li class="menu {{request()->segment(1) == 'credit'  ? 'active' : '' }}">
+                    <li class="menu {{request()->segment(2) == 'credit'  ? 'active' : '' }}">
                         <a href="{{route('credits')}}" aria-expanded="false" class="dropdown-toggle">
                             <div class="">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" class="feather" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" class="feather" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M12 6v12m-3-2.818.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                                 </svg>
                                 <span>Credits</span>
                             </div>
                         </a>
                     </li>
-                    <li class="menu {{request()->segment(1) == 'account'  ? 'active' : '' }}">
+                    <li class="menu {{request()->segment(2) == 'account'  ? 'active' : '' }}">
                         <a href="{{route('accounts')}}" aria-expanded="false" class="dropdown-toggle">
                             <div class="">
 
@@ -385,7 +385,7 @@
                         </a>
                     </li>
                     <li
-                        class="menu {{request()->segment(1) == 'charge' || request()->segment(1) == 'profile'  ? 'active' : '' }}">
+                        class="menu {{request()->segment(2) == 'charge' || request()->segment(2) == 'profile'  ? 'active' : '' }}">
                         <a href="#charges" data-bs-toggle="collapse" aria-expanded="false"
                             class="dropdown-toggle collapsed">
                             <div class="">
@@ -409,15 +409,103 @@
                         </a>
                         <ul class="submenu list-unstyled collapse" id="charges" data-bs-parent="#accordionExample"
                             style="">
-                            <li class="{{request()->segment(1) == 'charge'  ? 'active' : '' }}">
+                            <li class="{{request()->segment(2) == 'charge'  ? 'active' : '' }}">
                                 <a href="{{route('charges')}}"> Charges </a>
                             </li>
-                            <li class="{{request()->segment(1) == 'profile'  ? 'active' : '' }}">
+                            <li class="{{request()->segment(2) == 'profile'  ? 'active' : '' }}">
                                 <a href="{{route('profile')}}"> Profile </a>
                             </li>
 
                         </ul>
                     </li>
+                    @if (auth()->user()->role == 'Super Admin')
+
+                    <li class="menu {{request()->segment(2) == 'content'  ? 'active' : '' }}">
+                        <a href="{{route('blogs')}}" aria-expanded="false" class="dropdown-toggle">
+                            <div class="">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-file-text">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                    <polyline points="14 2 14 8 20 8"></polyline>
+                                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                                    <polyline points="10 9 9 9 8 9"></polyline>
+                                </svg>
+                                <span>Contents</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="menu {{request()->segment(2) == 'content'  ? 'active' : '' }}">
+                        <a href="{{route('blogs')}}" aria-expanded="false" class="dropdown-toggle">
+                            <div class="">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-slack">
+                                    <path
+                                        d="M14.5 10c-.83 0-1.5-.67-1.5-1.5v-5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5z">
+                                    </path>
+                                    <path d="M20.5 10H19V8.5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z">
+                                    </path>
+                                    <path
+                                        d="M9.5 14c.83 0 1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5S8 21.33 8 20.5v-5c0-.83.67-1.5 1.5-1.5z">
+                                    </path>
+                                    <path d="M3.5 14H5v1.5c0 .83-.67 1.5-1.5 1.5S2 16.33 2 15.5 2.67 14 3.5 14z"></path>
+                                    <path
+                                        d="M14 14.5c0-.83.67-1.5 1.5-1.5h5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5h-5c-.83 0-1.5-.67-1.5-1.5z">
+                                    </path>
+                                    <path d="M15.5 19H14v1.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5-.67-1.5-1.5-1.5z">
+                                    </path>
+                                    <path
+                                        d="M10 9.5C10 8.67 9.33 8 8.5 8h-5C2.67 8 2 8.67 2 9.5S2.67 11 3.5 11h5c.83 0 1.5-.67 1.5-1.5z">
+                                    </path>
+                                    <path d="M8.5 5H10V3.5C10 2.67 9.33 2 8.5 2S7 2.67 7 3.5 7.67 5 8.5 5z"></path>
+                                </svg>
+                                <span>Services</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="menu {{request()->segment(2) == 'service'  ? 'active' : '' }}">
+                        <a href="{{route('blogs')}}" aria-expanded="false" class="dropdown-toggle">
+                            <div class="">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-edit-3">
+                                    <path d="M12 20h9"></path>
+                                    <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+                                </svg>
+                                <span>Blog</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="menu {{request()->segment(2) == 'faq'  ? 'active' : '' }}">
+                        <a href="{{route('faqs')}}" aria-expanded="false" class="dropdown-toggle">
+                            <div class="">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-help-circle">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                                </svg>
+                                <span>FAQs</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="menu {{request()->segment(2) == 'testimonial'  ? 'active' : '' }}">
+                        <a href="{{route('testimonials')}}" aria-expanded="false" class="dropdown-toggle">
+                            <div class="">
+                                <svg fill="{{request()->segment(2) == 'testimonial'  ? '#030305': 'currentColor'}}"
+                                    width="800px" height="800px" viewBox="0 0 14 14" role="img" focusable="false"
+                                    aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="m 1.4358383,12.895149 c -0.38924,-0.1993 -0.43281,-0.3751 -0.41279,-1.665 0.0158,-1.0195 0.0314,-1.1697 0.14735,-1.4205004 0.26312,-0.5694 0.88589,-1.0631 1.46037,-1.1579 l 0.21,-0.035 0.62728,1.0597 c 0.345,0.5829004 0.63415,1.0358004 0.64256,1.0065004 0.008,-0.029 0.0415,-0.3472 0.0736,-0.7065004 0.0525,-0.5882 0.0468,-0.6826 -0.0575,-0.9472 -0.0637,-0.1617 -0.11586,-0.32 -0.11586,-0.3517 0,-0.033 0.26499,-0.058 0.62678,-0.058 l 0.62678,0 -0.12063,0.345 c -0.10456,0.2991 -0.11523,0.4309 -0.0802,0.9905 0.0222,0.3551004 0.0611,0.6584004 0.0864,0.6740004 0.0253,0.016 0.32158,-0.4318 0.65846,-0.9942004 l 0.61252,-1.0226 0.18995,0.04 c 0.58752,0.1229 1.19054,0.5979 1.42811,1.1248 0.12949,0.2872004 0.1425,0.4062004 0.1588,1.4528004 0.0156,0.9994 0.005,1.1659 -0.0896,1.35 -0.21721,0.425 -0.1746,0.4199 -3.4974,0.4199 -2.70948,0 -2.98802,-0.01 -3.17496,-0.1049 z m 2.71495,-4.9624004 c -0.76247,-0.3317 -1.3488,-1.7133 -1.07583,-2.5352 0.48535,-1.4612 2.58633,-1.4612 3.07167,0 0.27559,0.8297 -0.31945,2.2162 -1.08916,2.5378 -0.25463,0.1064 -0.65878,0.1053 -0.90668,0 z m 3.58006,-2.0213 0,-0.6365 -0.34018,-0.028 c -0.27583,-0.023 -0.36661,-0.059 -0.48,-0.1908 -0.13962,-0.1623 -0.13984,-0.1653 -0.13984,-1.9339 l 0,-1.7713 0.17539,-0.1754 0.17539,-0.1753 2.76131,0 2.7613097,0 0.16835,0.1448 0.16835,0.1448 0,1.8101 0,1.8102 -0.19595,0.175 -0.19595,0.1751 -1.7831,0 -1.7830997,0 -0.64599,0.644 -0.64599,0.644 0,-0.6366 z" />
+                                </svg>
+                                <span>Testimonial</span>
+                            </div>
+                        </a>
+                    </li>
+                    @endif
                     <livewire:logout />
                 </ul>
             </nav>

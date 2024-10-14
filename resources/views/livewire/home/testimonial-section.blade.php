@@ -13,7 +13,7 @@
     </div>
     <div class="cs_slider wow fadeIn" data-wow-duration="0.8s" data-wow-delay="0.2s">
         @forelse($testimonials as $testimonial)
-        <div class="cs_testimonial cs_style_1" style="height: 100% !important">
+        <div class="cs_testimonial cs_style_1">
             <div class="cs_client_info">
                 <div class="cs_client_img">
                     <img src="{{asset('storage/'.$testimonial->image)}}" alt="avatar1">

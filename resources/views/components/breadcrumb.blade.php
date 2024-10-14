@@ -3,9 +3,9 @@
     <div class="page-meta">
         <nav class="breadcrumb-style-one" aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#" class="text-capitalize">{{ str_replace('-', ' ', request()->segment(1)) }}</a></li>
-                @if(request()->segment(2) !== null)
-                <li class="breadcrumb-item text-capitalize active" aria-current="page" class="text-capitalize">{{request()->segment(2)}}</li>
+                <li class="breadcrumb-item"><a href="#" class="text-capitalize">{{ str_replace('-', ' ', request()->segment(2)) }}</a></li>
+                @if(request()->segment(3) !== null)
+                <li class="breadcrumb-item text-capitalize active" aria-current="page" class="text-capitalize">{{ str_replace('-', ' ', request()->segment(3)) }}</li>
                 @endif
             </ol>
         </nav>
@@ -27,9 +27,9 @@
         
                         <nav class="breadcrumb-style-one" aria-label="breadcrumb">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="#" class="text-capitalize">{{ str_replace('-', ' ', request()->segment(1)) }}</a></li>
-                                @if(request()->segment(2) !== null)
-                                <li class="breadcrumb-item  text-capitalize active" aria-current="page">{{request()->segment(2)}}</li>
+                                <li class="breadcrumb-item"><a href="#" class="text-capitalize">{{ str_replace('-', ' ', request()->segment(2)) }}</a></li>
+                                @if(request()->segment(3) !== null)
+                                <li class="breadcrumb-item  text-capitalize active" aria-current="page">{{ str_replace('-', ' ', request()->segment(3)) }}</li>
                                 @endif
                             </ol>
                         </nav>

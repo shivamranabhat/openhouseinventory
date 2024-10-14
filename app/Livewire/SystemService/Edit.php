@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Admin\Blog;
+namespace App\Livewire\SystemService;
 
 use Livewire\Component;
 
@@ -8,6 +8,6 @@ class Edit extends Component
 {
     public function render()
     {
-        return view('livewire.admin.blog.edit');
+        return view('livewire.system-service.edit');
     }
 }

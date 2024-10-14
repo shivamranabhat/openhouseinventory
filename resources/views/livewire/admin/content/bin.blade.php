@@ -22,7 +22,7 @@
                             <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                         </svg><input type="search" wire:model.live="search" class="form-control" placeholder="Search..."
                             aria-controls="zero-config"></label></div>
-                <a href="{{route('blog.create')}}"
+                <a href="{{route('content.create')}}"
                     class="form-create flex justify-content-between align-items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -44,17 +44,17 @@
                 <tr role="row">
                     <th>S.N.</th>
                     <th>Title</th>
-                    <th>Author</th>
+                    <th>Position</th>
                     <th>Created At</th>
                     <th>Action</th>
                 </tr>
             </thead>
             <tbody wire:poll.keep-alive>
-                @forelse($blogs as $blog)
+                @forelse($contents as $content)
                 <tr role="row">
                     <td>{{$loop->iteration}}</td>
-                    <td>{{$blog->title}}</td>
-                    <td>{{$blog->author}}</td>
+                    <td>{{$content->title}}</td>
+                    <td>{{$content->position}}</td>
                     <td> <span class="inv-date"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                 stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar">
@@ -62,37 +62,17 @@
                                 <line x1="16" y1="2" x2="16" y2="6"></line>
                                 <line x1="8" y1="2" x2="8" y2="6"></line>
                                 <line x1="3" y1="10" x2="21" y2="10"></line>
-                            </svg> {{\Carbon\Carbon::parse($blog->created_at)->format('M d Y')}} </span></td>
+                            </svg> {{\Carbon\Carbon::parse($content->created_at)->format('M d Y')}} </span></td>
                     <td class="d-flex">
-                        @if($confirmingDeletion === $blog->id)
-                        <!-- Show Yes and No buttons -->
-                        <div class="d-flex gap-2">
-                            <button wire:click="delete({{$blog->id}})" class="btn badge badge-danger">Yes</button>
-                            <button wire:click="cancelDelete()" class="btn badge badge-secondary">No</button>
-                        </div>
-                        @else
-                        <!-- Original Edit and Delete buttons -->
-                        <a class="badge badge-light-primary text-start me-2 action-edit"
-                            href="{{route('blog.edit', $blog->slug)}}">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round" class="feather feather-edit-3">
-                                <path d="M12 20h9"></path>
-                                <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
-                            </svg>
-                        </a>
                         <a class="badge badge-light-danger text-start action-delete"
-                            wire:click="confirmDelete({{$blog->id}})" role="button">
+                            wire:click="restore({{$content->id}})" role="button">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round" class="feather feather-trash">
-                                <polyline points="3 6 5 6 21 6"></polyline>
-                                <path
-                                    d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
-                                </path>
+                                stroke-linejoin="round" class="feather feather-rotate-ccw">
+                                <polyline points="1 4 1 10 7 10"></polyline>
+                                <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
                             </svg>
                         </a>
-                        @endif
                     </td>
                 </tr>
                 @empty
@@ -106,7 +86,7 @@
         </table>
     </div>
 
-    {{$blogs->links('vendor.pagination.pagination')}}
+    {{$contents->links('vendor.pagination.pagination')}}
     <x-success />
     <x-error />
 </div>

@@ -11,7 +11,9 @@ class Blog extends Model
     protected $fillable=[
         'title',
         'image',
+        'image_alt',
         'author',
+        'description',
         'status',
         'slug',
     ];

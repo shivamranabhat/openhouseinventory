@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('system_services', function (Blueprint $table) {
             $table->id();
+            $table->string('icon')->nullable();
             $table->string('title');
             $table->text('description');
             $table->string('type');
