@@ -14,7 +14,7 @@ class Company extends Model
         static::addGlobalScope(new CompanyScope);
     }
     protected $fillable=[
-        'name','logo','slug'
+        'name','image','slug'
     ];
     public function credits()
     {

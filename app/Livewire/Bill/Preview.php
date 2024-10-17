@@ -11,7 +11,7 @@ class Preview extends Component
     public $slug;
     public function render()
     {
-        $details = Bill::whereSlug($this->slug)->first();
+        $details = Bill::whereSlug($this->slug)->where('status','Active')->first();
         $products = BillProduct::where('bill_id',$details->id)->latest()->get();
         $subtotal = $products->sum(function ($product) {
             return $product->rate * $product->quantity;

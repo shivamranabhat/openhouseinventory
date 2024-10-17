@@ -77,7 +77,7 @@ class Edit extends Component
             'slug' => $slug,
         ]);
         sleep(1);
-        return redirect()->route('employees')->with('message','Employee updated successfully.');
+        return redirect()->route('employees')->with('success','Employee updated successfully.');
     }
 
     public function updateImage()

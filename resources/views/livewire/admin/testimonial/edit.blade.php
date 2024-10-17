@@ -68,7 +68,7 @@
                 <!-- Image preview -->
                 <template x-if="imageUrl">
                     <img :src="imageUrl" alt="Image Preview" class="image-preview mt-3"
-                        style="max-width: 50px;margin-left:1rem">
+                        style="max-width: 200px;margin-left:1rem">
                 </template>
                 @error('new_image')
                 <div class="feedback text-danger">

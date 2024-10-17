@@ -1,7 +1,7 @@
 <form class="widget-content widget-content-area ecommerce-create-section" wire:submit.prevent='save'>
     <div class="form-group mb-4">
         <label for="Position">Position</label>
-        <select class="form-select" wire:model='position'>
+        <select class="form-select" wire:model='position' wire:change='showPosition($event.target.value)'>
             <option value="">Select a position</option>
             <option class="Hero Section">Hero Section</option>
             <option class="Business Feature">Business Feature</option>
@@ -27,6 +27,7 @@
         </div>
         @enderror
     </div>
+    @if($position != 'Footer')
     <div class="form-group mb-4">
         <label for="subtitle">Subtitle</label>
         <input type="text" class="form-control" wire:model="subtitle" placeholder="Subtitle">
@@ -36,6 +37,8 @@
         </div>
         @enderror
     </div>
+    @endif
+    @if($position == 'Hero Section' || $position == 'Software Feature' || $position == 'Contact')
     <div class="form-group mb-4">
         <label for="image">Image</label>
         <div x-data="fileUpload()">
@@ -65,10 +68,19 @@
             @enderror
         </div>
     </div>
- 
+    @endif
+
     <div class="col-12">
+        @if($image == null && $position == 'Hero Section' || $image == null && $position == 'Software Feature' || $image == null &&  $position == 'Contact')
+        <div class="col-12">
+            <button class="btn btn-primary _effect--ripple waves-effect waves-light"
+                disabled>Submit
+            </button>
+        </div>
+        @else
         <button class="btn btn-primary _effect--ripple waves-effect waves-light" type="submit"><x-spinner />Submit
         </button>
+        @endif
     </div>
     <script>
         function fileUpload() {

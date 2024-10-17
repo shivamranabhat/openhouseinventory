@@ -27,21 +27,15 @@
     <!--  END LOADER -->
 
     <div class="auth-container d-flex">
-
         <div class="container mx-auto align-self-center">
-    
             <div class="row">
-    
-                <div class="col-xxl-4 col-xl-5 col-lg-5 col-md-8 col-12 d-flex flex-column align-self-center mx-auto">
+                <div class="col-lg-6 col-md-8 col-12 d-flex flex-column align-self-center mx-auto">
                     <div class="card mt-3 mb-3">
                         <livewire:auth.signup />
                     </div>
                 </div>
-                
             </div>
-            
         </div>
-
     </div>
     
     <!-- BEGIN GLOBAL MANDATORY SCRIPTS -->

@@ -49,7 +49,7 @@ class Edit extends Component
         $slug = Str::slug('DEP'.'-'.$this->name.'-'.now());
         $this->department->update($validated+['slug'=>$slug]);
         sleep(1);
-        return redirect()->route('departments')->with('message','Department updated successfully.');
+        return redirect()->route('departments')->with('success','Department updated successfully.');
     }
 
     public function render()

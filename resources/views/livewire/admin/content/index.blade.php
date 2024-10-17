@@ -53,7 +53,7 @@
                 @forelse($contents as $content)
                 <tr role="row">
                     <td>{{$loop->iteration}}</td>
-                    <td>{{$content->title}}</td>
+                    <td>{{ \Illuminate\Support\Str::words($content->title, 10, '...') }}</td>
                     <td>{{$content->position}}</td>
                     <td> <span class="inv-date"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"

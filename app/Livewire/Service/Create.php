@@ -26,7 +26,7 @@ class Create extends Component
         sleep(1);
         $slug = Str::slug('SER'.'-'.$this->name.'-'.now());
         Service::create($validated+['company_id' => auth()->user()->company_id,'slug'=>$slug]);
-        return redirect()->route('services')->with('message','Service created successfully.');
+        return redirect()->route('inventories')->with('success','Service created successfully.');
     }
 
     public function render()

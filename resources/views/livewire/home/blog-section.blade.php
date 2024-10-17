@@ -4,15 +4,27 @@
   <div class="container">
     <div class="cs_section_heading cs_style_1 text-center">
       <p class="cs_section_subtitle cs_text_accent wow fadeInUp" data-wow-duration="0.8s" data-wow-delay="0.2s">
-        Latest Blog</p>
-      <h2 class="cs_section_title mb-0 wow fadeIn" data-wow-duration="0.8s" data-wow-delay="0.2s">Insights &
-        Inspiration, Explore Our Blog <br> for Knowledge and Ideas</h2>
+        {{$content->title}}
+      </p>
+      <h2 class="cs_section_title mb-0 wow fadeIn" data-wow-duration="0.8s" data-wow-delay="0.2s">
+        @php
+        $words = explode(' ', $content->subtitle ?? '');
+        $chunkedWords = array_chunk($words, 4);
+        @endphp
+
+        @foreach($chunkedWords as $index => $chunk)
+        @if ($index > 0)
+        <br>
+        @endif
+        {{ implode(' ', $chunk) }}
+        @endforeach
+      </h2>
     </div>
     <div class="cs_height_85 cs_height_lg_60"></div>
     <div class="row wow fadeIn" data-wow-duration="0.8s" data-wow-delay="0.2s">
       @forelse($blogs as $blog)
-      <div class="col-lg-4">
-        <div class="cs_post cs_style_1">
+      <div class="col-lg-4 d-flex">
+        <div class="cs_post cs_style_1 h-100">
           <div class="cs_post_thumb cs_modal_btn" data-modal="details">
             <img src="{{asset('storage/'.$blog->image)}}" alt="Image">
             <div class="cs_posted_by">{{\Carbon\Carbon::parse($blog->created_at)->format('d M')}}</div>

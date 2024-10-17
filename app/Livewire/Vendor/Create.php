@@ -11,7 +11,7 @@ class Create extends Component
 {
     #[Validate('required')]
     public $name;
-    #[Validate('required')]
+    #[Validate('required|numeric|max:10')]
     public $phone;
     #[Validate('required')]
     public $address;

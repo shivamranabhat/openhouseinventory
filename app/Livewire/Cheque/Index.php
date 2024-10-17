@@ -46,7 +46,7 @@ class Index extends Component
     public function delete($id)
     {
         if (Gate::allows('action-delete')) {
-            Cheque::find($id)->update(['status'=>'Inactive']);
+            Cheque::find($id)->update(['is_deleted'=>'Yes']);
             session()->flash('success','Cheque deleted successfully');
             $this->confirmingDeletion = null;
         } else {
@@ -59,7 +59,6 @@ class Index extends Component
     {
         $this->updateChequeStatus();
         $cheques = Cheque::latest()
-            ->where('status','<>','Inactive')
             ->where(function ($query) {
                 $query->where('status', 'like', '%' . $this->search . '%')
                     ->orWhere('withdraw_date', 'like', '%' . $this->search . '%')
@@ -68,7 +67,7 @@ class Index extends Component
                         $query->where('name', 'like', '%' . $this->search . '%');
                     });
             })
-            ->where('status','Active')
+            ->where('is_deleted','No')
             ->paginate($this->page);
         return view('livewire.cheque.index',['cheques'=>$cheques]);
     }

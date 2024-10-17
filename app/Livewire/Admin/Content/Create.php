@@ -27,6 +27,12 @@ class Create extends Component
             'position.required' => 'Please choose a position.',
         ];
     }
+
+    public function showPosition($value)
+    {
+        $this->position = $value;
+    }
+
     public function save()
     {
         $validated = $this->validate();

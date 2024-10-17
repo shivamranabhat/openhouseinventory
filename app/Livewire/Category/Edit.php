@@ -21,6 +21,7 @@ class Edit extends Component
     {
         $this->category = Category::whereSlug($this->slug)->first();
         $this->name = $this->category->name;
+        $this->type = $this->category->type;
     }
     public function update()
     {
@@ -28,7 +29,7 @@ class Edit extends Component
         $slug = Str::slug('CAT'.'-'.$this->name.'-'.now());
         $this->category->update($validated+['slug'=>$slug]);
         sleep(1);
-        return redirect()->route('categories')->with('message','Category updated successfully.');
+        return redirect()->route('categories')->with('success','Category updated successfully.');
     }
 
     public function render()

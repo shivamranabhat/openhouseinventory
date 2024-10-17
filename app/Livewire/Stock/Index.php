@@ -36,7 +36,7 @@ class Index extends Component
     public function delete($id)
     {
         if (Gate::allows('action-delete')) {
-            ItemIn::find($id)->update(['status'=>'Inactive']);
+            ItemIn::find($id)->update(['is_deleted'=>'Yes']);
             session()->flash('success','Stock deleted successfully');
             $this->confirmingDeletion = null;
         } else {
@@ -55,6 +55,7 @@ class Index extends Component
                     $query->where('name', 'like', '%' . $this->search . '%');
                 });
         })
+        ->where('is_deleted','No')
         ->latest()
         ->paginate($this->page); 
         return view('livewire.stock.index',['stocks'=>$stocks]);

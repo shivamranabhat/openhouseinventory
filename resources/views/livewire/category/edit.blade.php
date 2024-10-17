@@ -14,7 +14,7 @@
         <div class="col-sm-12 form-group">
             <label for="type">Type</label>
             <select class="form-select" wire:model="type">
-                <option value="{{$category->type}}">{{$category->type}}</option>
+                <option value="{{$category->type}}" selected>{{$category->type}}</option>
                 <option value="{{$category->type == 'Product' ? 'Service' : 'Product'}}">{{$category->type == 'Product' ? 'Service' : 'Product'}}</option>
             </select>
             @error('type')

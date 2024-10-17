@@ -1,7 +1,7 @@
 <form class="widget-content widget-content-area ecommerce-create-section" wire:submit.prevent='update'>
     <div class="form-group mb-4">
         <label for="Position">Position</label>
-        <select class="form-select" wire:model='position'>
+        <select class="form-select" wire:model='position' wire:change='showPosition($event.target.value)'>
             <option value="{{$content->position}}">{{$content->position}}</option>
             <option class="Hero Section">Hero Section</option>
             <option class="Business Feature">Business Feature</option>
@@ -27,6 +27,7 @@
         </div>
         @enderror
     </div>
+    @if($position != 'Footer')
     <div class="form-group mb-4">
         <label for="subtitle">Subtitle</label>
         <input type="text" class="form-control" wire:model="subtitle" placeholder="Subtitle">
@@ -36,6 +37,8 @@
         </div>
         @enderror
     </div>
+    @endif
+    @if($position == 'Hero Section' || $position == 'Software Feature' || $position == 'Contact')
     <div class="col-lg-6 form-group mb-4">
         <label for="image">Image</label>
         @if($content->image)
@@ -85,9 +88,10 @@
         </div>
         @endif
     </div>
+    @endif
  
     <div class="col-12">
-        @if($content->image == null && $new_image == null && $content->position == 'Hero Section')
+        @if($content->image == null && $new_image == null && $content->position == 'Hero Section' || $content->image == null && $new_image == null && $position == 'Software Feature' || $content->image == null && $new_image == null && $position == 'Contact')
         <div class="col-12">
             <button class="btn btn-primary _effect--ripple waves-effect waves-light"
                 disabled>Submit

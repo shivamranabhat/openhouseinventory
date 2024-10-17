@@ -51,7 +51,6 @@ class Index extends Component
     public function render()
     {
         $credits = Credit::latest()
-            ->where('status','<>','Inactive')
             ->where(function ($query) {
                 $query->where('name', 'like', '%' . $this->search . '%')
                     ->orWhere('phone', 'like', '%' . $this->search . '%');

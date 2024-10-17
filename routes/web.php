@@ -5,6 +5,10 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\PdfController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\TwitterCardController;
+use App\Http\Controllers\ScriptController;
+use App\Http\Controllers\OpenGraphController;
+use App\Http\Controllers\TagController;
 use App\Http\Livewire\BarcodeComponent;
 use App\Http\Middleware\CompanyMiddleware;
 
@@ -32,7 +36,6 @@ Route::prefix('/varosa')->group(function(){
     });
     
     Route::prefix('/service')->controller(PageController::class)->middleware(['auth'])->group(function(){
-        Route::get('','service')->name('services');
         Route::get('/create','serviceCreate')->name('service.create');
         Route::get('/edit/{slug}','serviceEdit')->name('service.edit');
     });
@@ -49,8 +52,9 @@ Route::prefix('/varosa')->group(function(){
     Route::prefix('/stock-out')->controller(PageController::class)->middleware(['auth'])->group(function(){
         Route::get('','stockOut')->name('stockOuts');
         Route::get('/create','stockOutCreate')->name('stockOut.create');
+        Route::get('/upload','stockOutUpload')->name('stockOut.upload');
+        Route::post('/upload-excel','stockOutUploadExcel')->name('stockOut.uploadExcel');
         Route::get('/edit/{slug}','stockOutEdit')->name('stockOut.edit');
-    
     });
     Route::prefix('/prefix')->controller(PageController::class)->middleware(['auth'])->group(function(){
         Route::get('','prefix')->name('prefixes');
@@ -103,17 +107,17 @@ Route::prefix('/varosa')->group(function(){
         Route::get('/create','faqCreate')->name('faq.create');
         Route::get('/edit/{slug}','faqEdit')->name('faq.edit');
     });
+    Route::prefix('/feature')->controller(PageController::class)->middleware(['auth'])->group(function(){
+        Route::get('','feature')->name('features');
+        Route::get('/create','featureCreate')->name('feature.create');
+        Route::get('/edit/{slug}','featureEdit')->name('feature.edit');
+    });
     Route::prefix('/payment-out')->controller(PageController::class)->middleware(['auth'])->group(function(){
         Route::get('','payment')->name('payments');
         Route::get('/create','paymentCreate')->name('payment.create');
         Route::get('/edit/{slug}','paymentEdit')->name('payment.edit');
     });
-    // Route::prefix('/approved')->controller(PageController::class)->middleware(['auth'])->group(function(){
-    //     Route::get('','approve')->name('approves');
-    // });
-    // Route::prefix('/declined')->controller(PageController::class)->middleware(['auth'])->group(function(){
-    //     Route::get('','decline')->name('declines');
-    // });
+
     Route::prefix('/cheque')->controller(PageController::class)->middleware(['auth'])->group(function(){
         Route::get('','cheque')->name('cheques');
         Route::get('/create','chequeCreate')->name('cheque.create');
@@ -128,17 +132,56 @@ Route::prefix('/varosa')->group(function(){
         Route::get('transaction-pdf/{slug}','downloadTransactionPdf')->name('downloadTransactionPdf');
         Route::get('bill-pdf/{slug}','downloadBillPdf')->name('downloadBillPdf');
     });
+    Route::prefix('/profile')->controller(PageController::class)->middleware(['auth'])->group(function(){
+        Route::get('','profile')->name('profile');
+    });
+    Route::prefix('/seo')->group(function(){
+        //Routes for tags
+        Route::prefix('/tags')->controller(TagController::class)->group(function(){
+            Route::get('/','index')->name('tags');
+            Route::get('/create','create')->name('tag.create');
+            Route::post('/store','store')->name('tag.store');
+            Route::get('/{slug}','edit')->name('tag.edit');
+            Route::put('/update/{slug}','update')->name('tag.update');
+            Route::delete('/delete/{slug}','destroy')->name('tag.destroy');
+        });
+        
+         //Routes for open graphs
+        Route::prefix('/open-graph')->controller(OpenGraphController::class)->group(function(){
+            Route::get('/','index')->name('graphs');
+            Route::get('/create','create')->name('graph.create');
+            Route::post('/store','store')->name('graph.store');
+            Route::get('/{slug}','edit')->name('graph.edit');
+            Route::put('/update/{slug}','update')->name('graph.update');
+            Route::delete('/delete/{slug}','destroy')->name('graph.destroy');
+        });
+        //Routes for twitter cards
+        Route::prefix('/twitter-card')->controller(TwitterCardController::class)->group(function(){
+            Route::get('/','index')->name('cards');
+            Route::get('/create','create')->name('card.create');
+            Route::post('/store','store')->name('card.store');
+            Route::get('/{slug}','edit')->name('card.edit');
+            Route::put('/update/{slug}','update')->name('card.update');
+            Route::delete('/delete/{slug}','destroy')->name('card.destroy');
+        });
+        //Routes for script
+        Route::prefix('/scripts')->controller(ScriptController::class)->group(function(){
+            Route::get('/','index')->name('scripts');
+            Route::get('/create','create')->name('script.create');
+            Route::post('/store','store')->name('script.store');
+            Route::get('/{slug}','edit')->name('script.edit');
+            Route::put('/update/{slug}','update')->name('script.update');
+            Route::delete('/delete/{slug}','destroy')->name('script.destroy');
+        });
+    });
 });
 
-Route::prefix('/profile')->controller(PageController::class)->middleware(['auth'])->group(function(){
-    Route::get('','profile')->name('profile');
-});
 Route::prefix('/login')->controller(PageController::class)->group(function(){
     Route::get('','login')->name('login');
 });
-Route::prefix('/signup')->controller(PageController::class)->group(function(){
-    Route::get('','signup')->name('signup');
-});
+// Route::prefix('/signup')->controller(PageController::class)->group(function(){
+//     Route::get('','signup')->name('signup');
+// });
 
 Route::controller(HomeController::class)->group(function(){
     Route::get('/','index')->name('index');

@@ -2897,7 +2897,15 @@ textarea {
 }
 .cs_hero.cs_style_1 .cs_hero_subtitle {
   margin-bottom: 45px;
+  width:70%;
+  margin:auto;
   color: rgba(255, 255, 255, 0.65);
+}
+@media (max-width:767px) {
+  .cs_hero.cs_style_1 .cs_hero_subtitle
+  {
+    width: 100%;
+  }
 }
 .cs_hero.cs_style_1 .cs_hero_title {
   margin-bottom: 20px;

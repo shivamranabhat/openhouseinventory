@@ -10,6 +10,7 @@ use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use App\Models\Page;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Gate;
 
 class BlogController extends Controller
 {
@@ -18,7 +19,12 @@ class BlogController extends Controller
      */
     public function index()
     {
-        return view('pages.blog.index');
+        if (Gate::allows('super-admin')) {
+            return view('pages.blog.index');
+        } else {
+            // Handle unauthorized action
+            return redirect()->back()->with('error','You do not have permission to access.');
+        }
     }
 
     /**
@@ -26,7 +32,12 @@ class BlogController extends Controller
      */
     public function create()
     {
-        return view('pages.blog.create');
+        if (Gate::allows('super-admin')) {
+            return view('pages.blog.create');
+        } else {
+            // Handle unauthorized action
+            return redirect()->back()->with('error','You do not have permission to access.');
+        }
     }
 
       /**
@@ -78,13 +89,13 @@ class BlogController extends Controller
             // Create blog post with the form fields and slug
             $blog = Blog::create($formFields + ['slug' => $slug]);
     
-            // // Store name to page table if blog creation is successful
-            // if ($blog) {
-            //     Page::create([
-            //         'name' => $formFields['title'],
-            //         'slug' => $slug,
-            //     ]);
-            // }
+            // Store name to page table if blog creation is successful
+            if ($blog) {
+                Page::create([
+                    'name' => $formFields['title'],
+                    'slug' => $slug,
+                ]);
+            }
     
             return redirect()->route('blogs')->with('message', 'Blog added successfully');
         } catch (\Exception $e) {
@@ -99,8 +110,14 @@ class BlogController extends Controller
      */
     public function edit(String $slug)
     {
-        $blog = Blog::whereSlug($slug)->first();
-        return view('pages.blog.edit',compact('blog'));
+        if (Gate::allows('super-admin')) {
+            $blog = Blog::whereSlug($slug)->first();
+            return view('pages.blog.edit',compact('blog'));
+        } else {
+            // Handle unauthorized action
+            return redirect()->back()->with('error','You do not have permission to access.');
+        }
+        
     }
 
     /**
@@ -111,7 +128,7 @@ class BlogController extends Controller
         try {
             // Find the blog post by slug
             $blog = Blog::whereSlug($slug)->firstOrFail();
-            //$page = Page::where('slug', $slug)->first();
+            $page = Page::where('slug', $slug)->first();
     
             // Validate the request
             $formFields = $request->validate([
@@ -143,13 +160,13 @@ class BlogController extends Controller
             $formFields['slug'] = Str::slug($formFields['title']);
             $blog->update($formFields);
     
-            // // Update the page if it exists
-            // if ($page) {
-            //     $page->update([
-            //         'name' => $formFields['title'],
-            //         'slug' => $formFields['slug'],
-            //     ]);
-            // }
+            // Update the page if it exists
+            if ($page) {
+                $page->update([
+                    'name' => $formFields['title'],
+                    'slug' => $formFields['slug'],
+                ]);
+            }
     
             return redirect()->route('blogs')->with('message', 'Blog updated successfully');
         } catch (\Exception $e) {

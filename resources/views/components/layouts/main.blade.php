@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Varosa - Point of Sale Landing Page HTML Template</title>
+  {{$headerSeo}}
   <!-- Favicon Icon -->
   <link rel="icon" href="assets/img/favicon.svg">
   <!-- CSS plugins files -->
@@ -25,7 +25,6 @@
         <div class="cs_perloader_dots"><i></i><i></i><i></i><i></i></div>
       </div>
     </div>
-    <span class="cs_perloader_text">Loading...</span>
   </div>
   <!-- End Preloader -->
   <!-- Start Header section -->
@@ -34,12 +33,14 @@
 
   <!-- Back to top btn -->
   <div id="cs_backtotop"><i class="fas fa-angle-up"></i></div>
-
+  {{$footerSeo}}
   <!-- All Scripts Files -->
+
   <script src="{{asset('main/js/jquery.min.js')}}"></script>
   <script src="{{asset('main/js/jquery.slick.min.js')}}"></script>
   <script src="{{asset('main/js/wow.min.js')}}"></script>
   <script src="{{asset('main/js/main.js')}}"></script>
+  <script src="{{asset('main/js/navbar.js')}}"></script>
 </body>
 
 </html>

@@ -4,10 +4,11 @@
   <div class="container">
     <div class="cs_section_heading cs_style_1 text-center">
       <p class="cs_section_subtitle cs_text_accent wow fadeInUp" data-wow-duration="0.8s" data-wow-delay="0.2s">Have
-        Any Question?
+        {{$content->title}}
       </p>
-      <h2 class="cs_section_title mb-0 wow fadeIn" data-wow-duration="0.8s" data-wow-delay="0.2s">Here Some
-        Questions Answer</h2>
+      <h2 class="cs_section_title mb-0 wow fadeIn" data-wow-duration="0.8s" data-wow-delay="0.2s">
+        {{$content->subtitle}}
+      </h2>
     </div>
     <div class="cs_height_85 cs_height_lg_60"></div>
     <div class="row wow fadeIn" data-wow-duration="0.8s" data-wow-delay="0.2s">

@@ -23,16 +23,17 @@ class Edit extends Component
     protected function rules()
     {
         return [
-            'title' => 'nullable|unique:contents,title,' . $this->content->id,
+            'title' => 'nullable',
             'subtitle' => 'nullable',
-            'position' => 'required',
+            'position' => 'required|unique:contents,position,'. $this->content->id,
         ];
     }
     
-    protected function messages()
+    public function messages()
     {
         return [
-            'title.unique' => 'The content with title ":input" already exists',
+            'position.unique' => 'The content with position ":input" already exists',
+            'position.required' => 'Please choose a position.',
         ];
     }
 
@@ -43,6 +44,10 @@ class Edit extends Component
         $this->subtitle = $this->content->subtitle;
         $this->position = $this->content->position;
         $this->image = $this->content->image;
+    }
+    public function showPosition($value)
+    {
+        $this->position = $value;
     }
     public function update()
     {

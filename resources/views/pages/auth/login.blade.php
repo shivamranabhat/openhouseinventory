@@ -43,6 +43,7 @@
         </div>
 
     </div>
+    <x-success />
     @livewireScripts
     <!-- BEGIN GLOBAL MANDATORY SCRIPTS -->
     <script src="{{asset('src/bootstrap/js/bootstrap.bundle.min.js')}}"></script>

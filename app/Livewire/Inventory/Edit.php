@@ -42,7 +42,7 @@ class Edit extends Component
         sleep(1.2);
         $slug = Str::slug('PR'.'-'.$this->name.'-'.now());
         $this->product->update($validated+['slug'=>$slug]);
-        return redirect()->route('inventories')->with('message','Product updated successfully.');
+        return redirect()->route('inventories')->with('success','Product updated successfully.');
     }
 
     public function render()

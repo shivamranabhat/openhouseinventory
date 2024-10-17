@@ -1,7 +1,7 @@
 <!--Start Footer Section -->
 <footer class="cs_site_footer cs_color_1 cs_sticky_footer">
     <div class="cs_footer_shape1">
-        <img src="assets/img/Vector1.svg" alt="Vector-Icon">
+        <img src="{{asset('main/img/Vector1.svg')}}" alt="Vector-Icon">
     </div>
     <div class="cs_height_140 cs_height_lg_70"></div>
     <div class="cs_main_footer">
@@ -12,30 +12,11 @@
                         <div class="cs_text_field">
                             <img src="assets/img/logo.svg" alt="Logo" class="cs_footer_logo">
                             <p class="cs_text_white mb-0">
-                                Ours Pos Software is the ultimate solution designed to transform your business
-                                operations into a
-                                streamlined and
-                                efficient powerhouse. With a focus on simplicity, versatility, and cutting-edge
-                                technology.
+                                {{$content->title ?? ''}}
                             </p>
                         </div>
                     </div>
-                    <div class="cs_footer_widget">
-                        <div class="cs_social_btn cs_style_1 d-flex">
-                            <a href="https://www.facebook.com/" target="_blank">
-                                <i class="fa-brands fa-facebook-f"></i>
-                            </a>
-                            <a href="https://www.facebook.com/" target="_blank">
-                                <i class="fa-brands fa-twitter"></i>
-                            </a>
-                            <a href="https://www.facebook.com/" target="_blank">
-                                <i class="fa-brands fa-linkedin-in"></i>
-                            </a>
-                            <a href="https://www.facebook.com/" target="_blank">
-                                <i class="fa-brands fa-instagram"></i>
-                            </a>
-                        </div>
-                    </div>
+                   
                     <div class="cs_height_0 cs_height_lg_30"></div>
                 </div>
                 <!-- .col -->
@@ -50,14 +31,12 @@
                                 <a href="/#about">Features</a>
                             </li>
                             <li>
-                                <a href="/#pricing">Pricing</a>
+                                <a href="/#testimonial">Testimonial</a>
                             </li>
                             <li>
                                 <a href="/#blog">Blog</a>
                             </li>
-                            <li>
-                                <a href="/#contact">Contact</a>
-                            </li>
+                           
                         </ul>
                     </div>
                     <div class="cs_height_0 cs_height_lg_30"></div>
@@ -71,11 +50,9 @@
                                 <a href="/#faq">Faq’s</a>
                             </li>
                             <li>
-                                <a href="#">Articles</a>
+                                <a href="/#contact">Contact</a>
                             </li>
-                            <li>
-                                <a href="#">Live Chat</a>
-                            </li>
+                           
                         </ul>
                     </div>
                     <div class="cs_height_0 cs_height_lg_30"></div>
@@ -103,8 +80,7 @@
             <div class="cs_height_110 cs_height_lg_50"></div>
         </div>
         <div class="container cs_copyright_text cs_text_white text-center">
-            Copyright 2024. Design by<a href="https://themeforest.net/user/awesomethemez/portfolio" target="_blank"
-                class="cs_site_link cs_text_accent"> AwesomeThemez</a>
+            Copyright 2024. Design by<a href="https://rangin.com.np"> Rangin Technology</a>
         </div>
     </div>
 </footer>

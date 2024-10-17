@@ -16,6 +16,9 @@
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link" id="service-tab" data-bs-toggle="tab" data-bs-target="#service-tab-pane" type="button" role="tab" aria-controls="service-tab-pane" aria-selected="false" tabindex="-1">Service</button>
                             </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="bin-tab" data-bs-toggle="tab" data-bs-target="#bin-tab-pane" type="button" role="tab" aria-controls="bin-tab-pane" aria-selected="false" tabindex="-1">Bin</button>
+                            </li>
                         </ul>
         
                         <div class="tab-content" id="myTabContent">
@@ -24,6 +27,9 @@
                             </div>
                             <div class="tab-pane fade" id="service-tab-pane" role="tabpanel" aria-labelledby="service-tab" tabindex="0">
                                 <livewire:service.index />
+                            </div>
+                            <div class="tab-pane fade" id="bin-tab-pane" role="tabpanel" aria-labelledby="bin-tab" tabindex="0">
+                                <livewire:inventory.bin />
                             </div>
                             
                         </div>

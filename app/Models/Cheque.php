@@ -22,6 +22,7 @@ class Cheque extends Model
         'pay_date',
         'withdraw_date',
         'status',
+        'is_deleted',
         'slug',
     ];
     public function vendor()

@@ -4,7 +4,6 @@ namespace App\Livewire\Employee;
 
 use Livewire\Component;
 use App\Models\Employee;
-use App\Models\Department;
 use Livewire\WithPagination;
 use Livewire\Attributes\Url;
 use Illuminate\Support\Facades\Gate;

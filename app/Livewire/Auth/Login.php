@@ -22,8 +22,12 @@ class Login extends Component
 
         // Attempt login with the remember option
         if (Auth::attempt(['email' => $this->email, 'password' => $this->password], $this->remember)) {
-            // Redirect the user after successful login
-            return redirect()->route('vendors');
+            $user = Auth::user();
+            if ($user->can_approve === 'No' && $user->can_decline === 'No') {
+                return redirect()->route('requisitions');
+            } else {
+                return redirect()->route('vendors');
+            }
         } else {
             // Flash an error message if login fails
             session()->flash('error', 'The provided credentials are incorrect.');

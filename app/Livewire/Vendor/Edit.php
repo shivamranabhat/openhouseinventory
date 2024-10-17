@@ -21,7 +21,7 @@ class Edit extends Component
     {
         return [
             'name' => 'required',
-            'phone' => 'required|numeric',
+            'phone' => 'required|numeric|max:10',
             'address' => 'required',
             'pan_vat' => 'required',
             'contact_person' => 'required',

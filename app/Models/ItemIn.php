@@ -23,6 +23,7 @@ class ItemIn extends Model
          'purchase_date', 
          'rack_no', 
          'status',
+         'is_deleted',
          'slug', 
      ];
 

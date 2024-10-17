@@ -44,6 +44,7 @@
                 <tr role="row">
                     <th>S.N.</th>
                     <th>Name</th>
+                    <th>Credit Amount</th>
                     <th>Created At</th>
                     <th>Action</th>
                 </tr>
@@ -53,6 +54,7 @@
                 <tr role="row">
                     <td>{{$loop->iteration}}</td>
                     <td>{{$credit->name}}</td>
+                    <td>Rs. {{$credit->amount}}</td>
                     <td> <span class="inv-date"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                 stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar">

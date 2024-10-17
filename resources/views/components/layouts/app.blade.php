@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
-    <title>{{auth()->user()->name}} | Inventory</title>
+    <title>{{auth()->user()->company_id ? auth()->user()->company->name : 'Varosa'}} | Inventory</title>
     <link rel="icon" type="image/x-icon" href="https://designreset.com/cork/html/src/assets/img/favicon.ico" />
     <link href="{{asset('layouts/vertical-dark-menu/css/light/loader.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('layouts/vertical-dark-menu/css/dark/loader.css')}}" rel="stylesheet" type="text/css" />
@@ -92,7 +92,6 @@
 
             <ul class="navbar-item flex-row ms-lg-auto ms-0 action-area">
 
-
                 <li class="nav-item theme-toggle-item">
                     <a href="javascript:void(0);" class="nav-link theme-toggle">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -137,7 +136,9 @@
                 <div class="navbar-nav theme-brand flex-row  text-center">
                     <div class="nav-logo">
                         <div class="nav-item theme-text">
-                            <a href="#" class="nav-link"> {{auth()->user()->name}} </a>
+                            <a href="#" class="nav-link"> {{auth()->user()->company_id ? auth()->user()->company->name :
+                                'Varosa'}}
+                            </a>
                         </div>
                     </div>
                     <div class="nav-item sidebar-toggle">
@@ -153,8 +154,10 @@
                 </div>
                 <div class="shadow-bottom"></div>
                 <ul class="list-unstyled menu-categories" id="accordionExample">
+
                     <li class="menu {{request()->segment(2) == 'vendor'  ? 'active' : '' }}">
-                        <a href="{{route('vendors')}}" aria-expanded="false" class="dropdown-toggle">
+                        <a href="{{ auth()->user()->can_delete == 'No' ? '#' : route('vendors')}}" aria-expanded="false"
+                            class="dropdown-toggle {{auth()->user()->can_delete == 'No' ? 'disabled' : ''}}">
                             <div class="">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -166,11 +169,23 @@
                                 </svg>
                                 <span>Vendor</span>
                             </div>
+                            @if(auth()->user()->can_delete == 'No')
+                            <div class="">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-lock">
+                                    <rect x="3" y="10" width="18" height="10" rx="2" ry="2"></rect>
+                                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                                </svg>
+                            </div>
+                            @endif
                         </a>
                     </li>
 
                     <li class="menu {{request()->segment(2) == 'department'  ? 'active' : '' }}">
-                        <a href="{{route('departments')}}" aria-expanded="false" class="dropdown-toggle">
+                        <a href="{{ auth()->user()->can_delete == 'No' ? '#' : route('departments')}}"
+                            aria-expanded="false"
+                            class="dropdown-toggle {{auth()->user()->can_delete == 'No' ? 'disabled' : ''}}">
                             <div class="">
                                 <svg fill="none" stroke="currentColor" width="800px" class="feather" height="800px"
                                     viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -183,10 +198,22 @@
                                 </svg>
                                 <span>Department</span>
                             </div>
+                            @if(auth()->user()->can_delete == 'No')
+                            <div class="">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-lock">
+                                    <rect x="3" y="10" width="18" height="10" rx="2" ry="2"></rect>
+                                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                                </svg>
+                            </div>
+                            @endif
                         </a>
                     </li>
                     <li class="menu {{request()->segment(2) == 'employee'  ? 'active' : '' }}">
-                        <a href="{{route('employees')}}" aria-expanded="false" class="dropdown-toggle">
+                        <a href="{{ auth()->user()->can_delete == 'No' ? '#' : route('employees')}}"
+                            aria-expanded="false"
+                            class="dropdown-toggle {{auth()->user()->can_delete == 'No' ? 'disabled' : ''}}">
                             <div class="">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -196,12 +223,23 @@
                                 </svg>
                                 <span>Employee</span>
                             </div>
+                            @if(auth()->user()->can_delete == 'No')
+                            <div class="">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-lock">
+                                    <rect x="3" y="10" width="18" height="10" rx="2" ry="2"></rect>
+                                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                                </svg>
+                            </div>
+                            @endif
                         </a>
                     </li>
                     <li
-                        class="menu {{request()->segment(2) == 'inventory' ||  request()->segment(2)=='prefix' ||request()->segment(2) == 'category'  ? 'active' : '' }}">
-                        <a href="#inventory" data-bs-toggle="collapse" aria-expanded="false"
-                            class="dropdown-toggle collapsed">
+                        class="menu {{request()->segment(2) == 'inventory' ||  request()->segment(2)=='prefix' || request()->segment(2)=='service' ||request()->segment(2) == 'category'  ? 'active' : '' }}">
+                        <a href="{{ auth()->user()->can_delete == 'No' ? '#' : '#inventory'}}" data-bs-toggle="collapse"
+                            aria-expanded="false"
+                            class="dropdown-toggle {{auth()->user()->can_delete == 'No' ? 'disabled' : 'collapsed'}}">
                             <div class="">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -213,16 +251,27 @@
                                 <span>Inventory</span>
                             </div>
                             <div>
+                                @if(auth()->user()->can_delete == 'No')
+                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-lock">
+                                    <rect x="3" y="10" width="18" height="10" rx="2" ry="2"></rect>
+                                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                                </svg>
+                                @else
+
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                     stroke-linejoin="round" class="feather feather-chevron-right">
                                     <polyline points="9 18 15 12 9 6"></polyline>
                                 </svg>
+                                @endif
                             </div>
                         </a>
                         <ul class="submenu list-unstyled collapse" id="inventory" data-bs-parent="#accordionExample"
                             style="">
-                            <li class="{{request()->segment(2) == 'inventory'  ? 'active' : '' }}">
+                            <li
+                                class="{{request()->segment(2) == 'inventory' || request()->segment(2)=='service'  ? 'active' : '' }}">
                                 <a href="{{route('inventories')}}"> Lists </a>
                             </li>
 
@@ -237,8 +286,9 @@
                     </li>
                     <li
                         class="menu {{request()->segment(2) == 'stock-in' || request()->segment(2) == 'stock-out'  ? 'active' : '' }}">
-                        <a href="#stock" data-bs-toggle="collapse" aria-expanded="false"
-                            class="dropdown-toggle collapsed">
+                        <a href="{{ auth()->user()->can_delete == 'No' ? '#' : '#stock'}}" data-bs-toggle="collapse"
+                            aria-expanded="false"
+                            class="dropdown-toggle {{auth()->user()->can_delete == 'No' ? 'disabled' : 'collapsed'}}">
                             <div class="">
                                 <svg width="800px" height="800px" fill="none" stroke="currentColor" class="feather"
                                     viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" id="package"
@@ -251,11 +301,21 @@
 
                             </div>
                             <div>
+                                @if(auth()->user()->can_delete == 'No')
+                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-lock">
+                                    <rect x="3" y="10" width="18" height="10" rx="2" ry="2"></rect>
+                                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                                </svg>
+                                @else
+
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                     stroke-linejoin="round" class="feather feather-chevron-right">
                                     <polyline points="9 18 15 12 9 6"></polyline>
                                 </svg>
+                                @endif
                             </div>
                         </a>
                         <ul class="submenu list-unstyled collapse" id="stock" data-bs-parent="#accordionExample"
@@ -271,8 +331,9 @@
                     </li>
                     <li
                         class="menu {{ request()->segment(2)=='bill' ||request()->segment(2) == 'payment-out'  ? 'active' : '' }}">
-                        <a href="#requisition" data-bs-toggle="collapse" aria-expanded="false"
-                            class="dropdown-toggle collapsed">
+                        <a href="{{ auth()->user()->can_delete == 'No' ? '#' : '#purchase'}}" data-bs-toggle="collapse"
+                            aria-expanded="false"
+                            class="dropdown-toggle {{auth()->user()->can_delete == 'No' ? 'disabled' : 'collapsed'}}">
                             <div class="">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -285,14 +346,24 @@
 
                             </div>
                             <div>
+                                @if(auth()->user()->can_delete == 'No')
+                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-lock">
+                                    <rect x="3" y="10" width="18" height="10" rx="2" ry="2"></rect>
+                                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                                </svg>
+                                @else
+
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                     stroke-linejoin="round" class="feather feather-chevron-right">
                                     <polyline points="9 18 15 12 9 6"></polyline>
                                 </svg>
+                                @endif
                             </div>
                         </a>
-                        <ul class="submenu list-unstyled collapse" id="requisition" data-bs-parent="#accordionExample"
+                        <ul class="submenu list-unstyled collapse" id="purchase" data-bs-parent="#accordionExample"
                             style="">
 
                             <li class="{{request()->segment(2) == 'bill'  ? 'active' : '' }}">
@@ -319,7 +390,8 @@
                         </a>
                     </li>
                     <li class="menu {{request()->segment(2) == 'cheque'  ? 'active' : '' }}">
-                        <a href="{{route('cheques')}}" aria-expanded="false" class="dropdown-toggle">
+                        <a href="{{route('cheques')}}" aria-expanded="false"
+                            class="dropdown-toggle {{auth()->user()->can_delete == 'No' ? 'disabled' : ''}}">
                             <div class="">
                                 <svg fill="none" class="feather" stroke="currentColor" width="800px" height="800px"
                                     viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
@@ -341,10 +413,21 @@
                                 </svg>
                                 <span>Cheque</span>
                             </div>
+                            @if(auth()->user()->can_delete == 'No')
+                            <div class="">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-lock">
+                                    <rect x="3" y="10" width="18" height="10" rx="2" ry="2"></rect>
+                                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                                </svg>
+                            </div>
+                            @endif
                         </a>
                     </li>
                     <li class="menu {{request()->segment(2) == 'credit'  ? 'active' : '' }}">
-                        <a href="{{route('credits')}}" aria-expanded="false" class="dropdown-toggle">
+                        <a href="{{route('credits')}}" aria-expanded="false"
+                            class="dropdown-toggle {{auth()->user()->can_delete == 'No' ? 'disabled' : ''}}">
                             <div class="">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" class="feather" viewBox="0 0 24 24"
                                     stroke-width="1.5" stroke="currentColor">
@@ -353,10 +436,21 @@
                                 </svg>
                                 <span>Credits</span>
                             </div>
+                            @if(auth()->user()->can_delete == 'No')
+                            <div class="">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-lock">
+                                    <rect x="3" y="10" width="18" height="10" rx="2" ry="2"></rect>
+                                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                                </svg>
+                            </div>
+                            @endif
                         </a>
                     </li>
                     <li class="menu {{request()->segment(2) == 'account'  ? 'active' : '' }}">
-                        <a href="{{route('accounts')}}" aria-expanded="false" class="dropdown-toggle">
+                        <a href="{{route('accounts')}}" aria-expanded="false"
+                            class="dropdown-toggle {{auth()->user()->can_delete == 'No' ? 'disabled' : ''}}">
                             <div class="">
 
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -369,6 +463,16 @@
                                 </svg>
                                 <span>Accounts</span>
                             </div>
+                            @if(auth()->user()->can_delete == 'No')
+                            <div class="">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-lock">
+                                    <rect x="3" y="10" width="18" height="10" rx="2" ry="2"></rect>
+                                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                                </svg>
+                            </div>
+                            @endif
                         </a>
                     </li>
                     <li
@@ -396,9 +500,11 @@
                         </a>
                         <ul class="submenu list-unstyled collapse" id="charges" data-bs-parent="#accordionExample"
                             style="">
+                            @if(auth()->user()->can_delete == 'Yes')
                             <li class="{{request()->segment(2) == 'charge'  ? 'active' : '' }}">
                                 <a href="{{route('charges')}}"> Charges </a>
                             </li>
+                            @endif
                             <li class="{{request()->segment(2) == 'profile'  ? 'active' : '' }}">
                                 <a href="{{route('profile')}}"> Profile </a>
                             </li>
@@ -408,7 +514,8 @@
                     @if (auth()->user()->role == 'Super Admin')
 
                     <li class="menu {{request()->segment(2) == 'content'  ? 'active' : '' }}">
-                        <a href="{{route('contents')}}" aria-expanded="false" class="dropdown-toggle">
+                        <a href="{{route('contents')}}" aria-expanded="false"
+                            class="dropdown-toggle {{auth()->user()->can_delete == 'No' ? 'disabled' : ''}}">
                             <div class="">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -423,37 +530,24 @@
                             </div>
                         </a>
                     </li>
-                    <li class="menu {{request()->segment(2) == 'services'  ? 'active' : '' }}">
-                        <a href="{{route('blogs')}}" aria-expanded="false" class="dropdown-toggle">
+                    <li class="menu {{request()->segment(2) == 'feature'  ? 'active' : '' }}">
+                        <a href="{{route('features')}}" aria-expanded="false"
+                            class="dropdown-toggle {{auth()->user()->can_delete == 'No' ? 'disabled' : ''}}">
                             <div class="">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round" class="feather feather-slack">
+                                    stroke-linejoin="round" class="feather feather-command">
                                     <path
-                                        d="M14.5 10c-.83 0-1.5-.67-1.5-1.5v-5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5z">
+                                        d="M18 3a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3H6a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3V6a3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 3 3 0 0 0-3-3z">
                                     </path>
-                                    <path d="M20.5 10H19V8.5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z">
-                                    </path>
-                                    <path
-                                        d="M9.5 14c.83 0 1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5S8 21.33 8 20.5v-5c0-.83.67-1.5 1.5-1.5z">
-                                    </path>
-                                    <path d="M3.5 14H5v1.5c0 .83-.67 1.5-1.5 1.5S2 16.33 2 15.5 2.67 14 3.5 14z"></path>
-                                    <path
-                                        d="M14 14.5c0-.83.67-1.5 1.5-1.5h5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5h-5c-.83 0-1.5-.67-1.5-1.5z">
-                                    </path>
-                                    <path d="M15.5 19H14v1.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5-.67-1.5-1.5-1.5z">
-                                    </path>
-                                    <path
-                                        d="M10 9.5C10 8.67 9.33 8 8.5 8h-5C2.67 8 2 8.67 2 9.5S2.67 11 3.5 11h5c.83 0 1.5-.67 1.5-1.5z">
-                                    </path>
-                                    <path d="M8.5 5H10V3.5C10 2.67 9.33 2 8.5 2S7 2.67 7 3.5 7.67 5 8.5 5z"></path>
                                 </svg>
-                                <span>Services</span>
+                                <span>Features</span>
                             </div>
                         </a>
                     </li>
                     <li class="menu {{request()->segment(2) == 'blog'  ? 'active' : '' }}">
-                        <a href="{{route('blogs')}}" aria-expanded="false" class="dropdown-toggle">
+                        <a href="{{route('blogs')}}" aria-expanded="false"
+                            class="dropdown-toggle {{auth()->user()->can_delete == 'No' ? 'disabled' : ''}}">
                             <div class="">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -465,8 +559,76 @@
                             </div>
                         </a>
                     </li>
+                    <li class="menu {{request()->segment(2) == 'testimonial'  ? 'active' : '' }}">
+                        <a href="{{route('testimonials')}}" aria-expanded="false"
+                            class="dropdown-toggle {{auth()->user()->can_delete == 'No' ? 'disabled' : ''}}">
+                            <div class="">
+                                <svg fill="{{request()->segment(2) == 'testimonial'  ? '#fff': 'currentColor'}}"
+                                    width="800px" height="800px" viewBox="0 0 14 14" role="img" focusable="false"
+                                    aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="m 1.4358383,12.895149 c -0.38924,-0.1993 -0.43281,-0.3751 -0.41279,-1.665 0.0158,-1.0195 0.0314,-1.1697 0.14735,-1.4205004 0.26312,-0.5694 0.88589,-1.0631 1.46037,-1.1579 l 0.21,-0.035 0.62728,1.0597 c 0.345,0.5829004 0.63415,1.0358004 0.64256,1.0065004 0.008,-0.029 0.0415,-0.3472 0.0736,-0.7065004 0.0525,-0.5882 0.0468,-0.6826 -0.0575,-0.9472 -0.0637,-0.1617 -0.11586,-0.32 -0.11586,-0.3517 0,-0.033 0.26499,-0.058 0.62678,-0.058 l 0.62678,0 -0.12063,0.345 c -0.10456,0.2991 -0.11523,0.4309 -0.0802,0.9905 0.0222,0.3551004 0.0611,0.6584004 0.0864,0.6740004 0.0253,0.016 0.32158,-0.4318 0.65846,-0.9942004 l 0.61252,-1.0226 0.18995,0.04 c 0.58752,0.1229 1.19054,0.5979 1.42811,1.1248 0.12949,0.2872004 0.1425,0.4062004 0.1588,1.4528004 0.0156,0.9994 0.005,1.1659 -0.0896,1.35 -0.21721,0.425 -0.1746,0.4199 -3.4974,0.4199 -2.70948,0 -2.98802,-0.01 -3.17496,-0.1049 z m 2.71495,-4.9624004 c -0.76247,-0.3317 -1.3488,-1.7133 -1.07583,-2.5352 0.48535,-1.4612 2.58633,-1.4612 3.07167,0 0.27559,0.8297 -0.31945,2.2162 -1.08916,2.5378 -0.25463,0.1064 -0.65878,0.1053 -0.90668,0 z m 3.58006,-2.0213 0,-0.6365 -0.34018,-0.028 c -0.27583,-0.023 -0.36661,-0.059 -0.48,-0.1908 -0.13962,-0.1623 -0.13984,-0.1653 -0.13984,-1.9339 l 0,-1.7713 0.17539,-0.1754 0.17539,-0.1753 2.76131,0 2.7613097,0 0.16835,0.1448 0.16835,0.1448 0,1.8101 0,1.8102 -0.19595,0.175 -0.19595,0.1751 -1.7831,0 -1.7830997,0 -0.64599,0.644 -0.64599,0.644 0,-0.6366 z" />
+                                </svg>
+                                <span>Testimonial</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="menu {{request()->segment(2) == 'seo'  ? 'active' : '' }}">
+                        <a href="#seo" data-bs-toggle="collapse" aria-expanded="false"
+                            class="dropdown-toggle collapsed">
+                            <div class="">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-trending-up">
+                                    <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+                                    <polyline points="17 6 23 6 23 12"></polyline>
+                                </svg>
+                                <span>SEO</span>
+                            </div>
+                            <div>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-chevron-right">
+                                    <polyline points="9 18 15 12 9 6"></polyline>
+                                </svg>
+                            </div>
+                        </a>
+                        <ul class="submenu list-unstyled collapse" id="seo" data-bs-parent="#accordionExample" style="">
+                            <li class="{{request()->segment(3) == 'tags' ? 'active' : '' }}">
+                                <a href="{{route('tags')}}"> Tags </a>
+                            </li>
+
+                            <li class="{{request()->segment(3) == 'scripts'  ? 'active' : '' }}">
+                                <a href="{{route('scripts')}}"> Scripts </a>
+                            </li>
+                            <li class="{{request()->segment(3) == 'open-graph'  ? 'active' : '' }}">
+                                <a href="{{route('graphs')}}"> Open Graph </a>
+                            </li>
+                            <li class="{{request()->segment(3) == 'twitter-card'  ? 'active' : '' }}">
+                                <a href="{{route('cards')}}"> Twitter Card </a>
+                            </li>
+
+                        </ul>
+                    </li>
+                    <li class="menu {{request()->segment(2) == 'message'  ? 'active' : '' }}">
+                        <a href="{{route('testimonials')}}" aria-expanded="false"
+                            class="dropdown-toggle {{auth()->user()->can_delete == 'No' ? 'disabled' : ''}}">
+                            <div class="">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-mail">
+                                    <path
+                                        d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z">
+                                    </path>
+                                    <polyline points="22,6 12,13 2,6"></polyline>
+                                </svg>
+                                <span>Message</span>
+                            </div>
+                        </a>
+                    </li>
                     <li class="menu {{request()->segment(2) == 'faq'  ? 'active' : '' }}">
-                        <a href="{{route('faqs')}}" aria-expanded="false" class="dropdown-toggle">
+                        <a href="{{route('faqs')}}" aria-expanded="false"
+                            class="dropdown-toggle {{auth()->user()->can_delete == 'No' ? 'disabled' : ''}}">
                             <div class="">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -476,19 +638,6 @@
                                     <line x1="12" y1="17" x2="12.01" y2="17"></line>
                                 </svg>
                                 <span>FAQs</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="menu {{request()->segment(2) == 'testimonial'  ? 'active' : '' }}">
-                        <a href="{{route('testimonials')}}" aria-expanded="false" class="dropdown-toggle">
-                            <div class="">
-                                <svg fill="{{request()->segment(2) == 'testimonial'  ? '#fff': 'currentColor'}}"
-                                    width="800px" height="800px" viewBox="0 0 14 14" role="img" focusable="false"
-                                    aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="m 1.4358383,12.895149 c -0.38924,-0.1993 -0.43281,-0.3751 -0.41279,-1.665 0.0158,-1.0195 0.0314,-1.1697 0.14735,-1.4205004 0.26312,-0.5694 0.88589,-1.0631 1.46037,-1.1579 l 0.21,-0.035 0.62728,1.0597 c 0.345,0.5829004 0.63415,1.0358004 0.64256,1.0065004 0.008,-0.029 0.0415,-0.3472 0.0736,-0.7065004 0.0525,-0.5882 0.0468,-0.6826 -0.0575,-0.9472 -0.0637,-0.1617 -0.11586,-0.32 -0.11586,-0.3517 0,-0.033 0.26499,-0.058 0.62678,-0.058 l 0.62678,0 -0.12063,0.345 c -0.10456,0.2991 -0.11523,0.4309 -0.0802,0.9905 0.0222,0.3551004 0.0611,0.6584004 0.0864,0.6740004 0.0253,0.016 0.32158,-0.4318 0.65846,-0.9942004 l 0.61252,-1.0226 0.18995,0.04 c 0.58752,0.1229 1.19054,0.5979 1.42811,1.1248 0.12949,0.2872004 0.1425,0.4062004 0.1588,1.4528004 0.0156,0.9994 0.005,1.1659 -0.0896,1.35 -0.21721,0.425 -0.1746,0.4199 -3.4974,0.4199 -2.70948,0 -2.98802,-0.01 -3.17496,-0.1049 z m 2.71495,-4.9624004 c -0.76247,-0.3317 -1.3488,-1.7133 -1.07583,-2.5352 0.48535,-1.4612 2.58633,-1.4612 3.07167,0 0.27559,0.8297 -0.31945,2.2162 -1.08916,2.5378 -0.25463,0.1064 -0.65878,0.1053 -0.90668,0 z m 3.58006,-2.0213 0,-0.6365 -0.34018,-0.028 c -0.27583,-0.023 -0.36661,-0.059 -0.48,-0.1908 -0.13962,-0.1623 -0.13984,-0.1653 -0.13984,-1.9339 l 0,-1.7713 0.17539,-0.1754 0.17539,-0.1753 2.76131,0 2.7613097,0 0.16835,0.1448 0.16835,0.1448 0,1.8101 0,1.8102 -0.19595,0.175 -0.19595,0.1751 -1.7831,0 -1.7830997,0 -0.64599,0.644 -0.64599,0.644 0,-0.6366 z" />
-                                </svg>
-                                <span>Testimonial</span>
                             </div>
                         </a>
                     </li>

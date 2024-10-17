@@ -28,7 +28,7 @@ class Create extends Component
         sleep(1.2);
         $slug = Str::slug('PR'.'-'.$this->name.'-'.now());
         Product::create($validated+['company_id' => auth()->user()->company_id,'slug'=>$slug]);
-        return redirect()->route('inventories')->with('message','Product created successfully.');
+        return redirect()->route('inventories')->with('success','Product created successfully.');
     }
 
     public function render()

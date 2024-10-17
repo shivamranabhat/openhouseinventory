@@ -1,7 +1,7 @@
 <div id="zero-config_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
     <div class="dt--top-section">
         <div class="row">
-            <div class="col-12 col-sm-6 d-flex justify-content-start">
+            <div class="col-12 col-sm-4 d-flex justify-content-start">
                 <div class="dataTables_length" id="zero-config_length"><label>Results : <select
                             name="zero-config_length" aria-controls="zero-config"
                             wire:change="updatePage($event.target.value)" class="form-control">
@@ -13,7 +13,7 @@
                 </div>
             </div>
             <div
-                class="col-12 col-sm-6 d-flex justify-content-between justify-content-md-end align-items-center gap-0 gap-md-5 mt-sm-0 mt-3">
+                class="col-12 col-sm-8 d-flex justify-content-between justify-content-md-end align-items-center gap-0 gap-md-5 mt-sm-0 mt-3">
                 <div id="zero-config_filter" class="dataTables_filter"><label><svg xmlns="http://www.w3.org/2000/svg"
                             width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -22,16 +22,29 @@
                             <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                         </svg><input type="search" wire:model.live="search" class="form-control" placeholder="Search..."
                             aria-controls="zero-config"></label></div>
-                <a href="{{route('stockOut.create')}}" class="form-create flex justify-content-between align-items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                        class="feather feather-plus-circle">
-                        <circle cx="12" cy="12" r="10"></circle>
-                        <line x1="12" y1="8" x2="12" y2="16"></line>
-                        <line x1="8" y1="12" x2="16" y2="12"></line>
-                    </svg>
-                    Create
-                </a>
+                <div class="d-flex gap-2">
+                    <a href="{{route('stockOut.create')}}"
+                        class="form-create flex justify-content-between align-items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="feather feather-plus-circle">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="8" x2="12" y2="16"></line>
+                            <line x1="8" y1="12" x2="16" y2="12"></line>
+                        </svg>
+                        Create
+                    </a>
+                    <a href="{{route('stockOut.upload')}}"
+                        class="form-create flex justify-content-between align-items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="feather feather-share">
+                            <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
+                            <polyline points="16 6 12 2 8 6"></polyline>
+                            <line x1="12" y1="2" x2="12" y2="15"></line>
+                        </svg>
+                    </a>
+                </div>
 
             </div>
         </div>

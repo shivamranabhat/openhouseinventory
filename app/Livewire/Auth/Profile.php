@@ -59,26 +59,39 @@ class Profile extends Component
                 $this->dispatch('name-changed');
             }
         }
+        // if ($this->image) {
+        //     $fileName = $this->image->getClientOriginalName();
+        //     $companyName = preg_replace('/[^A-Za-z0-9\-]/', '_', auth()->user()->company->name);
+        //     $folderPath = 'profiles/' . $companyName;
+        //     $filePath = $this->image->storeAs($folderPath, $fileName, 'public');
+        //     $this->image = 'profiles/'. $companyName.'/' . $fileName;
+        //     $this->user->update([
+        //         'name' => $this->name,
+        //         'email' => $this->email,
+        //         'password' => $this->password ? Hash::make($this->password) : $this->user->password,
+        //         'image'=>$this->image,
+        //     ]);
+        //     $this->dispatch('image-updated')->self();
+        //     $this->dispatch('image-added');
+        //     $this->dispatch('name-changed');
+        // }
+        // $this->user->update([
+        //     'name' => $this->name,
+        //     'email' => $this->email,
+        //     'password' => $this->password ? Hash::make($this->password) : $this->user->password,
+        // ]);
         if ($this->image) {
-            $fileName = $this->image->getClientOriginalName();
             $companyName = preg_replace('/[^A-Za-z0-9\-]/', '_', auth()->user()->company->name);
-            $folderPath = 'profiles/' . $companyName;
-            $filePath = $this->image->storeAs($folderPath, $fileName, 'public');
-            $this->image = 'profiles/'. $companyName.'/' . $fileName;
-            $this->user->update([
-                'name' => $this->name,
-                'email' => $this->email,
-                'password' => $this->password ? Hash::make($this->password) : $this->user->password,
-                'image'=>$this->image,
-            ]);
+            $filePath = $this->image->storeAs("profiles/{$companyName}", $this->image->getClientOriginalName(), 'public');
+            $this->image = $filePath;
             $this->dispatch('image-updated')->self();
             $this->dispatch('image-added');
-            $this->dispatch('name-changed');
         }
         $this->user->update([
             'name' => $this->name,
             'email' => $this->email,
             'password' => $this->password ? Hash::make($this->password) : $this->user->password,
+            'image' => $this->image ?? $this->user->image,
         ]);
         $this->dispatch('name-changed');
         session()->flash('success', 'Profile updated successfully.');

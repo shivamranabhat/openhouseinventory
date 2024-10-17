@@ -13,7 +13,7 @@ class Create extends Component
     public $name;
     #[Validate('required')]
     public $head;
-    #[Validate('required|max:10')]
+    #[Validate('required|numeric|max:10')]
     public $phone;
     #[Validate('nullable|email')]
     public $email;
@@ -32,7 +32,7 @@ class Create extends Component
         sleep(1);
         $slug = Str::slug('DEP'.'-'.$this->name.'-'.now());
         Department::create($validated+['company_id' => auth()->user()->company_id,'slug'=>$slug]);
-        return redirect()->route('departments')->with('message','Department created successfully.');
+        return redirect()->route('departments')->with('success','Department created successfully.');
     }
 
     public function render()

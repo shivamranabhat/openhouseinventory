@@ -3,14 +3,26 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Department;
+use App\Models\Stock;
+use App\Models\StockOut;
+use App\Models\ItemIn;
+use App\Models\Product;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 
 class PageController extends Controller
 {
+   
+ 
     public function department()
     {
-        return view('pages.department.index');
+        if (Gate::allows('action-create')) {
+            return view('pages.department.index');
+        } else {
+            // Handle unauthorized action
+            return redirect()->back()->with('error','You do not have permission to view.');
+        }
     }
     public function departmentCreate()
     {
@@ -34,7 +46,12 @@ class PageController extends Controller
     }
     public function vendor()
     {
-        return view('pages.vendor.index');
+        if (Gate::allows('action-create')) {
+            return view('pages.vendor.index');
+        } else {
+            // Handle unauthorized action
+            return redirect()->back()->with('error','You do not have permission to view.');
+        }
     }
     public function vendorCreate()
     {
@@ -47,7 +64,12 @@ class PageController extends Controller
     }
     public function transaction($slug)
     {
-        return view('pages.vendor.transaction',compact('slug'));
+        if (Gate::allows('action-create')) {
+            return view('pages.vendor.transaction',compact('slug'));
+        } else {
+            // Handle unauthorized action
+            return redirect()->back()->with('error','You do not have permission to view.');
+        }
     }
     public function vendorEdit($slug)
     {
@@ -60,7 +82,12 @@ class PageController extends Controller
     }
     public function category()
     {
-        return view('pages.category.index');
+        if (Gate::allows('action-create')) {
+            return view('pages.category.index');
+        } else {
+            // Handle unauthorized action
+            return redirect()->back()->with('error','You do not have permission to view.');
+        }
     }
     public function categoryCreate()
     {
@@ -83,7 +110,12 @@ class PageController extends Controller
     }
     public function cheque()
     {
-        return view('pages.cheque.index');
+        if (Gate::allows('action-create')) {
+            return view('pages.cheque.index');
+        } else {
+            // Handle unauthorized action
+            return redirect()->back()->with('error','You do not have permission to view.');
+        }
     }
     public function chequeCreate()
     {
@@ -105,7 +137,12 @@ class PageController extends Controller
     }
     public function charge()
     {
-        return view('pages.charge.index');
+        if (Gate::allows('action-create')) {
+            return view('pages.charge.index');
+        } else {
+            // Handle unauthorized action
+            return redirect()->back()->with('error','You do not have permission to view.');
+        }
     }
     public function chargeCreate()
     {
@@ -129,7 +166,12 @@ class PageController extends Controller
     }
     public function inventory()
     {
-        return view('pages.inventory.index');
+        if (Gate::allows('action-create')) {
+            return view('pages.inventory.index');
+        } else {
+            // Handle unauthorized action
+            return redirect()->back()->with('error','You do not have permission to view.');
+        }
     }
     public function inventoryCreate()
     {
@@ -152,7 +194,12 @@ class PageController extends Controller
     }
     public function service()
     {
-        return view('pages.service.index');
+        if (Gate::allows('action-create')) {
+            return view('pages.service.index');
+        } else {
+            // Handle unauthorized action
+            return redirect()->back()->with('error','You do not have permission to view.');
+        }
     }
     public function serviceCreate()
     {
@@ -174,7 +221,12 @@ class PageController extends Controller
     }
     public function employee()
     {
-        return view('pages.employee.index');
+        if (Gate::allows('action-create')) {
+            return view('pages.employee.index');
+        } else {
+            // Handle unauthorized action
+            return redirect()->back()->with('error','You do not have permission to view.');
+        }
     }
     public function employeeCreate()
     {
@@ -196,8 +248,14 @@ class PageController extends Controller
     }
     public function stock()
     {
-        return view('pages.stock.index');
+        if (Gate::allows('action-create')) {
+            return view('pages.stock.index');
+        } else {
+            // Handle unauthorized action
+            return redirect()->back()->with('error','You do not have permission to view.');
+        }
     }
+   
     public function stockCreate()
     {
         if (Gate::allows('action-create')) {
@@ -218,7 +276,21 @@ class PageController extends Controller
     }
     public function stockOut()
     {
-        return view('pages.stock_out.index');
+        if (Gate::allows('action-create')) {
+            return view('pages.stock_out.index');
+        } else {
+            // Handle unauthorized action
+            return redirect()->back()->with('error','You do not have permission to view.');
+        }
+    }
+    public function stockOutUpload()
+    {
+        if (Gate::allows('action-create')) {
+            return view('pages.stock_out.upload');
+        } else {
+            // Handle unauthorized action
+            return redirect()->back()->with('error','You do not have permission to upload.');
+        }
     }
     public function stockOutCreate()
     {
@@ -240,7 +312,12 @@ class PageController extends Controller
     }
     public function credit()
     {
-        return view('pages.credit.index');
+        if (Gate::allows('action-create')) {
+            return view('pages.credit.index');
+        } else {
+            // Handle unauthorized action
+            return redirect()->back()->with('error','You do not have permission to view.');
+        }
     }
     public function creditCreate()
     {
@@ -262,7 +339,12 @@ class PageController extends Controller
     }
     public function prefix()
     {
-        return view('pages.prefix.index');
+        if (Gate::allows('action-create')) {
+            return view('pages.prefix.index');
+        } else {
+            // Handle unauthorized action
+            return redirect()->back()->with('error','You do not have permission to view.');
+        }
     }
     public function prefixCreate()
     {
@@ -284,11 +366,21 @@ class PageController extends Controller
     }
     public function bill()
     {
-        return view('pages.bill.index');
+        if (Gate::allows('action-create')) {
+            return view('pages.bill.index');
+        } else {
+            // Handle unauthorized action
+            return redirect()->back()->with('error','You do not have permission to view.');
+        }
     }
     public function billPreview($slug)
     {
-        return view('pages.bill.preview',compact('slug'));
+        if (Gate::allows('action-create')) {
+            return view('pages.bill.preview',compact('slug'));
+        } else {
+            // Handle unauthorized action
+            return redirect()->back()->with('error','You do not have permission to create.');
+        }
     }
     public function billCreate()
     {
@@ -310,7 +402,12 @@ class PageController extends Controller
     }
     public function payment()
     {
-        return view('pages.payment.index');
+        if (Gate::allows('action-create')) {
+            return view('pages.payment.index');
+        } else {
+            // Handle unauthorized action
+            return redirect()->back()->with('error','You do not have permission to view.');
+        }
     }
     public function paymentPreview($slug)
     {
@@ -343,7 +440,12 @@ class PageController extends Controller
     }
     public function account()
     {
-        return view('pages.account.index');
+        if (Gate::allows('action-create')) {
+            return view('pages.account.index');
+        } else {
+            // Handle unauthorized action
+            return redirect()->back()->with('error','You do not have permission to view.');
+        }
     }
     public function accountCreate()
     {
@@ -450,6 +552,34 @@ class PageController extends Controller
             return redirect()->back()->with('error','You do not have permission to access.');
         }
     }
+    public function feature()
+    {
+        if (Gate::allows('super-admin')) 
+        {
+           return view('pages.feature.index');
+        } else {
+            // Handle unauthorized action
+            return redirect()->back()->with('error','You do not have permission to access.');
+        }
+    }
+    public function featureCreate()
+    {
+        if (Gate::allows('super-admin')) {
+            return view('pages.feature.create');
+        } else {
+            // Handle unauthorized action
+            return redirect()->back()->with('error','You do not have permission to access.');
+        }
+    }
+    public function featureEdit($slug)
+    {
+        if (Gate::allows('super-admin')) {
+            return view('pages.feature.edit',compact('slug'));
+        } else {
+            // Handle unauthorized action
+            return redirect()->back()->with('error','You do not have permission to access.');
+        }
+    }
     public function faq()
     {
         if (Gate::allows('super-admin')) 
@@ -476,6 +606,59 @@ class PageController extends Controller
         } else {
             // Handle unauthorized action
             return redirect()->back()->with('error','You do not have permission to access.');
+        }
+    }
+    public function stockOutUploadExcel(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|mimes:csv,txt',
+        ]);
+
+        // Open the uploaded CSV file
+        $handle = fopen($request->file('file')->getRealPath(), 'r');
+
+        // Skip the header row if necessary
+        fgetcsv($handle);
+
+        // Process each row in the CSV
+        while (($row = fgetcsv($handle, 1000, ',')) !== false) {
+            $this->processRow($row);
+        }
+
+        fclose($handle);
+
+        return redirect()->route('stockOuts')->with('success', 'Data imported successfully!');
+        
+    }
+    private function processRow(array $row)
+    {
+        // Similar processing logic as before
+        $productName = $row[1];
+        $departmentName = $row[2];
+        $quantity = (int)$row[3];
+
+        $department = Department::where('name', $departmentName)->first();
+        $product = Product::where('name', $productName)->first();
+
+        if ($product) {
+            $itemIn = ItemIn::where('product_id', $product->id)->first();
+            if ($department && $itemIn) {
+                $stockRecord = Stock::where('product_id', $product->id)->first();
+
+                if ($stockRecord && $stockRecord->stock >= $quantity) {
+                    StockOut::create([
+                        'department_id' => $department->id,
+                        'item_in_id' => $itemIn->id,
+                        'company_id' => auth()->user()->company_id,
+                        'quantity' => $quantity,
+                        'slug' => \Str::slug($productName . '-' . now()),
+                    ]);
+
+                    $stockRecord->update([
+                        'stock' => $stockRecord->stock - $quantity,
+                    ]);
+                }
+            }
         }
     }
 }

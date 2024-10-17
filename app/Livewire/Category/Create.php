@@ -21,7 +21,7 @@ class Create extends Component
         sleep(1);
         $slug = Str::slug('CAT'.'-'.$this->name.'-'.now());
         Category::create($validated+['company_id' => auth()->user()->company_id,'slug'=>$slug]);
-        return redirect()->route('categories')->with('message','Category created successfully.');
+        return redirect()->route('categories')->with('success','Category created successfully.');
     }
 
     public function render()
