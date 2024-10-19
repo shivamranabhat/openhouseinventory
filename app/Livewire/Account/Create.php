@@ -49,7 +49,7 @@ class Create extends Component
             'employee_id' => $this->employee_id,
             'email' => $this->email,
             'password' => Hash::make($this->password),
-            'company_id' => auth()->user()->company_id,
+            'company_id' => auth()->user()->company_id ? auth()->user()->company_id : '',
             'can_create' => $this->can_create ? 'Yes' : 'No',
             'can_edit' => $this->can_edit ? 'Yes' : 'No',
             'can_delete' => $this->can_delete ? 'Yes' : 'No',

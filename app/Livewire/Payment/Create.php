@@ -61,6 +61,11 @@ class Create extends Component
         ->where('status', 'Pending')
         ->selectRaw('SUM(total) as total_sum')
         ->groupBy('vendor_id')
+        ->where('is_deleted','No')
+        ->first();
+        $extra_charge = ItemIn::where('vendor_id', $this->vendor_id)
+        ->where('status', 'Pending')
+        ->where('is_deleted','No')
         ->first();
         $this->slug = Str::slug('PAY'.'-'.$vendor->name.'-'.now());
         if ($this->image) {
@@ -72,26 +77,37 @@ class Create extends Component
         }
         sleep(1);
         if ($this->total) {
-            $remain = (float)$this->total->total_sum - (float)$this->paid;
+            //searching for extra charge id in item_ins table to add 
+            if($extra_charge)
+            {
+                $value = $extra_charge->extra_charge_id ?($extra_charge->extraCharge->value)/100 : 0;
+                $total = (float)$this->total->total_sum + (float)$this->total->total_sum * $value;
+            }
+            else{
+                $total = (float)$this->total->total_sum;
+            }
+            $remain = (float)$total - (float)$this->paid;
             $previousRemain = PaymentOut::where('vendor_id',$this->vendor_id)->first();
             if(!$previousRemain)
             {
                 ItemIn::where('vendor_id', $this->vendor_id)
+                ->where('is_deleted','No')
                 ->where('status', 'Pending') 
                 ->update(['status' => 'Paid']); 
-                $paymentOut = PaymentOut::create($validated + ['total'=>$this->total->total_sum,'remain'=>$remain,'company_id' => auth()->user()->company_id,'slug' => $this->slug]);
+                $paymentOut = PaymentOut::create($validated + ['total'=>$total,'remain'=>$remain,'company_id' => auth()->user()->company_id,'slug' => $this->slug]);
             }
             else{
-                $check = (float)$this->total->total_sum + (float)$previousRemain->remain;
+                $check = (float)$total + (float)$previousRemain->remain;
                 if($check >= $this->paid)
                 {
                     //Update the pending status of the ItemIn
                     ItemIn::where('vendor_id', $this->vendor_id)
+                    ->where('is_deleted','No')
                     ->where('status', 'Pending') 
                     ->update(['status' => 'Paid']); 
                    
                     // Create PaymentOut record with validated data
-                    $paymentOut = PaymentOut::create($validated + ['total'=>(float)$this->total->total_sum+(float)$previousRemain->remain,'remain'=>(float)$remain+(float)$previousRemain->remain,'company_id' => auth()->user()->company_id,'slug' => $this->slug]);
+                    $paymentOut = PaymentOut::create($validated + ['total'=>(float)$total+(float)$previousRemain->remain,'remain'=>(float)$remain+(float)$previousRemain->remain,'company_id' => auth()->user()->company_id,'slug' => $this->slug]);
                     $previousRemain->update(['remain'=>0]);
                 }
                 else{

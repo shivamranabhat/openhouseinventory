@@ -22,7 +22,7 @@ class Edit extends Component
         return [
             'name' => 'required',
             'head' => 'required',
-            'phone' => 'required|max:10',
+            'phone' => 'required|min:10',
             'email' => 'nullable|email',
             'employee' => 'nullable',
         ];

@@ -61,6 +61,7 @@ class Create extends Component
     {
         $stocks = ItemIn::selectRaw('MAX(id) as id, product_id')
                 ->groupBy('product_id')
+                ->where('is_deleted','No')
                 ->latest()
                 ->get();
         return view('livewire.requisition.create',compact('stocks'));

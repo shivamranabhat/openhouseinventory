@@ -20,6 +20,10 @@ class ExtraCharge extends Model
     {
         return $this->hasMany(BillProduct::class);
     }
+    public function itemIns()
+    {
+        return $this->hasMany(ItemIn::class);
+    }
     public function company()
     {
         return $this->belongsTo(Company::class);

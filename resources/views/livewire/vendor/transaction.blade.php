@@ -33,7 +33,7 @@
                                             <p class="inv-email-address">{{$vendor->pan_vat}}</p>
                                         </div>
                                         <div class="col-xl-4 col-lg-5 col-md-6">
-                                            @if($total)
+
                                             <div class="inv--total-amount px-0 px-md-5">
             
                                                 <div class="row">
@@ -42,13 +42,6 @@
                                                     <div class="col-sm-7 col-12 order-sm-1 order-0">
                                                         <div class="text-sm-end">
                                                             <div class="row">
-                                                                <div class="col-sm-8 col-7">
-                                                                    <p class="">Total :</p>
-                                                                </div>
-                                                                <div class="col-sm-4 col-5">
-                                                                    <p class="">Rs.{{$total ? number_format($total->total_sum,0) :
-                                                                        '0'}}</p>
-                                                                </div>
                                                                 <div class="col-sm-8 col-7">
                                                                     <p class="">Paid :</p>
                                                                 </div>
@@ -60,7 +53,7 @@
                                                                     <p class="">Due :</p>
                                                                 </div>
                                                                 <div class="col-sm-4 col-5">
-                                                                    <p class="">Rs.{{$remain ? number_format($remain->remain,0) :
+                                                                    <p class="">Rs.{{$remain ? number_format($remain,0) :
                                                                         '0'}}</p>
                                                                 </div>
                                                             </div>
@@ -69,7 +62,7 @@
                                                 </div>
             
                                             </div>
-                                            @endif
+
                                         </div>
                                     </div>
                                 </div>

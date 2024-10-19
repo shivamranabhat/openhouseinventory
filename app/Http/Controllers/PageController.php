@@ -10,478 +10,739 @@ use App\Models\ItemIn;
 use App\Models\Product;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Database\QueryException;
 
 class PageController extends Controller
 {
    
- 
     public function department()
     {
-        if (Gate::allows('action-create')) {
-            return view('pages.department.index');
-        } else {
-            // Handle unauthorized action
-            return redirect()->back()->with('error','You do not have permission to view.');
+        try{
+
+            if (Gate::allows('action-create')) {
+                return view('pages.department.index');
+            } else {
+                // Handle unauthorized action
+                return redirect()->back()->with('error','You do not have permission to view.');
+            }
+        }
+        catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Oops! Something went wrong.');
         }
     }
     public function departmentCreate()
     {
-        if (Gate::allows('action-create')) {
-            return view('pages.department.create');
-        } else {
-            // Handle unauthorized action
-            return redirect()->back()->with('error','You do not have permission to create.');
+        try{ 
+            if (Gate::allows('action-create')) {
+                return view('pages.department.create');
+            } else {
+                // Handle unauthorized action
+                return redirect()->back()->with('error','You do not have permission to create.');
+            }
+        }
+        catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Oops! Something went wrong.');
         }
     }
     public function departmentEdit($slug)
     {
-        if (Gate::allows('action-edit')) {
-            return view('pages.department.edit',compact('slug'));
-        } 
-        else 
-        {
-            // Handle unauthorized action
-            return redirect()->back()->with('error','You do not have permission to edit.');
+        try{
+            if (Gate::allows('action-edit')) {
+                return view('pages.department.edit',compact('slug'));
+            } 
+            else 
+            {
+                // Handle unauthorized action
+                return redirect()->back()->with('error','You do not have permission to edit.');
+            }
+        }
+        catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Oops! Something went wrong.');
         }
     }
     public function vendor()
     {
-        if (Gate::allows('action-create')) {
-            return view('pages.vendor.index');
-        } else {
-            // Handle unauthorized action
-            return redirect()->back()->with('error','You do not have permission to view.');
+        try{
+            if (Gate::allows('action-create')) {
+                return view('pages.vendor.index');
+            } else {
+                // Handle unauthorized action
+                return redirect()->back()->with('error','You do not have permission to view.');
+            }
+        }
+        catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Oops! Something went wrong.');
         }
     }
     public function vendorCreate()
     {
-        if (Gate::allows('action-create')) {
-            return view('pages.vendor.create');
-        } else {
-            // Handle unauthorized action
-            return redirect()->back()->with('error','You do not have permission to create.');
+        try{
+            if (Gate::allows('action-create')) {
+                return view('pages.vendor.create');
+            } else {
+                // Handle unauthorized action
+                return redirect()->back()->with('error','You do not have permission to create.');
+            }
+        }
+        catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Oops! Something went wrong.');
         }
     }
     public function transaction($slug)
     {
-        if (Gate::allows('action-create')) {
-            return view('pages.vendor.transaction',compact('slug'));
-        } else {
-            // Handle unauthorized action
-            return redirect()->back()->with('error','You do not have permission to view.');
+        try{
+            if (Gate::allows('action-create')) {
+                return view('pages.vendor.transaction',compact('slug'));
+            } else {
+                // Handle unauthorized action
+                return redirect()->back()->with('error','You do not have permission to view.');
+            }
+        }
+        catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Oops! Something went wrong.');
         }
     }
     public function vendorEdit($slug)
     {
-        if (Gate::allows('action-edit')) {
-            return view('pages.vendor.edit',compact('slug'));
-        } else {
-            // Handle unauthorized action
-            return redirect()->back()->with('error','You do not have permission to edit.');
+        try{
+            if (Gate::allows('action-edit')) {
+                return view('pages.vendor.edit',compact('slug'));
+            } else {
+                // Handle unauthorized action
+                return redirect()->back()->with('error','You do not have permission to edit.');
+            }
+        }
+        catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Oops! Something went wrong.');
         }
     }
     public function category()
     {
-        if (Gate::allows('action-create')) {
-            return view('pages.category.index');
-        } else {
-            // Handle unauthorized action
-            return redirect()->back()->with('error','You do not have permission to view.');
+        try{
+            if (Gate::allows('action-create')) {
+                return view('pages.category.index');
+            } else {
+                // Handle unauthorized action
+                return redirect()->back()->with('error','You do not have permission to view.');
+            }
+        }
+        catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Oops! Something went wrong.');
         }
     }
     public function categoryCreate()
     {
-        if (Gate::allows('action-create')) {
-            return view('pages.category.create');
-        } else {
-            // Handle unauthorized action
-            return redirect()->back()->with('error','You do not have permission to create.');
+        try{
+            if (Gate::allows('action-create')) {
+                return view('pages.category.create');
+            } else {
+                // Handle unauthorized action
+                return redirect()->back()->with('error','You do not have permission to create.');
+            }
+        }
+        catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Oops! Something went wrong.');
         }
 
     }
     public function categoryEdit($slug)
     {
-        if (Gate::allows('action-edit')) {
-            return view('pages.category.edit',compact('slug'));
-        } else {
-            // Handle unauthorized action
-            return redirect()->back()->with('error','You do not have permission to edit.');
+        try{
+            if (Gate::allows('action-edit')) {
+                return view('pages.category.edit',compact('slug'));
+            } else {
+                // Handle unauthorized action
+                return redirect()->back()->with('error','You do not have permission to edit.');
+            }
+        }
+        catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Oops! Something went wrong.');
         }
     }
     public function cheque()
     {
-        if (Gate::allows('action-create')) {
-            return view('pages.cheque.index');
-        } else {
-            // Handle unauthorized action
-            return redirect()->back()->with('error','You do not have permission to view.');
+        try{
+            if (Gate::allows('action-create')) {
+                return view('pages.cheque.index');
+            } else {
+                // Handle unauthorized action
+                return redirect()->back()->with('error','You do not have permission to view.');
+            }
+        }
+        catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Oops! Something went wrong.');
         }
     }
     public function chequeCreate()
     {
-        if (Gate::allows('action-create')) {
-            return view('pages.cheque.create');
-        } else {
-            // Handle unauthorized action
-            return redirect()->back()->with('error','You do not have permission to create.');
+        try{
+            if (Gate::allows('action-create')) {
+                return view('pages.cheque.create');
+            } else {
+                // Handle unauthorized action
+                return redirect()->back()->with('error','You do not have permission to create.');
+            }
+        }
+        catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Oops! Something went wrong.');
         }
     }
     public function chequeEdit($slug)
     {
-        if (Gate::allows('action-edit')) {
-            return view('pages.cheque.edit',compact('slug'));
-        } else {
-            // Handle unauthorized action
-            return redirect()->back()->with('error','You do not have permission to edit.');
+        try{
+            if (Gate::allows('action-edit')) {
+                return view('pages.cheque.edit',compact('slug'));
+            } else {
+                // Handle unauthorized action
+                return redirect()->back()->with('error','You do not have permission to edit.');
+            }
+        }
+        catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Oops! Something went wrong.');
         }
     }
     public function charge()
     {
-        if (Gate::allows('action-create')) {
-            return view('pages.charge.index');
-        } else {
-            // Handle unauthorized action
-            return redirect()->back()->with('error','You do not have permission to view.');
+        try{
+            if (Gate::allows('action-create')) {
+                return view('pages.charge.index');
+            } else {
+                // Handle unauthorized action
+                return redirect()->back()->with('error','You do not have permission to view.');
+            }
+        }
+        catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Oops! Something went wrong.');
         }
     }
     public function chargeCreate()
     {
-        if (Gate::allows('action-create')) {
-            return view('pages.charge.create');
-        } else {
-            // Handle unauthorized action
-            return redirect()->back()->with('error','You do not have permission to create.');
+        try{
+            if (Gate::allows('action-create')) {
+                return view('pages.charge.create');
+            } else {
+                // Handle unauthorized action
+                return redirect()->back()->with('error','You do not have permission to create.');
+            }
+        }
+        catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Oops! Something went wrong.');
         }
         
     }
     public function chargeEdit($slug)
     {
-        if (Gate::allows('action-edit')) {
-            return view('pages.charge.edit',compact('slug'));
-        } else {
-            // Handle unauthorized action
-            return redirect()->back()->with('error','You do not have permission to edit.');
+        try{
+            if (Gate::allows('action-edit')) {
+                return view('pages.charge.edit',compact('slug'));
+            } else {
+                // Handle unauthorized action
+                return redirect()->back()->with('error','You do not have permission to edit.');
+            }
+        }
+        catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Oops! Something went wrong.');
         }
         
     }
     public function inventory()
     {
-        if (Gate::allows('action-create')) {
-            return view('pages.inventory.index');
-        } else {
-            // Handle unauthorized action
-            return redirect()->back()->with('error','You do not have permission to view.');
+        try{
+            if (Gate::allows('action-create')) {
+                return view('pages.inventory.index');
+            } else {
+                // Handle unauthorized action
+                return redirect()->back()->with('error','You do not have permission to view.');
+            }
+        }
+        catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Oops! Something went wrong.');
         }
     }
     public function inventoryCreate()
     {
-        if (Gate::allows('action-create')) {
-            return view('pages.inventory.create');
-        } else {
-            // Handle unauthorized action
-            return redirect()->back()->with('error','You do not have permission to create.');
+        try{
+            if (Gate::allows('action-create')) {
+                return view('pages.inventory.create');
+            } else {
+                // Handle unauthorized action
+                return redirect()->back()->with('error','You do not have permission to create.');
+            }
+        }
+        catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Oops! Something went wrong.');
         }
     }
     public function inventoryEdit($slug)
     {
-        if (Gate::allows('action-edit')) {
-            return view('pages.inventory.edit',compact('slug'));
-        } else {
-            // Handle unauthorized action
-            return redirect()->back()->with('error','You do not have permission to edit.');
+        try{
+            if (Gate::allows('action-edit')) {
+                return view('pages.inventory.edit',compact('slug'));
+            } else {
+                // Handle unauthorized action
+                return redirect()->back()->with('error','You do not have permission to edit.');
+            }
+        }
+        catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Oops! Something went wrong.');
         }
         
     }
     public function service()
     {
-        if (Gate::allows('action-create')) {
-            return view('pages.service.index');
-        } else {
-            // Handle unauthorized action
-            return redirect()->back()->with('error','You do not have permission to view.');
+        try{
+            if (Gate::allows('action-create')) {
+                return view('pages.service.index');
+            } else {
+                // Handle unauthorized action
+                return redirect()->back()->with('error','You do not have permission to view.');
+            }
+        }
+        catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Oops! Something went wrong.');
         }
     }
     public function serviceCreate()
     {
-        if (Gate::allows('action-create')) {
-            return view('pages.service.create');
-        } else {
-            // Handle unauthorized action
-            return redirect()->back()->with('error','You do not have permission to create.');
+        try{
+            if (Gate::allows('action-create')) {
+                return view('pages.service.create');
+            } else {
+                // Handle unauthorized action
+                return redirect()->back()->with('error','You do not have permission to create.');
+            }
+        }
+        catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Oops! Something went wrong.');
         }
     }
     public function serviceEdit($slug)
     {
-        if (Gate::allows('action-edit')) {
-            return view('pages.service.edit',compact('slug'));
-        } else {
-            // Handle unauthorized action
-            return redirect()->back()->with('error','You do not have permission to edit.');
+        try{
+            if (Gate::allows('action-edit')) {
+                return view('pages.service.edit',compact('slug'));
+            } else {
+                // Handle unauthorized action
+                return redirect()->back()->with('error','You do not have permission to edit.');
+            }
+        }
+        catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Oops! Something went wrong.');
         }
     }
     public function employee()
     {
-        if (Gate::allows('action-create')) {
-            return view('pages.employee.index');
-        } else {
-            // Handle unauthorized action
-            return redirect()->back()->with('error','You do not have permission to view.');
+        try{
+            if (Gate::allows('action-create')) {
+                return view('pages.employee.index');
+            } else {
+                // Handle unauthorized action
+                return redirect()->back()->with('error','You do not have permission to view.');
+            }
+        }
+        catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Oops! Something went wrong.');
         }
     }
     public function employeeCreate()
     {
-        if (Gate::allows('action-create')) {
-            return view('pages.employee.create');
-        } else {
-            // Handle unauthorized action
-            return redirect()->back()->with('error','You do not have permission to create.');
+        try{
+            if (Gate::allows('action-create')) {
+                return view('pages.employee.create');
+            } else {
+                // Handle unauthorized action
+                return redirect()->back()->with('error','You do not have permission to create.');
+            }
+        }
+        catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Oops! Something went wrong.');
         }
     }
     public function employeeEdit($slug)
     {
-        if (Gate::allows('action-edit')) {
-            return view('pages.employee.edit',compact('slug'));
-        } else {
-            // Handle unauthorized action
-            return redirect()->back()->with('error','You do not have permission to edit.');
+        try{
+            if (Gate::allows('action-edit')) {
+                return view('pages.employee.edit',compact('slug'));
+            } else {
+                // Handle unauthorized action
+                return redirect()->back()->with('error','You do not have permission to edit.');
+            }
+        }
+        catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Oops! Something went wrong.');
         }
     }
     public function stock()
     {
-        if (Gate::allows('action-create')) {
-            return view('pages.stock.index');
-        } else {
-            // Handle unauthorized action
-            return redirect()->back()->with('error','You do not have permission to view.');
+        try{
+            if (Gate::allows('action-create')) {
+                return view('pages.stock.index');
+            } else {
+                // Handle unauthorized action
+                return redirect()->back()->with('error','You do not have permission to view.');
+            }
+        }
+        catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Oops! Something went wrong.');
         }
     }
    
     public function stockCreate()
     {
-        if (Gate::allows('action-create')) {
-            return view('pages.stock.create');
-        } else {
-            // Handle unauthorized action
-            return redirect()->back()->with('error','You do not have permission to create.');
-        } 
+        try{
+            if (Gate::allows('action-create')) {
+                return view('pages.stock.create');
+            } else {
+                // Handle unauthorized action
+                return redirect()->back()->with('error','You do not have permission to create.');
+            } 
+        }
+        catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Oops! Something went wrong.');
+        }
     }
     public function stockEdit($slug)
     {
-        if (Gate::allows('action-edit')) {
-            return view('pages.stock.edit',compact('slug'));
-        } else {
-            // Handle unauthorized action
-            return redirect()->back()->with('error','You do not have permission to edit.');
-        } 
+        try{
+            if (Gate::allows('action-edit')) {
+                return view('pages.stock.edit',compact('slug'));
+            } else {
+                // Handle unauthorized action
+                return redirect()->back()->with('error','You do not have permission to edit.');
+            } 
+        }
+        catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Oops! Something went wrong.');
+        }
     }
     public function stockOut()
     {
-        if (Gate::allows('action-create')) {
-            return view('pages.stock_out.index');
-        } else {
-            // Handle unauthorized action
-            return redirect()->back()->with('error','You do not have permission to view.');
+        try{
+            if (Gate::allows('action-create')) {
+                return view('pages.stock_out.index');
+            } else {
+                // Handle unauthorized action
+                return redirect()->back()->with('error','You do not have permission to view.');
+            }
+        }
+        catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Oops! Something went wrong.');
         }
     }
     public function stockOutUpload()
     {
-        if (Gate::allows('action-create')) {
-            return view('pages.stock_out.upload');
-        } else {
-            // Handle unauthorized action
-            return redirect()->back()->with('error','You do not have permission to upload.');
+        try{
+            if (Gate::allows('action-create')) {
+                return view('pages.stock_out.upload');
+            } else {
+                // Handle unauthorized action
+                return redirect()->back()->with('error','You do not have permission to upload.');
+            }
+        }
+        catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Oops! Something went wrong.');
         }
     }
     public function stockOutCreate()
     {
-        if (Gate::allows('action-create')) {
-            return view('pages.stock_out.create');
-        } else {
-            // Handle unauthorized action
-            return redirect()->back()->with('error','You do not have permission to create.');
-        } 
+        try{
+            if (Gate::allows('action-create')) {
+                return view('pages.stock_out.create');
+            } else {
+                // Handle unauthorized action
+                return redirect()->back()->with('error','You do not have permission to create.');
+            } 
+        }
+        catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Oops! Something went wrong.');
+        }
     }
     public function stockOutEdit($slug)
     {
-        if (Gate::allows('action-edit')) {
-            return view('pages.stock_out.edit',compact('slug'));
-        } else {
-            // Handle unauthorized action
-            return redirect()->back()->with('error','You do not have permission to edit.');
-        } 
+        try{
+            if (Gate::allows('action-edit')) {
+                return view('pages.stock_out.edit',compact('slug'));
+            } else {
+                // Handle unauthorized action
+                return redirect()->back()->with('error','You do not have permission to edit.');
+            } 
+        }
+        catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Oops! Something went wrong.');
+        }
     }
     public function credit()
     {
-        if (Gate::allows('action-create')) {
-            return view('pages.credit.index');
-        } else {
-            // Handle unauthorized action
-            return redirect()->back()->with('error','You do not have permission to view.');
+        try{
+            if (Gate::allows('action-create')) {
+                return view('pages.credit.index');
+            } else {
+                // Handle unauthorized action
+                return redirect()->back()->with('error','You do not have permission to view.');
+            }
+        }
+        catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Oops! Something went wrong.');
         }
     }
     public function creditCreate()
     {
-        if (Gate::allows('action-create')) {
-            return view('pages.credit.create');
-        } else {
-            // Handle unauthorized action
-            return redirect()->back()->with('error','You do not have permission to create.');
-        } 
+        try{
+            if (Gate::allows('action-create')) {
+                return view('pages.credit.create');
+            } else {
+                // Handle unauthorized action
+                return redirect()->back()->with('error','You do not have permission to create.');
+            } 
+        }
+        catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Oops! Something went wrong.');
+        }
     }
     public function creditEdit($slug)
     {
-        if (Gate::allows('action-edit')) {
-            return view('pages.credit.edit',compact('slug'));
-        } else {
-            // Handle unauthorized action
-            return redirect()->back()->with('error','You do not have permission to edit.');
-        } 
+        try{
+            if (Gate::allows('action-edit')) {
+                return view('pages.credit.edit',compact('slug'));
+            } else {
+                // Handle unauthorized action
+                return redirect()->back()->with('error','You do not have permission to edit.');
+            } 
+        }
+        catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Oops! Something went wrong.');
+        }
     }
     public function prefix()
     {
-        if (Gate::allows('action-create')) {
-            return view('pages.prefix.index');
-        } else {
-            // Handle unauthorized action
-            return redirect()->back()->with('error','You do not have permission to view.');
+        try{
+            if (Gate::allows('action-create')) {
+                return view('pages.prefix.index');
+            } else {
+                // Handle unauthorized action
+                return redirect()->back()->with('error','You do not have permission to view.');
+            }
+        }
+        catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Oops! Something went wrong.');
         }
     }
     public function prefixCreate()
     {
-        if (Gate::allows('action-create')) {
-            return view('pages.prefix.create');
-        } else {
-            // Handle unauthorized action
-            return redirect()->back()->with('error','You do not have permission to create.');
+        try{
+            if (Gate::allows('action-create')) {
+                return view('pages.prefix.create');
+            } else {
+                // Handle unauthorized action
+                return redirect()->back()->with('error','You do not have permission to create.');
+            }
+        }
+        catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Oops! Something went wrong.');
         }
     }
     public function prefixEdit($slug)
     {
-        if (Gate::allows('action-edit')) {
-            return view('pages.prefix.edit',compact('slug'));
-        } else {
-            // Handle unauthorized action
-            return redirect()->back()->with('error','You do not have permission to edit.');
+        try{
+            if (Gate::allows('action-edit')) {
+                return view('pages.prefix.edit',compact('slug'));
+            } else {
+                // Handle unauthorized action
+                return redirect()->back()->with('error','You do not have permission to edit.');
+            }
+        }
+        catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Oops! Something went wrong.');
         }
     }
     public function bill()
     {
-        if (Gate::allows('action-create')) {
-            return view('pages.bill.index');
-        } else {
-            // Handle unauthorized action
-            return redirect()->back()->with('error','You do not have permission to view.');
+        try{
+            if (Gate::allows('action-create')) {
+                return view('pages.bill.index');
+            } else {
+                // Handle unauthorized action
+                return redirect()->back()->with('error','You do not have permission to view.');
+            }
+        }
+        catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Oops! Something went wrong.');
         }
     }
     public function billPreview($slug)
     {
-        if (Gate::allows('action-create')) {
-            return view('pages.bill.preview',compact('slug'));
-        } else {
-            // Handle unauthorized action
-            return redirect()->back()->with('error','You do not have permission to create.');
+        try{
+            if (Gate::allows('action-create')) {
+                return view('pages.bill.preview',compact('slug'));
+            } else {
+                // Handle unauthorized action
+                return redirect()->back()->with('error','You do not have permission to create.');
+            }
+        }
+        catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Oops! Something went wrong.');
         }
     }
     public function billCreate()
     {
-        if (Gate::allows('action-create')) {
-            return view('pages.bill.create');
-        } else {
-            // Handle unauthorized action
-            return redirect()->back()->with('error','You do not have permission to create.');
-        } 
+        try{
+            if (Gate::allows('action-create')) {
+                return view('pages.bill.create');
+            } else {
+                // Handle unauthorized action
+                return redirect()->back()->with('error','You do not have permission to create.');
+            } 
+        }
+        catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Oops! Something went wrong.');
+        }
     }
     public function billEdit($slug)
     {
-        if (Gate::allows('action-edit')) {
-            return view('pages.bill.edit',compact('slug'));
-        } else {
-            // Handle unauthorized action
-            return redirect()->back()->with('error','You do not have permission to edit.');
+        try{
+            if (Gate::allows('action-edit')) {
+                return view('pages.bill.edit',compact('slug'));
+            } else {
+                // Handle unauthorized action
+                return redirect()->back()->with('error','You do not have permission to edit.');
+            }
+        }
+        catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Oops! Something went wrong.');
         }
     }
     public function payment()
     {
-        if (Gate::allows('action-create')) {
-            return view('pages.payment.index');
-        } else {
-            // Handle unauthorized action
-            return redirect()->back()->with('error','You do not have permission to view.');
+        try{
+            if (Gate::allows('action-create')) {
+                return view('pages.payment.index');
+            } else {
+                // Handle unauthorized action
+                return redirect()->back()->with('error','You do not have permission to view.');
+            }
+        }
+        catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Oops! Something went wrong.');
         }
     }
     public function paymentPreview($slug)
     {
-        if (Gate::allows('action-create')) {
-            return view('pages.payment.preview',compact('slug'));
-        } else {
-            // Handle unauthorized action
-            return redirect()->back()->with('error','You do not have permission to preview.');
+        try{
+            if (Gate::allows('action-create')) {
+                return view('pages.payment.preview',compact('slug'));
+            } else {
+                // Handle unauthorized action
+                return redirect()->back()->with('error','You do not have permission to preview.');
+            }
+        }
+        catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Oops! Something went wrong.');
         }
     }
     public function paymentCreate()
     {
-        if (Gate::allows('action-create')) {
-            return view('pages.payment.create');
-        } else {
-            // Handle unauthorized action
-            return redirect()->back()->with('error','You do not have permission to create.');
+        try{
+            if (Gate::allows('action-create')) {
+                return view('pages.payment.create');
+            } else {
+                // Handle unauthorized action
+                return redirect()->back()->with('error','You do not have permission to create.');
+            }
+        }
+        catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Oops! Something went wrong.');
         }
         
     }
     public function paymentEdit($slug)
     {
-        if (Gate::allows('action-edit')) {
-            return view('pages.payment.edit',compact('slug'));
-        } else {
-            // Handle unauthorized action
-            return redirect()->back()->with('error','You do not have permission to edit.');
+        try{
+            if (Gate::allows('action-edit')) {
+                return view('pages.payment.edit',compact('slug'));
+            } else {
+                // Handle unauthorized action
+                return redirect()->back()->with('error','You do not have permission to edit.');
+            }
+        }
+        catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Oops! Something went wrong.');
         }
         
     }
     public function account()
     {
-        if (Gate::allows('action-create')) {
-            return view('pages.account.index');
-        } else {
-            // Handle unauthorized action
-            return redirect()->back()->with('error','You do not have permission to view.');
+        try{
+            if (Gate::allows('action-create')) {
+                return view('pages.account.index');
+            } else {
+                // Handle unauthorized action
+                return redirect()->back()->with('error','You do not have permission to view.');
+            }
+        }
+        catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Oops! Something went wrong.');
         }
     }
     public function accountCreate()
     {
-        if (Gate::allows('action-create')) {
-            return view('pages.account.create');
-        } else {
-            // Handle unauthorized action
-            return redirect()->back()->with('error','You do not have permission to create.');
+        try{
+            if (Gate::allows('action-create')) {
+                return view('pages.account.create');
+            } else {
+                // Handle unauthorized action
+                return redirect()->back()->with('error','You do not have permission to create.');
+            }
+        }
+        catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Oops! Something went wrong.');
         }
     }
     public function accountEdit($slug)
     {
-        if (Gate::allows('action-edit')) {
-            return view('pages.account.edit',compact('slug'));
-        } else {
-            // Handle unauthorized action
-            return redirect()->back()->with('error','You do not have permission to edit.');
+        try{
+            if (Gate::allows('action-edit')) {
+                return view('pages.account.edit',compact('slug'));
+            } else {
+                // Handle unauthorized action
+                return redirect()->back()->with('error','You do not have permission to edit.');
+            }
+        }
+        catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Oops! Something went wrong.');
         }
     }
     public function requisition()
     {
-        return view('pages.requisition.index');
+        try{
+            return view('pages.requisition.index');
+        }
+        catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Oops! Something went wrong.');
+        }
     }
     public function requisitionCreate()
     {
-        if(auth()->user()->employee_id !==null)
-        {
-            return view('pages.requisition.create');
+        try{
+            if(auth()->user()->employee_id !==null)
+            {
+                return view('pages.requisition.create');
+            }
+            else{
+                return redirect()->back()->with('error','Only employees are allowed.');
+            }
         }
-        else{
-            return redirect()->back()->with('error','Only employees are allowed.');
+        catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Oops! Something went wrong.');
         }
     }
     public function requisitionEdit($slug)
     {
-        return view('pages.requisition.edit',compact('slug'));
+        try{
+            return view('pages.requisition.edit',compact('slug'));
+        }
+        catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Oops! Something went wrong.');
+        }
     }
     public function login()
     {
@@ -498,114 +759,174 @@ class PageController extends Controller
    
     public function testimonial()
     {
-        if (Gate::allows('super-admin')) 
-        {
-           return view('pages.testimonial.index');
-        } else {
-            // Handle unauthorized action
-            return redirect()->back()->with('error','You do not have permission to access.');
+        try{
+            if (Gate::allows('super-admin')) 
+            {
+               return view('pages.testimonial.index');
+            } else {
+                // Handle unauthorized action
+                return redirect()->back()->with('error','You do not have permission to access.');
+            }
+        }
+        catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Oops! Something went wrong.');
         }
     }
     public function testimonialCreate()
     {
-        if (Gate::allows('super-admin')) {
-            return view('pages.testimonial.create');
-        } else {
-            // Handle unauthorized action
-            return redirect()->back()->with('error','You do not have permission to access.');
+        try{
+            if (Gate::allows('super-admin')) {
+                return view('pages.testimonial.create');
+            } else {
+                // Handle unauthorized action
+                return redirect()->back()->with('error','You do not have permission to access.');
+            }
+        }
+        catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Oops! Something went wrong.');
         }
     }
     public function testimonialEdit($slug)
     {
-        if (Gate::allows('super-admin')) {
-            return view('pages.testimonial.edit',compact('slug'));
-        } else {
-            // Handle unauthorized action
-            return redirect()->back()->with('error','You do not have permission to access.');
+        try{
+            if (Gate::allows('super-admin')) {
+                return view('pages.testimonial.edit',compact('slug'));
+            } else {
+                // Handle unauthorized action
+                return redirect()->back()->with('error','You do not have permission to access.');
+            }
+        }
+        catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Oops! Something went wrong.');
         }
     }
     public function content()
     {
-        if (Gate::allows('super-admin')) 
-        {
-           return view('pages.content.index');
-        } else {
-            // Handle unauthorized action
-            return redirect()->back()->with('error','You do not have permission to access.');
+        try{
+            if (Gate::allows('super-admin')) 
+            {
+               return view('pages.content.index');
+            } else {
+                // Handle unauthorized action
+                return redirect()->back()->with('error','You do not have permission to access.');
+            }
+        }
+        catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Oops! Something went wrong.');
         }
     }
     public function contentCreate()
     {
-        if (Gate::allows('super-admin')) {
-            return view('pages.content.create');
-        } else {
-            // Handle unauthorized action
-            return redirect()->back()->with('error','You do not have permission to access.');
+        try{
+            if (Gate::allows('super-admin')) {
+                return view('pages.content.create');
+            } else {
+                // Handle unauthorized action
+                return redirect()->back()->with('error','You do not have permission to access.');
+            }
+        }
+        catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Oops! Something went wrong.');
         }
     }
     public function contentEdit($slug)
     {
-        if (Gate::allows('super-admin')) {
-            return view('pages.content.edit',compact('slug'));
-        } else {
-            // Handle unauthorized action
-            return redirect()->back()->with('error','You do not have permission to access.');
+        try{
+            if (Gate::allows('super-admin')) {
+                return view('pages.content.edit',compact('slug'));
+            } else {
+                // Handle unauthorized action
+                return redirect()->back()->with('error','You do not have permission to access.');
+            }
+        }
+        catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Oops! Something went wrong.');
         }
     }
     public function feature()
     {
-        if (Gate::allows('super-admin')) 
-        {
-           return view('pages.feature.index');
-        } else {
-            // Handle unauthorized action
-            return redirect()->back()->with('error','You do not have permission to access.');
+        try{
+            if (Gate::allows('super-admin')) 
+            {
+               return view('pages.feature.index');
+            } else {
+                // Handle unauthorized action
+                return redirect()->back()->with('error','You do not have permission to access.');
+            }
+        }
+        catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Oops! Something went wrong.');
         }
     }
     public function featureCreate()
     {
-        if (Gate::allows('super-admin')) {
-            return view('pages.feature.create');
-        } else {
-            // Handle unauthorized action
-            return redirect()->back()->with('error','You do not have permission to access.');
+        try{
+            if (Gate::allows('super-admin')) {
+                return view('pages.feature.create');
+            } else {
+                // Handle unauthorized action
+                return redirect()->back()->with('error','You do not have permission to access.');
+            }
+        }
+        catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Oops! Something went wrong.');
         }
     }
     public function featureEdit($slug)
     {
-        if (Gate::allows('super-admin')) {
-            return view('pages.feature.edit',compact('slug'));
-        } else {
-            // Handle unauthorized action
-            return redirect()->back()->with('error','You do not have permission to access.');
+        try{
+            if (Gate::allows('super-admin')) {
+                return view('pages.feature.edit',compact('slug'));
+            } else {
+                // Handle unauthorized action
+                return redirect()->back()->with('error','You do not have permission to access.');
+            }
+        }
+        catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Oops! Something went wrong.');
         }
     }
     public function faq()
     {
-        if (Gate::allows('super-admin')) 
-        {
-           return view('pages.faq.index');
-        } else {
-            // Handle unauthorized action
-            return redirect()->back()->with('error','You do not have permission to access.');
+        try{
+            if (Gate::allows('super-admin')) 
+            {
+               return view('pages.faq.index');
+            } else {
+                // Handle unauthorized action
+                return redirect()->back()->with('error','You do not have permission to access.');
+            }
+        }
+        catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Oops! Something went wrong.');
         }
     }
     public function faqCreate()
     {
-        if (Gate::allows('super-admin')) {
-            return view('pages.faq.create');
-        } else {
-            // Handle unauthorized action
-            return redirect()->back()->with('error','You do not have permission to access.');
+        try{
+            if (Gate::allows('super-admin')) {
+                return view('pages.faq.create');
+            } else {
+                // Handle unauthorized action
+                return redirect()->back()->with('error','You do not have permission to access.');
+            }
+        }
+        catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Oops! Something went wrong.');
         }
     }
     public function faqEdit($slug)
     {
-        if (Gate::allows('super-admin')) {
-            return view('pages.faq.edit',compact('slug'));
-        } else {
-            // Handle unauthorized action
-            return redirect()->back()->with('error','You do not have permission to access.');
+        try{
+            if (Gate::allows('super-admin')) {
+                return view('pages.faq.edit',compact('slug'));
+            } else {
+                // Handle unauthorized action
+                return redirect()->back()->with('error','You do not have permission to access.');
+            }
+        }
+        catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Oops! Something went wrong.');
         }
     }
     public function stockOutUploadExcel(Request $request)
@@ -627,7 +948,7 @@ class PageController extends Controller
 
         fclose($handle);
 
-        return redirect()->route('stockOuts')->with('success', 'Data imported successfully!');
+        return redirect()->route('stockOuts')->with('message', 'Data imported successfully!');
         
     }
     private function processRow(array $row)
@@ -640,7 +961,7 @@ class PageController extends Controller
         $department = Department::where('name', $departmentName)->first();
         $product = Product::where('name', $productName)->first();
 
-        if ($product) {
+        if ($product && $department) {
             $itemIn = ItemIn::where('product_id', $product->id)->first();
             if ($department && $itemIn) {
                 $stockRecord = Stock::where('product_id', $product->id)->first();
@@ -658,7 +979,20 @@ class PageController extends Controller
                         'stock' => $stockRecord->stock - $quantity,
                     ]);
                 }
+                else{
+                    session()->flash('error','Please check the used quantity properly.');
+                }
             }
         }
+        else{
+            session()->flash('error','Please check the excel file properly.');
+        }
+    }
+    public function logout(Request $request)
+    {
+        auth()->logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect()->route('login')->with('success','Logout successfully');
     }
 }

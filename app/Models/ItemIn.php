@@ -17,6 +17,7 @@ class ItemIn extends Model
         'product_id',
          'vendor_id',
          'company_id',
+         'extra_charge_id',
          'stock',
          'unit_price',
          'total', 
@@ -38,6 +39,10 @@ class ItemIn extends Model
      public function product()
      {
         return $this->belongsTo(Product::class);
+     }
+     public function extraCharge()
+     {
+        return $this->belongsTo(ExtraCharge::class);
      }
      public function vendor()
      {

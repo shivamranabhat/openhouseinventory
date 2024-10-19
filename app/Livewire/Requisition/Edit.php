@@ -105,6 +105,7 @@ class Edit extends Component
         // Fetch latest stocks
         $stocks = ItemIn::selectRaw('MAX(id) as id, product_id')
             ->groupBy('product_id')
+            ->where('is_deleted','No')
             ->latest()
             ->get();
 

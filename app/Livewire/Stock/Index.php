@@ -49,6 +49,7 @@ class Index extends Component
     {
         $stocks = ItemIn::where(function ($query) {
             $query->where('stock', 'like', '%' . $this->search . '%')
+            ->orWhere('rack_no', 'like', '%' . $this->search . '%')
                   ->orWhereHas('product', function($query) {
                       $query->where('name', 'like', '%' . $this->search . '%');
                   })->orWhereHas('vendor', function($query) {

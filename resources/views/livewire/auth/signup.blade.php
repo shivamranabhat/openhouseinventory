@@ -16,7 +16,7 @@
             </div>
             <div class="col-12 col-md-6 mb-4">
                 <label class="form-label">Email</label>
-                <input type="email" class="form-control" wire:model='email' placeholder="Email">
+                <input type="text" class="form-control" wire:model='email' placeholder="Email">
                 @error('email')
                 <div class="feedback text-danger">
                     Please provide an email.

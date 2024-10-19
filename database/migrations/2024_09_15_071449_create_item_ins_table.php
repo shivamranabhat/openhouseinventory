@@ -22,6 +22,9 @@ return new class extends Migration
             $table->string('purchase_date');
             $table->string('rack_no')->nullable();
             $table->string('status')->default('Pending');
+            $table->string('is_deleted')->default('No');
+            $table->unsignedBigInteger('extra_charge_id')->nullable();
+            $table->foreign('extra_charge_id')->references('id')->on('extra_charges')->onDelete('cascade');
             $table->unsignedBigInteger('company_id');
             $table->foreign('company_id')->references('id')->on('companies')->onDelete('Cascade');
             $table->string('slug');

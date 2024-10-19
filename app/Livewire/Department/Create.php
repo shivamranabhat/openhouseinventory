@@ -13,7 +13,7 @@ class Create extends Component
     public $name;
     #[Validate('required')]
     public $head;
-    #[Validate('required|numeric|max:10')]
+    #[Validate('required|numeric|min:10')]
     public $phone;
     #[Validate('nullable|email')]
     public $email;

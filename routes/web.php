@@ -12,7 +12,10 @@ use App\Http\Controllers\TagController;
 use App\Http\Livewire\BarcodeComponent;
 use App\Http\Middleware\CompanyMiddleware;
 
-Route::prefix('/varosa')->group(function(){
+Route::prefix('/store-hero')->group(function(){
+    Route::get('/logout', [PageController::class, 'logout'])
+    ->middleware(['auth'])
+    ->name('logout');
     Route::prefix('/department')->controller(PageController::class)->middleware(['auth'])->group(function(){
         Route::get('','department')->name('departments');
         Route::get('/create','departmentCreate')->name('department.create');
@@ -179,9 +182,9 @@ Route::prefix('/varosa')->group(function(){
 Route::prefix('/login')->controller(PageController::class)->group(function(){
     Route::get('','login')->name('login');
 });
-// Route::prefix('/signup')->controller(PageController::class)->group(function(){
-//     Route::get('','signup')->name('signup');
-// });
+Route::prefix('/signup')->controller(PageController::class)->group(function(){
+    Route::get('','signup')->name('signup');
+});
 
 Route::controller(HomeController::class)->group(function(){
     Route::get('/','index')->name('index');

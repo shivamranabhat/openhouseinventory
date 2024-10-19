@@ -137,6 +137,7 @@ class Create extends Component
                     ->where('status','Pending')
                     ->groupBy('vendor_id', 'product_id','purchase_date');
             })
+            ->where('is_deleted','No')
             ->get();
         } else {
             $this->items = [];
@@ -158,6 +159,10 @@ class Create extends Component
                 'company_id' => auth()->user()->company_id,
                 'extra_charge_id' => $this->extra_charge ? $this->extra_charge->id : null
             ]);
+            if($this->extra_charge)
+            {
+                ItemIn::find($row['item_in_id'])->update(['extra_charge_id'=>$this->extra_charge->id]);
+            }
         }
         return redirect()->route('bills')->with('message','Bill created successfully.');
     }

@@ -94,6 +94,8 @@ class Profile extends Component
             'image' => $this->image ?? $this->user->image,
         ]);
         $this->dispatch('name-changed');
+        $this->password='';
+        $this->password_confirmation='';
         session()->flash('success', 'Profile updated successfully.');
     }
 

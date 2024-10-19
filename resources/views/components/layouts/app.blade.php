@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
-    <title>{{auth()->user()->company_id ? auth()->user()->company->name : 'Varosa'}} | Inventory</title>
+    <title>{{auth()->user()->company_id ? auth()->user()->company->name : 'Store Hero'}} | Inventory</title>
     <link rel="icon" type="image/x-icon" href="https://designreset.com/cork/html/src/assets/img/favicon.ico" />
     <link href="{{asset('layouts/vertical-dark-menu/css/light/loader.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('layouts/vertical-dark-menu/css/dark/loader.css')}}" rel="stylesheet" type="text/css" />
@@ -137,7 +137,7 @@
                     <div class="nav-logo">
                         <div class="nav-item theme-text">
                             <a href="#" class="nav-link"> {{auth()->user()->company_id ? auth()->user()->company->name :
-                                'Varosa'}}
+                                'Store Hero'}}
                             </a>
                         </div>
                     </div>
@@ -642,7 +642,20 @@
                         </a>
                     </li>
                     @endif
-                    <livewire:logout />
+                    <li class="menu {{auth()->user()->role=='Super Admin' ? 'mb-3' : ''}}">
+                        <a role="button" href="{{route('logout')}}" aria-expanded="false" class="dropdown-toggle">
+                            <div class="">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-log-out">
+                                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                                    <polyline points="16 17 21 12 16 7"></polyline>
+                                    <line x1="21" y1="12" x2="9" y2="12"></line>
+                                </svg>
+                                <span>Logout</span>
+                            </div>
+                        </a>
+                    </li>
                 </ul>
             </nav>
         </div>
@@ -653,16 +666,15 @@
             <div class="layout-px-spacing">
                 {{$slot}}
             </div>
-            {{--
+
             <!--  BEGIN FOOTER  -->
             <div class="footer-wrapper">
                 <div class="footer-section f-section-1">
-                    <p class="">Copyright © <span class="dynamic-year">2024</span> <a target="_blank"
-                            href="https://designreset.com/cork-admin/">{{auth()->}}</a>, All rights reserved.</p>
+                    <p class="">Copyright © <span class="dynamic-year">2024</span> Store Hero, All rights reserved.</p>
                 </div>
 
             </div>
-            <!--  END FOOTER  --> --}}
+            <!--  END FOOTER  -->
         </div>
         <!--  END CONTENT AREA  -->
 

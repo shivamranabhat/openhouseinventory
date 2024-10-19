@@ -99,7 +99,7 @@ class BlogController extends Controller
     
             return redirect()->route('blogs')->with('message', 'Blog added successfully');
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Please fill the required fields.');
+            return redirect()->back()->with('error', 'Oops! Something went wrong.');
         }
     }
 
@@ -170,7 +170,7 @@ class BlogController extends Controller
     
             return redirect()->route('blogs')->with('message', 'Blog updated successfully');
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Please fill the required fields.');
+            return redirect()->back()->with('error', 'Oops! Something went wrong.');
         }
     }
 

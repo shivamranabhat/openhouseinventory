@@ -29,8 +29,21 @@ class Notification extends Component
             return view('livewire.requisition.notification',compact('requests'));
         }
         else{
-            $approved = Requisition::where('status','Approved')->where('employee_id',auth()->user()->employee_id)->latest()->take(5)->get();
-            $declined = Requisition::where('status','Declined')->where('employee_id',auth()->user()->employee_id)->latest()->take(5)->get();
+            // $approved = Requisition::where('status','Approved')->where('employee_id',auth()->user()->employee_id)->latest()->take(3)->get();
+            // $declined = Requisition::where('status','Declined')->where('employee_id',auth()->user()->employee_id)->latest()->take(3)->get();
+            $approved = Requisition::where('status', 'Approved')
+                ->where('employee_id', auth()->user()->employee_id)
+                ->whereDate('created_at', now()) // Filters for today's date
+                ->latest()
+                ->take(3)
+                ->get();
+
+            $declined = Requisition::where('status', 'Declined')
+                ->where('employee_id', auth()->user()->employee_id)
+                ->whereDate('created_at', now()) // Filters for today's date
+                ->latest()
+                ->take(3)
+                ->get();
             return view('livewire.requisition.notification',compact('approved','declined'));
         }
 

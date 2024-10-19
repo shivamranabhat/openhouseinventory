@@ -183,7 +183,7 @@ class Edit extends Component
                     ->where('vendor_id', $this->vendor_id)
                     ->groupBy('vendor_id', 'product_id');
             })
-            ->where('status','Active')
+            ->where('is_deleted','No')
             ->get();
     }
 
@@ -211,6 +211,13 @@ class Edit extends Component
                 'company_id' => auth()->user()->company_id,
                 'extra_charge_id' => $this->extra_charge ? $this->extra_charge->id : null,
             ]);
+            if($this->extra_charge)
+            {
+                ItemIn::find($row['item_in_id'])->update(['extra_charge_id'=>$this->extra_charge->id]);
+            }
+            else{
+                ItemIn::find($row['item_in_id'])->update(['extra_charge_id'=>null]);
+            }
         }
         sleep(1.2);
         return redirect()->route('bills')->with('message','Bill updated successfully.');
